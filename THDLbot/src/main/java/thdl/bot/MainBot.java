@@ -1,6 +1,7 @@
 package thdl.bot;
 
 import javax.security.auth.login.LoginException;
+import commands.CmdCreateNewTale;
 import commands.CmdDiceEight;
 import commands.CmdDiceFour;
 import commands.CmdDiceHundred;
@@ -69,6 +70,7 @@ public class MainBot
 		CommandHandler.commands.put("w12", new CmdDiceTwelve());
 		CommandHandler.commands.put("w20", new CmdDiceTwenty());
 		CommandHandler.commands.put("w100", new CmdDiceHundred());
+		CommandHandler.commands.put("createPnP", new CmdCreateNewTale());
 	}
 
 	private static void addListeners()

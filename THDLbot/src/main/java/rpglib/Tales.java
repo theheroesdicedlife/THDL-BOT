@@ -3,9 +3,10 @@ package rpglib;
 import java.util.HashMap;
 import net.dv8tion.jda.core.entities.TextChannel;
 
-public class Tales
+public abstract class Tales
 {
-	public static HashMap<String, Tale> TaleOverTxtID = new HashMap<>();
+	private static HashMap<String, Tale>	TaleOverTxtID	= new HashMap<>();
+	private static HashMap<String, Tale>	TaleOverName	= new HashMap<>();
 
 	public static Tale getTale(TextChannel txt)
 	{
@@ -16,5 +17,16 @@ public class Tales
 			s = TaleOverTxtID.get(key);
 		}
 		return s;
+	}
+
+	public static boolean isNameInUse(String talename)
+	{
+		return TaleOverName.containsKey(talename);
+	}
+
+	public static void addTale(Tale tale)
+	{
+		TaleOverName.put(tale.getName(), tale);
+		TaleOverTxtID.put(tale.getMyText().getId(), tale);
 	}
 }
