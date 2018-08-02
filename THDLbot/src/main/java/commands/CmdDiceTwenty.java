@@ -3,8 +3,9 @@ package commands;
 import java.util.Random;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import rpglib.Tales;
 import rpglib.Tale;
+import rpglib.Tales;
+import rpglib.Turn;
 import thdl.bot.DiscordWriter;
 import util.DiscordID;
 import util.ErrorMessages;
@@ -73,7 +74,7 @@ public class CmdDiceTwenty implements Command, IDiced
 			writer.writeSuccess(e.getMember().getNickname() + " throws a 20 sided dice and gets a " + res);
 		}
 
-		secureDiceResult(res, e.getChannel());
+		secureDiceResult(res, e);
 	}
 
 	@Override
@@ -119,13 +120,40 @@ public class CmdDiceTwenty implements Command, IDiced
 	}
 
 	@Override
-	public void secureDiceResult(int result, TextChannel txt)
+	public void secureDiceResult(int result, GuildMessageReceivedEvent e)
 	{
+		TextChannel txt = e.getChannel();
 		if (txt.getParent().getId().equals(DiscordID.RPGTXTCAT_ID))
 		{
-			Tale s = Tales.getTale(txt);
-			// TODO: Save result in Story, till next dice is thrown (later maybe two)
-			System.out.println("Result is saved");
+			Tale s = Tales.getTale(e.getChannel());
+			if (s.getIsStarted())
+			{
+				Turn t = s.getCurrentTurn();
+				// TODO: Save result in Story, till next dice is thrown (later maybe two)
+				String currentPlayerId = t.getMyPlayer().getMySelf().getUser().getId();
+				String authorId = e.getAuthor().getId();
+				if (currentPlayerId.equals(authorId))
+				{
+					if (t.secureResultOfDice(result))
+					{
+						System.out.println("Result is saved in turn");
+					}
+					else
+					{
+						System.out.println("Dice-limit reached");
+						writer.writeError("You can only throw two dices per turn");
+					}
+
+				}
+				else
+				{
+					System.out.println("Not the turn of " + authorId + " - " + e.getAuthor().getName());
+				}
+			}
+			else
+			{
+				System.out.println("No need to safe result");
+			}
 		}
 		else
 		{

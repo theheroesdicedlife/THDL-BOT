@@ -7,11 +7,17 @@ public class Player
 	private Member			mySelf		= null;
 	private Tale			myTale		= null;
 	private PlayerCharacter	myCharacter	= null;
+	private Turn			myTurn		= null;
 
 	public Player(Member member, Tale tale)
 	{
 		mySelf = member;
 		myTale = tale;
+	}
+
+	protected void addTurn(Turn aTurn)
+	{
+		myTurn = aTurn;
 	}
 
 	public Member getMySelf()
@@ -32,6 +38,11 @@ public class Player
 	public PlayerCharacter getMyCharacter()
 	{
 		return myCharacter;
+	}
+
+	public Turn getMyTurn()
+	{
+		return myTurn;
 	}
 
 }

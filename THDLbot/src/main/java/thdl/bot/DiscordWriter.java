@@ -2,7 +2,9 @@ package thdl.bot;
 
 import java.awt.Color;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.PrivateChannel;
 import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 public class DiscordWriter
@@ -60,6 +62,12 @@ public class DiscordWriter
 		embedout.setDescription(msg);
 		channel.sendMessage(embedout.build()).queue();
 		embedout = null;
+	}
+
+	public void writePrivate(String msg, User reciever)
+	{
+		PrivateChannel privChan = reciever.openPrivateChannel().complete();
+		privChan.sendMessage(msg).queue();
 	}
 
 	public GuildMessageReceivedEvent getEvent()

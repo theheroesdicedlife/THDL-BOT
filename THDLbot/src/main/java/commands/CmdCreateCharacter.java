@@ -21,6 +21,7 @@ public class CmdCreateCharacter implements Command
 	private Race			race		= null;
 	private Job				job			= null;
 	private int				ages		= 3;
+	private Tale			tale		= null;
 
 	/**
 	 * Character per tale
@@ -32,7 +33,7 @@ public class CmdCreateCharacter implements Command
 	{
 		writer = openWriter(e);
 		boolean isOk = false;
-		Tale tale = Tales.getTale(e.getChannel());
+		tale = Tales.getTale(e.getChannel());
 
 		if (tale != null)
 		{
@@ -101,7 +102,9 @@ public class CmdCreateCharacter implements Command
 				}
 				else
 				{
-					System.out.println("To late the tale is started");
+					System.out.println(ErrorMessages.STARTINGERROR);
+					writer.writeInfo(
+					        "To late, the tale was started. Please, ask your storyteller, if he can pause it for you.");
 				}
 			}
 			else
@@ -113,6 +116,7 @@ public class CmdCreateCharacter implements Command
 		else
 		{
 			System.out.println(ErrorMessages.CHANNELERROR);
+			writer.writePrivate("Wrong channel", e.getAuthor());
 		}
 
 		return isOk;
@@ -143,6 +147,7 @@ public class CmdCreateCharacter implements Command
 
 		Characters.addCharacter(chara);
 		thePlayer.setMyCharacter(chara);
+		tale.addCharacternameToPlayer(thePlayer);
 
 		writer.writeSuccess("Your character " + chara.getName() + " was created");
 	}
@@ -164,6 +169,7 @@ public class CmdCreateCharacter implements Command
 		race = null;
 		job = null;
 		ages = 3;
+		tale = null;
 	}
 
 	@Override

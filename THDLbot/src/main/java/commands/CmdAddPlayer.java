@@ -79,12 +79,13 @@ public class CmdAddPlayer implements Command
 			else
 			{
 				System.out.println(ErrorMessages.CHANNELERROR);
+				writer.writePrivate("Wrong channel", e.getAuthor());
 			}
 		}
 		else
 		{
 			System.out.println(ErrorMessages.FORMATERROR);
-			writer.writeError("You should use the layout -addPlayer [nick] ([nick] ...)");
+			writer.writeInfo("You should use the layout -addPlayer [nick] ([nick] ...)");
 		}
 
 		return isOk;

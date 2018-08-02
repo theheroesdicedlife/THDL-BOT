@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 import thdl.bot.DiscordWriter;
 
-public abstract class RpgCharacter extends Entity implements Stats
+public abstract class RpgCharacter extends Entity
 {
 	// RPGC: ID = tale+name; race; age; exp; hashmap<string, weapon> weapons over name
 	private String					characterID			= "";

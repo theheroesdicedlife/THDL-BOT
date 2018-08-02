@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Set;
 import thdl.bot.DiscordWriter;
 
-public class PlayerCharacter extends RpgCharacter implements Stats
+public class PlayerCharacter extends RpgCharacter
 {
 	// PC: hashmap<String, Job> job over name; arraylist<itemnames>; player;
 	private HashMap<String, Job>	jobsOfCharacter		= null;

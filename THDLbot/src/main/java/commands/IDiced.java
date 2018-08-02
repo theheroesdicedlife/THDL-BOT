@@ -1,7 +1,7 @@
 package commands;
 
 import java.util.Random;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 public interface IDiced
 {
@@ -9,5 +9,5 @@ public interface IDiced
 
 	public abstract int diceMultiple(Random rand, int quantity);
 
-	public abstract void secureDiceResult(int result, TextChannel txt);
+	public abstract void secureDiceResult(int result, GuildMessageReceivedEvent e);
 }
