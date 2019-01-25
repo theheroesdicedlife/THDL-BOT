@@ -2,7 +2,7 @@ package thdl.bot;
 
 import java.util.ArrayList;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import util.Static;;
+import thdl.util.Static;;
 
 public class CommandParser
 {

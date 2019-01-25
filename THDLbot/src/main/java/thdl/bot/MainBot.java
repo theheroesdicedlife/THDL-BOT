@@ -1,23 +1,26 @@
 package thdl.bot;
 
 import javax.security.auth.login.LoginException;
-import commands.CmdCreateNewTale;
-import commands.CmdDiceEight;
-import commands.CmdDiceFour;
-import commands.CmdDiceHundred;
-import commands.CmdDiceSix;
-import commands.CmdDiceTen;
-import commands.CmdDiceTwelve;
-import commands.CmdDiceTwenty;
-import listeners.CommandListener;
-import listeners.ReadyListener;
-import listeners.ReconnectedListener;
-import listeners.ShutdownListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
-import util.Secrets;
+import thdl.commands.CmdAddPlayer;
+import thdl.commands.CmdCreateCharacter;
+import thdl.commands.CmdCreateNewTale;
+import thdl.commands.CmdDiceEight;
+import thdl.commands.CmdDiceFour;
+import thdl.commands.CmdDiceHundred;
+import thdl.commands.CmdDiceSix;
+import thdl.commands.CmdDiceTen;
+import thdl.commands.CmdDiceTwelve;
+import thdl.commands.CmdDiceTwenty;
+import thdl.commands.CmdStartTale;
+import thdl.listeners.CommandListener;
+import thdl.listeners.ReadyListener;
+import thdl.listeners.ReconnectedListener;
+import thdl.listeners.ShutdownListener;
+import thdl.util.Secrets;
 
 public class MainBot
 {
@@ -71,6 +74,10 @@ public class MainBot
 		CommandHandler.commands.put("w20", new CmdDiceTwenty());
 		CommandHandler.commands.put("w100", new CmdDiceHundred());
 		CommandHandler.commands.put("createPnP", new CmdCreateNewTale());
+		CommandHandler.commands.put("addPlayer", new CmdAddPlayer());
+		CommandHandler.commands.put("createCharacter", new CmdCreateCharacter());
+		CommandHandler.commands.put("start", new CmdStartTale());
+
 	}
 
 	private static void addListeners()

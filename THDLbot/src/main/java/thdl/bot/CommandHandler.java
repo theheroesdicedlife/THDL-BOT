@@ -1,7 +1,7 @@
 package thdl.bot;
 
 import java.util.HashMap;
-import commands.Command;
+import thdl.commands.Command;
 
 public class CommandHandler
 {
@@ -9,7 +9,7 @@ public class CommandHandler
 
 	public static HashMap<String, Command>	commands	= new HashMap<String, Command>();
 
-	public static void handleCommand(CommandParser.commandContainer cmd)
+	public static void handleCommand(CommandParser.commandContainer cmd) throws Exception
 	{
 		System.out.println(cmd.invoke);
 		if (commands.containsKey(cmd.invoke))

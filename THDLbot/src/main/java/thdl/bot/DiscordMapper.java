@@ -11,10 +11,11 @@ public class DiscordMapper
 {
 	public static HashMap<String, Role>		RoleOverName	= new HashMap<>();
 	public static HashMap<String, Member>	MemberOverID	= new HashMap<>();
+	private static Guild					hostServer		= null;
 
-	public static void createMapOfGuild(Guild hostGuild)
+	public static void createMapOfGuild()
 	{
-		for (Role r : hostGuild.getRoles())
+		for (Role r : hostServer.getRoles())
 		{
 			if (!RoleOverName.containsKey(r.getName()))
 			{
@@ -22,7 +23,7 @@ public class DiscordMapper
 			}
 		}
 
-		for (Member m : hostGuild.getMembers())
+		for (Member m : hostServer.getMembers())
 		{
 			if (!MemberOverID.containsKey(m.getUser().getId()))
 			{
@@ -64,12 +65,22 @@ public class DiscordMapper
 		Collection<Member> memberCol = MemberOverID.values();
 		for (Member m : memberCol)
 		{
-			String memberNick = m.getNickname();
+			String memberNick = m.getEffectiveName();
 			if (memberNick.equals(nick))
 			{
 				member = m;
 			}
 		}
 		return member;
+	}
+
+	public static Guild getHostServer()
+	{
+		return hostServer;
+	}
+
+	public static void setHostServer(Guild hostServer)
+	{
+		DiscordMapper.hostServer = hostServer;
 	}
 }
