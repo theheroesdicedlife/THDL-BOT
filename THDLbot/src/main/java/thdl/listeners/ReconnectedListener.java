@@ -1,6 +1,8 @@
 package thdl.listeners;
 
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
 
 public class ReconnectedListener extends ListenerAdapter
 {

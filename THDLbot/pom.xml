@@ -21,10 +21,10 @@
             <url>https://jitpack.io</url>
         </repository>
         <repository>
-            <id>jcenter</id>
-            <name>JCenter</name>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
+    	<id>jcenter</id>
+    		<name>jcenter-bintray</name>
+    		<url>http://jcenter.bintray.com</url>
+		</repository>
 </repositories>
 
   <dependencies>
@@ -35,10 +35,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-            <groupId>net.dv8tion</groupId>
-            <artifactId>JDA</artifactId>
-	</dependency>
+  			<groupId>net.dv8tion</groupId>
+  			<artifactId>JDA</artifactId>
+  	</dependency>
   </dependencies>
+  
   <dependencyManagement>
   	<dependencies>
   		<dependency>
@@ -48,6 +49,7 @@
   		</dependency>
   	</dependencies>
   </dependencyManagement>
+  
   <build>
         <plugins>
             <plugin>

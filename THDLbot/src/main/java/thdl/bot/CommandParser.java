@@ -1,11 +1,26 @@
 package thdl.bot;
 
+
 import java.util.ArrayList;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import thdl.util.Static;;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import thdl.util.Static;
+
 
 public class CommandParser
 {
+
+	/**
+	 * Takes apart the command-String coming from Discord
+	 * 
+	 * @param raw
+	 *            The raw command-String unparsed
+	 * @param event
+	 *            The GuildMessageReceivcedEvent created by messages in the guild's
+	 *            textchannels
+	 * @return
+	 * 		Returns an CommandContainer, which has the parsed Command-String
+	 *         inside
+	 */
 	public commandContainer parser(String raw, GuildMessageReceivedEvent event)
 	{
 		String beheaded = raw.replaceFirst(Static.PREFIX, "");
@@ -31,20 +46,20 @@ public class CommandParser
 	public static class commandContainer
 	{
 
-		public final String						raw;
+		public final String raw;
 
-		public final String						beheaded;
+		public final String beheaded;
 
-		public final String[]					splitBeheaded;
+		public final String[] splitBeheaded;
 
-		public final String						invoke;
+		public final String invoke;
 
-		public final String[]					args;
+		public final String[] args;
 
-		public final GuildMessageReceivedEvent	event;
+		public final GuildMessageReceivedEvent event;
 
 		public commandContainer(String rw, String beheaded, String[] splitBeheaded, String invoke, String[] args,
-		        GuildMessageReceivedEvent event)
+				GuildMessageReceivedEvent event)
 		{
 			this.raw = rw;
 			this.beheaded = beheaded;
