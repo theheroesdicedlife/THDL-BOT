@@ -14,4 +14,5 @@ public class Static
 	public final static String	STORYTELLER_ROLE	= "~Storyteller";
 	public final static String	ALLOWED_ROLE		= "~Fighter";
 	public final static String	NOT_ALLOWED_ROLE	= "~Guest";
+	public final static String	ADMIN_ROLE			= "Adm";
 }

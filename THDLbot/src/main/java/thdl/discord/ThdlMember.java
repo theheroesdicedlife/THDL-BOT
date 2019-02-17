@@ -10,6 +10,7 @@ public class ThdlMember
 {
 
 	private Member	discordMember;
+	private boolean	isAdmin			= false;
 	private boolean	isStoryteller	= false;
 	private boolean	isAllowed		= false;
 	private boolean	isGuest			= true;
@@ -32,6 +33,11 @@ public class ThdlMember
 	public boolean isAllowed()
 	{
 		return isAllowed;
+	}
+
+	public boolean isAdmin()
+	{
+		return isAdmin;
 	}
 
 	public Member getMember()
@@ -69,6 +75,14 @@ public class ThdlMember
 			else
 			{
 				isStoryteller = false;
+			}
+			if (r.getName().equals(Static.ADMIN_ROLE))
+			{
+				isAdmin = true;
+			}
+			else
+			{
+				isAdmin = false;
 			}
 		}
 	}

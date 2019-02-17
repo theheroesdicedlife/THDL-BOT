@@ -1,4 +1,4 @@
-package thdl.bot;
+package thdl.util.guildMessage;
 
 
 import java.util.ArrayList;

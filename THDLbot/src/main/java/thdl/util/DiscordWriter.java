@@ -1,4 +1,4 @@
-package thdl.bot;
+package thdl.util;
 
 
 import java.awt.Color;

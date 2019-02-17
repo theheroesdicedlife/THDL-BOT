@@ -1,11 +1,9 @@
 package thdl.listeners;
 
 
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import thdl.bot.CommandHandler;
 import thdl.bot.ILogMain;
 import thdl.discord.ThdlMember;
 import thdl.factories.discord.ThdlMemberFactory;
@@ -14,6 +12,7 @@ import thdl.log.Logger;
 import thdl.log.LoggerManager;
 import thdl.util.DiscordID;
 import thdl.util.Static;
+import thdl.util.guildMessage.CommandHandler;
 
 
 public class CommandListener extends ListenerAdapter
@@ -26,22 +25,22 @@ public class CommandListener extends ListenerAdapter
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event)
 	{
-		String raw = "";
+		String raw = event.getMessage().getContentDisplay();
 		Logger log = LoggerManager.getLogger(ILogMain.NUM, ILogMain.NAME);
-		Message msg = event.getMessage();
-		TextChannel channel = msg.getTextChannel();
+		TextChannel channel = event.getChannel();
 		ThdlMember member = ThdlMemberFactory.getMember(event.getAuthor());
+		String selfID = event.getJDA().getSelfUser().getId();
+		String authorID = event.getAuthor().getId();
+
 		// does the Message has the right beginning char
 		// the sender is not the bot itself
 		// the sender does not have the role guest
 		// the message was send in Botting/ rpgBot_Listens_here/Cat for rpg Textchannel
-		if (msg.getContentDisplay().startsWith(Static.PREFIX)
-				&& msg.getAuthor().getId() != event.getJDA().getSelfUser().getId() && !member.isGuest()
+		if (raw.startsWith(Static.PREFIX) && !authorID.equals(selfID) && !member.isGuest()
 				&& (channel.getId().equals(DiscordID.BOTTING_ID)
 						|| channel.getId().equals(DiscordID.BOTISLISTENINGHERE_ID)
 						|| channel.getParent().getId().equals(DiscordID.RPGTXTCAT_ID)))
 		{
-			raw = msg.getContentDisplay();
 			log.logState(this.toString(), event.getMessage().toString());
 			try
 			{

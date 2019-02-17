@@ -32,6 +32,20 @@ public class Log
 		this.logName = logName;
 	}
 
+	/**
+	 * Creates a single Object for a Log
+	 * 
+	 * @param causeObject
+	 *            The Object or class which is causing the Log-entry
+	 * @param type
+	 *            The type the message has
+	 * @param cause
+	 *            The cause, why the message has to be logged
+	 * @param message
+	 *            The Message, which is logged with this object
+	 * @return
+	 * 		Returns the new logObject
+	 */
 	protected LogObject createLogObject(String causeObject, LogMessageType type, String cause, String message)
 	{
 		LogObject lo = null;
@@ -39,6 +53,12 @@ public class Log
 		return lo;
 	}
 
+	/**
+	 * Adds a LogObject to the Log and sorts the Objects over thier log-number
+	 * 
+	 * @param lo
+	 *            The LogObject to add
+	 */
 	protected void addLogObject(LogObject lo)
 	{
 		if (logEntries != null)
@@ -49,14 +69,22 @@ public class Log
 		}
 	}
 
+	/**
+	 * Deletes all Entries in the Log.
+	 */
 	public void clearEntries()
 	{
 		if (logEntries != null)
 		{
 			logEntries.clear();
+			logObjNumber = 0;
 		}
 	}
 
+	/**
+	 * Shows the Log outside of the Bot
+	 * TODO: Print into a txt-file
+	 */
 	public void printLog()
 	{
 		String output = "";
@@ -72,6 +100,12 @@ public class Log
 		System.out.println(output);
 	}
 
+	/**
+	 * Returns the Message for a specific LogObject-Number
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public String getLogMessage(int id)
 	{
 		String message = "";

@@ -20,6 +20,12 @@ public class TaleLoader
 
 	private static DatabaseConnect dbc = null;
 
+	/**
+	 * Loads all Tales from the DB
+	 * TODO: SQL
+	 * 
+	 * @throws SQLException
+	 */
 	public static void loadTalesFromDB() throws SQLException
 	{
 		String sqlCmd = "";
@@ -48,6 +54,12 @@ public class TaleLoader
 
 	}
 
+	/**
+	 * All Tales get to be constructed with their own data
+	 * 
+	 * @param result
+	 * @throws SQLException
+	 */
 	private static void constructTale(ResultSet result) throws SQLException
 	{
 		String taleName = "";

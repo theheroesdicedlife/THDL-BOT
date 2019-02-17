@@ -10,7 +10,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.GuildController;
-import thdl.bot.DiscordWriter;
 import thdl.discord.ThdlMember;
 import thdl.factories.discord.RoleFactory;
 import thdl.factories.discord.TextChannelFactory;
@@ -21,6 +20,7 @@ import thdl.log.LogMessageType;
 import thdl.log.Logger;
 import thdl.log.LoggerManager;
 import thdl.util.DiscordID;
+import thdl.util.DiscordWriter;
 
 
 public class CmdCreateNewTale implements Command

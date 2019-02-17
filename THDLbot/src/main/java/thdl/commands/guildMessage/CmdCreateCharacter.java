@@ -3,13 +3,13 @@ package thdl.commands.guildMessage;
 
 import javax.xml.stream.events.Characters;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import thdl.bot.DiscordWriter;
 import thdl.factories.CharacterCreator;
 import thdl.rpg.lib.Jobs;
 import thdl.rpg.lib.Player;
 import thdl.rpg.lib.PlayerCharacter;
 import thdl.rpg.lib.Tale;
 import thdl.rpg.lib.Tales;
+import thdl.util.DiscordWriter;
 import thdl.util.ErrorMessages;
 
 

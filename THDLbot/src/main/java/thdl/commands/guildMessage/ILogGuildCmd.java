@@ -23,9 +23,21 @@ public interface ILogGuildCmd
 	public static String	QUANTITIY_ERROR			= "Quantity is zero or out of range";
 
 	// Log - Messages
-	public static String	CMD_CREATE_PNP_SUCCESS	= "Command createPnP was executed with success";
-	public static String	CMD_CREATE_PNP_FAILED	= "Command createPnP could not be executed with success";
-	public static String	CMD_DICE_FOUR_SUCCESS	= "Command -d4 was executed with success";
-	public static String	CMD_DICE_FOUR_FAILED	= "Command -d4 could not be executed with success";
-	public static String	DICED					= "Diced: ";
+	public static String	CMD_CREATE_PNP_SUCCESS		= "Command createPnP was executed with success";
+	public static String	CMD_CREATE_PNP_FAILED		= "Command createPnP could not be executed with success";
+	public static String	CMD_DICE_FOUR_SUCCESS		= "Command -d4 was executed with success";
+	public static String	CMD_DICE_FOUR_FAILED		= "Command -d4 could not be executed with success";
+	public static String	CMD_DICE_SIX_SUCCESS		= "Command -d6 was executed with success";
+	public static String	CMD_DICE_SIX_FAILED			= "Command -d6 could not be executed with success";
+	public static String	CMD_DICE_EIGHT_SUCCESS		= "Command -d8 was executed with success";
+	public static String	CMD_DICE_EIGHT_FAILED		= "Command -d8 could not be executed with success";
+	public static String	CMD_DICE_TEN_SUCCESS		= "Command -d10 was executed with success";
+	public static String	CMD_DICE_TEN_FAILED			= "Command -d10 could not be executed with success";
+	public static String	CMD_DICE_TWELVE_SUCCESS		= "Command -d12 was executed with success";
+	public static String	CMD_DICE_TWELVE_FAILED		= "Command -d12 could not be executed with success";
+	public static String	CMD_DICE_TWENTY_SUCCESS		= "Command -d20 was executed with success";
+	public static String	CMD_DICE_TWENTY_FAILED		= "Command -d20 could not be executed with success";
+	public static String	CMD_DICE_HUNDRED_SUCCESS	= "Command -d100 was executed with success";
+	public static String	CMD_DICE_HUNDRED_FAILED		= "Command -d100 could not be executed with success";
+	public static String	DICED						= "Diced: ";
 }

@@ -7,11 +7,11 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.GuildController;
 import thdl.bot.DiscordMapper;
-import thdl.bot.DiscordWriter;
 import thdl.rpg.lib.Player;
 import thdl.rpg.lib.Tale;
 import thdl.rpg.lib.Tales;
 import thdl.util.DiscordID;
+import thdl.util.DiscordWriter;
 import thdl.util.ErrorMessages;
 
 

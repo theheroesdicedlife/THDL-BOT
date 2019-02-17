@@ -3,10 +3,10 @@ package thdl.commands.guildMessage;
 
 import java.util.Random;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import thdl.bot.DiscordWriter;
 import thdl.log.LogMessageType;
 import thdl.log.Logger;
 import thdl.log.LoggerManager;
+import thdl.util.DiscordWriter;
 
 
 public class CmdDiceFour implements Command, IDiced
@@ -98,7 +98,6 @@ public class CmdDiceFour implements Command, IDiced
 		}
 		quant = 0;
 		writer = null;
-		log = null;
 	}
 
 	@Override
@@ -142,7 +141,9 @@ public class CmdDiceFour implements Command, IDiced
 	@Override
 	public void secureDiceResult(int result, GuildMessageReceivedEvent e)
 	{
-
+		/**
+		 * TODO: Implementation missing
+		 */
 	}
 
 }

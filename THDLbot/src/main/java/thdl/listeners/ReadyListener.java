@@ -1,11 +1,9 @@
 package thdl.listeners;
 
 
-import java.sql.SQLException;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import thdl.bot.Loader;
 import thdl.factories.discord.RoleFactory;
 import thdl.factories.discord.TextChannelFactory;
 import thdl.factories.discord.ThdlMemberFactory;
@@ -30,19 +28,19 @@ public class ReadyListener extends ListenerAdapter
 		RoleFactory.createRoleMap(host);
 		TextChannelFactory.createTextChannelMap(host);
 		VoiceChannelFactory.createVoiceChannelMap(host);
-		Loader aLoader = Loader.getInstance();
+		// Loader aLoader = Loader.getInstance();
 
-		try
-		{
-			aLoader.loadRaces();
-			aLoader.loadJobs();
-			aLoader.loadTales();
-		}
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// try
+		// {
+		// aLoader.loadRaces();
+		// aLoader.loadJobs();
+		// aLoader.loadTales();
+		// }
+		// catch (SQLException e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 	}
 
 }

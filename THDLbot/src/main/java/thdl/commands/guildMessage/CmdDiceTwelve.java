@@ -1,21 +1,28 @@
 package thdl.commands.guildMessage;
 
+
 import java.util.Random;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import thdl.bot.DiscordWriter;
-import thdl.util.ErrorMessages;
+import thdl.log.LogMessageType;
+import thdl.log.Logger;
+import thdl.log.LoggerManager;
+import thdl.util.DiscordWriter;
+
 
 public class CmdDiceTwelve implements Command, IDiced
 {
 
 	private int				quant	= 0;
+	private Logger			log		= null;
 	private DiscordWriter	writer	= null;
 
 	@Override
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
-		writer = openWriter(e);
+		writer = DiscordWriter.createWriter(writer, e);
+		log = LoggerManager.getLogger(ILogGuildCmd.NUM, ILogGuildCmd.NAME);
 		Boolean isCalled = false;
+
 		if (args.length == 1)
 		{
 			try
@@ -24,7 +31,8 @@ public class CmdDiceTwelve implements Command, IDiced
 			}
 			catch (Exception exc)
 			{
-				System.out.println("Argument is not an Integer");
+				log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogGuildCmd.NUMBER_TRY,
+						IGuildMsgCmd.EXC_NUMBER_FORMAT);
 			}
 
 			if (quant >= 1 && quant <= 100)
@@ -33,21 +41,22 @@ public class CmdDiceTwelve implements Command, IDiced
 			}
 			else
 			{
-				System.out.println(ErrorMessages.QUANTITIY_ERROR);
-				writer.writeError("Quantity is not working :frowning:");
+				log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.QUANTITIY_ERROR,
+						IGuildMsgCmd.ERROR_FALSE_QUANTITY);
+				writer.writeError(IGuildMsgCmd.ERROR_FALSE_QUANTITY);
 			}
 		}
+		else if (args.length == 0)
+		{
+			isCalled = true;
+		}
 		else
-			if (args.length == 0)
-			{
-				isCalled = true;
-			}
-			else
-			{
-				isCalled = false;
-				System.out.println(ErrorMessages.FORMAT_ERROR);
-				writer.writeError("Please use the format -w12 [quantity] :weary:");
-			}
+		{
+			isCalled = false;
+			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.WRONG_FORMAT,
+					IGuildMsgCmd.INFO_FORMAT_DICE_TWELVE);
+			writer.writeError(IGuildMsgCmd.INFO_FORMAT_DICE_TWELVE);
+		}
 		return isCalled;
 	}
 
@@ -60,13 +69,14 @@ public class CmdDiceTwelve implements Command, IDiced
 		if (quant > 0)
 		{
 			res = diceMultiple(rn, quant);
-			writer.writeSuccess(
-			        e.getMember().getNickname() + " throws a 12 sided dice " + quant + " times and gets a " + res);
+			writer.writeSuccess(e.getMember().getNickname() + IGuildMsgCmd.SUC_DICE_TWELVE_THROW + quant
+					+ IGuildMsgCmd.SUC_DICE_TIMES + IGuildMsgCmd.SUC_DICE_GETS_A + res);
 		}
 		else
 		{
 			res = diceOnce(rn);
-			writer.writeSuccess(e.getMember().getNickname() + " throws a 12 sided dice and gets a " + res);
+			writer.writeSuccess(e.getMember().getNickname() + IGuildMsgCmd.SUC_DICE_TWELVE_THROW
+					+ IGuildMsgCmd.SUC_DICE_GETS_A + res);
 		}
 
 		secureDiceResult(res, e);
@@ -77,11 +87,13 @@ public class CmdDiceTwelve implements Command, IDiced
 	{
 		if (success)
 		{
-			System.out.println("Command -w12 was executed with success");
+			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
+					ILogGuildCmd.CMD_DICE_TWELVE_SUCCESS);
 		}
 		else
 		{
-			System.out.println("Command -w12 could not be executed successfully");
+			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
+					ILogGuildCmd.CMD_DICE_TWELVE_FAILED);
 		}
 		quant = 0;
 		writer = null;
@@ -98,7 +110,11 @@ public class CmdDiceTwelve implements Command, IDiced
 	public int diceOnce(Random rand)
 	{
 		int result = rand.nextInt(12) + 1;
-		System.out.println("Diced: " + result);
+		String logmsg = "";
+
+		logmsg = ILogGuildCmd.DICED + result;
+
+		log.logState(this.toString(), logmsg);
 		return result;
 	}
 
@@ -106,27 +122,24 @@ public class CmdDiceTwelve implements Command, IDiced
 	public int diceMultiple(Random rand, int quantity)
 	{
 		int result = 0;
+		String logmsg = "";
+
 		for (int i = 0; i < quantity; i++)
 		{
 			result = result + rand.nextInt(12) + 1;
 		}
-		System.out.println("Diced: " + result);
+		logmsg = ILogGuildCmd.DICED + result;
+
+		log.logState(this.toString(), logmsg);
 		return result;
 	}
 
 	@Override
 	public void secureDiceResult(int result, GuildMessageReceivedEvent e)
 	{
-
-	}
-
-	public DiscordWriter openWriter(GuildMessageReceivedEvent e)
-	{
-		if (writer == null)
-		{
-			writer = new DiscordWriter(e);
-		}
-		return writer;
+		/**
+		 * TODO: Implementation missing
+		 */
 	}
 
 }

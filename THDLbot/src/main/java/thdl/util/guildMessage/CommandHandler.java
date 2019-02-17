@@ -1,11 +1,14 @@
-package thdl.bot;
+package thdl.util.guildMessage;
 
 
 import java.util.HashMap;
+import thdl.bot.ILogMain;
+import thdl.bot.IMainUtil;
 import thdl.commands.guildMessage.Command;
 import thdl.log.LogMessageType;
 import thdl.log.Logger;
 import thdl.log.LoggerManager;
+import thdl.util.guildMessage.CommandParser.commandContainer;
 
 
 public class CommandHandler
