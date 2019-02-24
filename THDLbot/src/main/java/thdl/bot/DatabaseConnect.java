@@ -6,11 +6,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import thdl.log.LogMessageType;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
 import thdl.util.Secrets;
 import thdl.util.Static;
+import thdl.util.log.LogMessageType;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class DatabaseConnect

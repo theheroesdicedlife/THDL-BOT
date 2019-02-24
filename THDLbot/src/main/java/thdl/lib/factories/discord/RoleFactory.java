@@ -1,11 +1,11 @@
-package thdl.factories.discord;
+package thdl.lib.factories.discord;
 
 
 import java.awt.Color;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.managers.GuildController;
-import thdl.collections.discord.RoleCollection;
+import thdl.lib.collections.discord.RoleCollection;
 
 
 public class RoleFactory

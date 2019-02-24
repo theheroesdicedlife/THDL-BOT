@@ -1,4 +1,4 @@
-package thdl.log;
+package thdl.util.log;
 
 
 public class LogObject
@@ -17,6 +17,7 @@ public class LogObject
 		this.causeObject = causeObject;
 		this.type = type;
 		this.message = message;
+		this.cause = cause;
 	}
 
 	protected String getCauseObject()

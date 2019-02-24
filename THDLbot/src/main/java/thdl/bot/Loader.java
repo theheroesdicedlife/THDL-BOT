@@ -10,13 +10,13 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import thdl.rpg.lib.Jobs;
-import thdl.rpg.lib.Player;
-import thdl.rpg.lib.PlayerCharacter;
-import thdl.rpg.lib.Races;
-import thdl.rpg.lib.RoundTurn;
-import thdl.rpg.lib.Tale;
-import thdl.rpg.lib.Tales;
+import thdl.lib.rpg.Jobs;
+import thdl.lib.rpg.Player;
+import thdl.lib.rpg.PlayerCharacter;
+import thdl.lib.rpg.Races;
+import thdl.lib.rpg.RoundTurn;
+import thdl.lib.rpg.Tale;
+import thdl.lib.rpg.Tales;
 
 public class Loader
 {

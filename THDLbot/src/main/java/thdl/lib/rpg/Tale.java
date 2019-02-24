@@ -1,10 +1,10 @@
-package thdl.rpg.lib;
+package thdl.lib.rpg;
 
 
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import thdl.discord.ThdlMember;
+import thdl.lib.discord.ThdlMember;
 
 
 public class Tale

@@ -4,7 +4,7 @@ package thdl.listeners;
 import net.dv8tion.jda.api.events.ShutdownEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import thdl.bot.DatabaseConnect;
-import thdl.rpg.lib.Tales;
+import thdl.lib.rpg.Tales;
 
 
 public class ShutdownListener extends ListenerAdapter

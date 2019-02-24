@@ -1,4 +1,4 @@
-package thdl.log;
+package thdl.util.log;
 
 
 import java.util.ArrayList;
@@ -88,13 +88,13 @@ public class Log
 	public void printLog()
 	{
 		String output = "";
-		output = "Log: " + this.logName;
-		output = output + "Number: " + logNum + "/n/n";
+		output = IStaticLog.LOG + this.logName;
+		output = output + IStaticLog.NUM + logNum + IStaticLog.LINE_BREAK + IStaticLog.LINE_BREAK;
 		for (LogObject lo : logEntries)
 		{
-			output = output + "Entry: " + lo.getLogNumber();
-			output = output + " - Cause: " + lo.getCauseObject() + ", " + lo.getCause();
-			output = output + " -> Message: " + lo.getMessage() + "/n";
+			output = output + IStaticLog.ENTRY + lo.getLogNumber();
+			output = output + IStaticLog.CAUSE + lo.getCauseObject() + IStaticLog.COMMA + lo.getCause();
+			output = output + IStaticLog.MESSAGE + lo.getMessage() + IStaticLog.LINE_BREAK;
 		}
 
 		System.out.println(output);

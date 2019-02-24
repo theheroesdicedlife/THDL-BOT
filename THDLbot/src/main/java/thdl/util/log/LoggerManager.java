@@ -1,4 +1,4 @@
-package thdl.log;
+package thdl.util.log;
 
 
 import java.util.ArrayList;
@@ -32,6 +32,7 @@ public class LoggerManager
 		if (reLog == null)
 		{
 			reLog = createLogger(logNum, logName);
+			loggerC.add(reLog);
 		}
 
 		return reLog;

@@ -1,10 +1,10 @@
-package thdl.collections.rpg;
+package thdl.lib.collections.rpg;
 
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
-import thdl.collections.Collection;
-import thdl.rpg.lib.Tale;
+import thdl.lib.collections.Collection;
+import thdl.lib.rpg.Tale;
 
 
 public class TaleCollection

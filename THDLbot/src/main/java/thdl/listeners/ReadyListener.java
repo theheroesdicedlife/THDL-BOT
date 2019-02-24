@@ -4,10 +4,10 @@ package thdl.listeners;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import thdl.factories.discord.RoleFactory;
-import thdl.factories.discord.TextChannelFactory;
-import thdl.factories.discord.ThdlMemberFactory;
-import thdl.factories.discord.VoiceChannelFactory;
+import thdl.lib.factories.discord.RoleFactory;
+import thdl.lib.factories.discord.TextChannelFactory;
+import thdl.lib.factories.discord.ThdlMemberFactory;
+import thdl.lib.factories.discord.VoiceChannelFactory;
 import thdl.util.DiscordID;
 
 

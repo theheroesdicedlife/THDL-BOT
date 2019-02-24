@@ -1,4 +1,4 @@
-package thdl.log;
+package thdl.util.log;
 
 
 public class Logger

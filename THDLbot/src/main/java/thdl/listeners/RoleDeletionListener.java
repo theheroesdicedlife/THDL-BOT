@@ -3,7 +3,7 @@ package thdl.listeners;
 
 import net.dv8tion.jda.api.events.role.RoleDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import thdl.factories.discord.RoleFactory;
+import thdl.lib.factories.discord.RoleFactory;
 
 
 public class RoleDeletionListener extends ListenerAdapter

@@ -7,12 +7,12 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import thdl.bot.DatabaseConnect;
-import thdl.discord.ThdlMember;
-import thdl.factories.discord.RoleFactory;
-import thdl.factories.discord.TextChannelFactory;
-import thdl.factories.discord.ThdlMemberFactory;
-import thdl.factories.discord.VoiceChannelFactory;
-import thdl.factories.rpg.TaleFactory;
+import thdl.lib.discord.ThdlMember;
+import thdl.lib.factories.discord.RoleFactory;
+import thdl.lib.factories.discord.TextChannelFactory;
+import thdl.lib.factories.discord.ThdlMemberFactory;
+import thdl.lib.factories.discord.VoiceChannelFactory;
+import thdl.lib.factories.rpg.TaleFactory;
 
 
 public class TaleLoader

@@ -1,8 +1,8 @@
-package thdl.collections.discord;
+package thdl.lib.collections.discord;
 
 
 import net.dv8tion.jda.api.entities.Role;
-import thdl.collections.Collection;
+import thdl.lib.collections.Collection;
 
 
 public class RoleCollection

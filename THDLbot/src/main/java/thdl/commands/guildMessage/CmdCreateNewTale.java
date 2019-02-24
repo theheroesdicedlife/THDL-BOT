@@ -10,17 +10,17 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.GuildController;
-import thdl.discord.ThdlMember;
-import thdl.factories.discord.RoleFactory;
-import thdl.factories.discord.TextChannelFactory;
-import thdl.factories.discord.ThdlMemberFactory;
-import thdl.factories.discord.VoiceChannelFactory;
-import thdl.factories.rpg.TaleFactory;
-import thdl.log.LogMessageType;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
+import thdl.lib.discord.ThdlMember;
+import thdl.lib.factories.discord.RoleFactory;
+import thdl.lib.factories.discord.TextChannelFactory;
+import thdl.lib.factories.discord.ThdlMemberFactory;
+import thdl.lib.factories.discord.VoiceChannelFactory;
+import thdl.lib.factories.rpg.TaleFactory;
 import thdl.util.DiscordID;
 import thdl.util.DiscordWriter;
+import thdl.util.log.LogMessageType;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class CmdCreateNewTale implements Command

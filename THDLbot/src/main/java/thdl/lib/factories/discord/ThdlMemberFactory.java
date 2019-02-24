@@ -1,4 +1,4 @@
-package thdl.factories.discord;
+package thdl.lib.factories.discord;
 
 
 import java.util.HashMap;
@@ -7,9 +7,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import thdl.bot.ILogMain;
 import thdl.bot.IMainUtil;
-import thdl.discord.ThdlMember;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
+import thdl.lib.discord.ThdlMember;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class ThdlMemberFactory

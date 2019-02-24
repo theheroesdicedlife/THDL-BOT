@@ -4,13 +4,13 @@ package thdl.listeners;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import thdl.bot.ILogMain;
-import thdl.discord.ThdlMember;
-import thdl.factories.discord.ThdlMemberFactory;
-import thdl.log.LogMessageType;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
+import thdl.lib.discord.ThdlMember;
+import thdl.lib.factories.discord.ThdlMemberFactory;
 import thdl.util.directMessage.DirectMessageHandler;
 import thdl.util.directMessage.DirectMessageParser;
+import thdl.util.log.LogMessageType;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class DirectCommandListener extends ListenerAdapter

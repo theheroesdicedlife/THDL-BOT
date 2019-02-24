@@ -1,4 +1,4 @@
-package thdl.collections;
+package thdl.lib.collections;
 
 
 import java.util.HashMap;

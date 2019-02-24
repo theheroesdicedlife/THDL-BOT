@@ -5,10 +5,10 @@ import java.util.HashMap;
 import thdl.bot.ILogMain;
 import thdl.bot.IMainUtil;
 import thdl.commands.guildMessage.Command;
-import thdl.log.LogMessageType;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
 import thdl.util.guildMessage.CommandParser.commandContainer;
+import thdl.util.log.LogMessageType;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class CommandHandler

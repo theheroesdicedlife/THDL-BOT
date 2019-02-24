@@ -4,9 +4,9 @@ package thdl.commands.guildMessage;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import thdl.rpg.lib.RoundTurn;
-import thdl.rpg.lib.Tale;
-import thdl.rpg.lib.Tales;
+import thdl.lib.rpg.RoundTurn;
+import thdl.lib.rpg.Tale;
+import thdl.lib.rpg.Tales;
 import thdl.util.DiscordWriter;
 import thdl.util.ErrorMessages;
 

@@ -3,7 +3,7 @@ package thdl.listeners;
 
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import thdl.factories.discord.ThdlMemberFactory;
+import thdl.lib.factories.discord.ThdlMemberFactory;
 
 
 public class RemoveRoleFromMemberListener extends ListenerAdapter

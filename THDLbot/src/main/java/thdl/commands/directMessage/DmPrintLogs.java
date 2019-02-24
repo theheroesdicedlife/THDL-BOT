@@ -4,8 +4,8 @@ package thdl.commands.directMessage;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import thdl.bot.ILogMain;
 import thdl.commands.guildMessage.ILogGuildCmd;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class DmPrintLogs implements DirectCommand
@@ -25,7 +25,7 @@ public class DmPrintLogs implements DirectCommand
 		mainLog.getLog().printLog();
 		Logger cmdLog = LoggerManager.getLogger(ILogGuildCmd.NUM, ILogGuildCmd.NAME);
 		cmdLog.getLog().printLog();
-		event.getChannel().sendMessage("I give you the log");
+		event.getChannel().sendMessage("I give you the log").queue();
 	}
 
 	@Override

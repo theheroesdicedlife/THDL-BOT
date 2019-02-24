@@ -1,4 +1,4 @@
-package thdl.factories.discord;
+package thdl.lib.factories.discord;
 
 
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.managers.GuildController;
 import thdl.bot.ILogMain;
 import thdl.bot.IMainUtil;
-import thdl.log.LogMessageType;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
+import thdl.util.log.LogMessageType;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class TextChannelFactory

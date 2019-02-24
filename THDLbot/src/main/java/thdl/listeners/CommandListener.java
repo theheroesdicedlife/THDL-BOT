@@ -5,14 +5,14 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import thdl.bot.ILogMain;
-import thdl.discord.ThdlMember;
-import thdl.factories.discord.ThdlMemberFactory;
-import thdl.log.LogMessageType;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
+import thdl.lib.discord.ThdlMember;
+import thdl.lib.factories.discord.ThdlMemberFactory;
 import thdl.util.DiscordID;
 import thdl.util.Static;
 import thdl.util.guildMessage.CommandHandler;
+import thdl.util.log.LogMessageType;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class CommandListener extends ListenerAdapter

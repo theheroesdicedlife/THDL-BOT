@@ -1,12 +1,12 @@
-package thdl.factories.rpg;
+package thdl.lib.factories.rpg;
 
 
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import thdl.collections.rpg.TaleCollection;
-import thdl.discord.ThdlMember;
-import thdl.rpg.lib.Tale;
+import thdl.lib.collections.rpg.TaleCollection;
+import thdl.lib.discord.ThdlMember;
+import thdl.lib.rpg.Tale;
 
 
 public class TaleFactory

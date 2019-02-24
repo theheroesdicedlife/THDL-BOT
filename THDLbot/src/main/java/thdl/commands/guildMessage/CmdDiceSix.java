@@ -3,10 +3,10 @@ package thdl.commands.guildMessage;
 
 import java.util.Random;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import thdl.log.LogMessageType;
-import thdl.log.Logger;
-import thdl.log.LoggerManager;
 import thdl.util.DiscordWriter;
+import thdl.util.log.LogMessageType;
+import thdl.util.log.Logger;
+import thdl.util.log.LoggerManager;
 
 
 public class CmdDiceSix implements Command, IDiced
