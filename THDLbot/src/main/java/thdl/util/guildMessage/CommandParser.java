@@ -3,7 +3,7 @@ package thdl.util.guildMessage;
 
 import java.util.ArrayList;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import thdl.util.Static;
+import thdl.util.IStatic;
 
 
 public class CommandParser
@@ -23,7 +23,7 @@ public class CommandParser
 	 */
 	public commandContainer parser(String raw, GuildMessageReceivedEvent event)
 	{
-		String beheaded = raw.replaceFirst(Static.PREFIX, "");
+		String beheaded = raw.replaceFirst(IStatic.PREFIX, "");
 
 		String beheadedSplit[] = beheaded.split(" ");
 

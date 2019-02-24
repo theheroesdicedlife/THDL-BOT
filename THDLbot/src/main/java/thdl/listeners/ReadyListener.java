@@ -8,7 +8,7 @@ import thdl.lib.factories.discord.RoleFactory;
 import thdl.lib.factories.discord.TextChannelFactory;
 import thdl.lib.factories.discord.ThdlMemberFactory;
 import thdl.lib.factories.discord.VoiceChannelFactory;
-import thdl.util.DiscordID;
+import thdl.util.IDiscordID;
 
 
 public class ReadyListener extends ListenerAdapter
@@ -22,7 +22,7 @@ public class ReadyListener extends ListenerAdapter
 	@Override
 	public void onReady(ReadyEvent event)
 	{
-		Guild host = event.getJDA().getGuildById(DiscordID.GUILD_ID);
+		Guild host = event.getJDA().getGuildById(IDiscordID.GUILD_ID);
 
 		ThdlMemberFactory.createMapOfMembers(host);
 		RoleFactory.createRoleMap(host);

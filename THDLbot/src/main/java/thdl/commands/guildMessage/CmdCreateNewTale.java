@@ -16,8 +16,8 @@ import thdl.lib.factories.discord.TextChannelFactory;
 import thdl.lib.factories.discord.ThdlMemberFactory;
 import thdl.lib.factories.discord.VoiceChannelFactory;
 import thdl.lib.factories.rpg.TaleFactory;
-import thdl.util.DiscordID;
 import thdl.util.DiscordWriter;
+import thdl.util.IDiscordID;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
@@ -126,7 +126,7 @@ public class CmdCreateNewTale implements Command
 		Guild guild = e.getGuild();
 		controller = openControl(e);
 
-		Category parent = guild.getCategoryById(DiscordID.RPGTXTCAT_ID);
+		Category parent = guild.getCategoryById(IDiscordID.RPGTXTCAT_ID);
 		Role everyone = guild.getPublicRole();
 		ThdlMember author = ThdlMemberFactory.getMember(e.getAuthor());
 

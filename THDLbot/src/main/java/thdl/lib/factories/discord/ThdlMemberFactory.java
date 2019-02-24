@@ -52,6 +52,7 @@ public class ThdlMemberFactory
 	 * 
 	 * @param user
 	 * @return
+	 * 		An member or null if nothing was found
 	 */
 	public static ThdlMember getMember(User user)
 	{
@@ -71,6 +72,7 @@ public class ThdlMemberFactory
 	 * 
 	 * @param id
 	 * @return
+	 * 		An member or null if nothing was found
 	 */
 	public static ThdlMember getMemberByID(String id)
 	{

@@ -24,6 +24,8 @@ public interface IMainUtil
 	public static final String	NOT_IN_CMD_TABLE		= "Not in the command-table";
 	public static final String	NO_GUILD				= "No guild set";
 	public static final String	NO_ADMIN_PERMISSION_BOT	= "The bot has no Administrator permission";
+	public static final String	NOT_A_DM_CMD			= "The text you send is not a command";
+
 	// Information Messages
 	public static final String GUILD_MAPPING_FIN = "Map finished";
 }

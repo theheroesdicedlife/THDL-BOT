@@ -10,9 +10,9 @@ import thdl.bot.DiscordMapper;
 import thdl.lib.rpg.Player;
 import thdl.lib.rpg.Tale;
 import thdl.lib.rpg.Tales;
-import thdl.util.DiscordID;
 import thdl.util.DiscordWriter;
 import thdl.util.ErrorMessages;
+import thdl.util.IDiscordID;
 
 
 public class CmdAddPlayer implements Command
@@ -96,9 +96,9 @@ public class CmdAddPlayer implements Command
 	private void canMemberPlay(Member m)
 	{
 		boolean canPlay = false;
-		for (int i = 0; i < DiscordID.rolenames.length; i++)
+		for (int i = 0; i < IDiscordID.rolenames.length; i++)
 		{
-			if (DiscordMapper.isThisA(m, DiscordID.rolenames[i]))
+			if (DiscordMapper.isThisA(m, IDiscordID.rolenames[i]))
 			{
 				canPlay = true;
 				break;

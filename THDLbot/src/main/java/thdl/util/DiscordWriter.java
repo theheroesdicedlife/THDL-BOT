@@ -24,6 +24,9 @@ public class DiscordWriter
 		this.setChannel(txt);
 	}
 
+	private DiscordWriter()
+	{}
+
 	/**
 	 * Creates a new DiscordWriter using a Textchannel
 	 * 
@@ -38,6 +41,21 @@ public class DiscordWriter
 		if (writer == null)
 		{
 			writer = new DiscordWriter(txt);
+		}
+		return writer;
+	}
+
+	/**
+	 * Creates a new DiscordWriter without a event
+	 * 
+	 * @param writer
+	 * @return
+	 */
+	public static DiscordWriter createWriter(DiscordWriter writer)
+	{
+		if (writer == null)
+		{
+			writer = new DiscordWriter();
 		}
 		return writer;
 	}
@@ -68,10 +86,13 @@ public class DiscordWriter
 	 */
 	public void writeError(String msg)
 	{
-		embedout = new EmbedBuilder().setColor(errorColor);
-		embedout.setDescription(msg);
-		channel.sendMessage(embedout.build()).queue();
-		embedout = null;
+		if (this.channel != null)
+		{
+			embedout = new EmbedBuilder().setColor(errorColor);
+			embedout.setDescription(msg);
+			channel.sendMessage(embedout.build()).queue();
+			embedout = null;
+		}
 	}
 
 	/**
@@ -81,10 +102,13 @@ public class DiscordWriter
 	 */
 	public void writeSuccess(String msg)
 	{
-		embedout = new EmbedBuilder().setColor(successColor);
-		embedout.setDescription(msg);
-		channel.sendMessage(embedout.build()).queue();
-		embedout = null;
+		if (this.channel != null)
+		{
+			embedout = new EmbedBuilder().setColor(successColor);
+			embedout.setDescription(msg);
+			channel.sendMessage(embedout.build()).queue();
+			embedout = null;
+		}
 	}
 
 	/**
@@ -94,10 +118,13 @@ public class DiscordWriter
 	 */
 	public void writeInfo(String msg)
 	{
-		embedout = new EmbedBuilder().setColor(infoColor);
-		embedout.setDescription(msg);
-		channel.sendMessage(embedout.build()).queue();
-		embedout = null;
+		if (this.channel != null)
+		{
+			embedout = new EmbedBuilder().setColor(infoColor);
+			embedout.setDescription(msg);
+			channel.sendMessage(embedout.build()).queue();
+			embedout = null;
+		}
 	}
 
 	/**
@@ -107,7 +134,10 @@ public class DiscordWriter
 	 */
 	public void writeNotEmbed(String msg)
 	{
-		channel.sendMessage(msg).queue();
+		if (this.channel != null)
+		{
+			channel.sendMessage(msg).queue();
+		}
 	}
 
 	/**
@@ -118,10 +148,13 @@ public class DiscordWriter
 	 */
 	public void writeCustomColored(String msg, Color c)
 	{
-		embedout = new EmbedBuilder().setColor(c);
-		embedout.setDescription(msg);
-		channel.sendMessage(embedout.build()).queue();
-		embedout = null;
+		if (this.channel != null)
+		{
+			embedout = new EmbedBuilder().setColor(c);
+			embedout.setDescription(msg);
+			channel.sendMessage(embedout.build()).queue();
+			embedout = null;
+		}
 	}
 
 	/**

@@ -7,8 +7,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import thdl.bot.ILogMain;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.ThdlMemberFactory;
-import thdl.util.DiscordID;
-import thdl.util.Static;
+import thdl.util.IDiscordID;
+import thdl.util.IStatic;
 import thdl.util.guildMessage.CommandHandler;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
@@ -36,10 +36,10 @@ public class CommandListener extends ListenerAdapter
 		// the sender is not the bot itself
 		// the sender does not have the role guest
 		// the message was send in Botting/ rpgBot_Listens_here/Cat for rpg Textchannel
-		if (raw.startsWith(Static.PREFIX) && !authorID.equals(selfID) && !member.isGuest()
-				&& (channel.getId().equals(DiscordID.BOTTING_ID)
-						|| channel.getId().equals(DiscordID.BOTISLISTENINGHERE_ID)
-						|| channel.getParent().getId().equals(DiscordID.RPGTXTCAT_ID)))
+		if (raw.startsWith(IStatic.PREFIX) && !authorID.equals(selfID) && !member.isGuest()
+				&& (channel.getId().equals(IDiscordID.BOTTING_ID)
+						|| channel.getId().equals(IDiscordID.BOTISLISTENINGHERE_ID)
+						|| channel.getParent().getId().equals(IDiscordID.RPGTXTCAT_ID)))
 		{
 			log.logState(this.toString(), event.getMessage().toString());
 			try

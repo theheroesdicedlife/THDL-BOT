@@ -23,7 +23,7 @@ import thdl.listeners.RoleCreationListener;
 import thdl.listeners.RoleDeletionListener;
 import thdl.listeners.RoleUpdateNameListener;
 import thdl.listeners.RoleUpdatePositionListener;
-import thdl.util.Secrets;
+import thdl.util.ISecrets;
 import thdl.util.directMessage.DirectMessageHandler;
 import thdl.util.guildMessage.CommandHandler;
 
@@ -37,7 +37,7 @@ public class MainBot
 	{
 		JDA jda = null;
 		builder = new JDABuilder(AccountType.BOT);
-		builder.setToken(Secrets.token).setAutoReconnect(true).setStatus(OnlineStatus.ONLINE);
+		builder.setToken(ISecrets.token).setAutoReconnect(true).setStatus(OnlineStatus.ONLINE);
 		addListeners();
 		addCommands();
 		addDirectCommands();

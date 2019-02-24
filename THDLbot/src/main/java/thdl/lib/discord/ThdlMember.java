@@ -4,7 +4,7 @@ package thdl.lib.discord;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import thdl.lib.collections.discord.RoleCollection;
-import thdl.util.Static;
+import thdl.util.IDiscordID;
 
 
 public class ThdlMember
@@ -21,22 +21,22 @@ public class ThdlMember
 
 	public boolean isGuest()
 	{
-		return rolesOfMember.containsRoleWithID(Static.NOT_ALLOWED_ROLE_ID);
+		return rolesOfMember.containsRoleWithID(IDiscordID.NOT_ALLOWED_ROLE_ID);
 	}
 
 	public boolean isStoryteller()
 	{
-		return rolesOfMember.containsRoleWithID(Static.STORYTELLER_ROLE_ID);
+		return rolesOfMember.containsRoleWithID(IDiscordID.STORYTELLER_ROLE_ID);
 	}
 
 	public boolean isAllowed()
 	{
-		return rolesOfMember.containsRoleWithID(Static.ALLOWED_ROLE_ID);
+		return rolesOfMember.containsRoleWithID(IDiscordID.ALLOWED_ROLE_ID);
 	}
 
 	public boolean isAdmin()
 	{
-		return rolesOfMember.containsRoleWithID(Static.ADMIN_ROLE_ID);
+		return rolesOfMember.containsRoleWithID(IDiscordID.ADMIN_ROLE_ID);
 	}
 
 	public Member getMember()

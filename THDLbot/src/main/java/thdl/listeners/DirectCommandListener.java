@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import thdl.bot.ILogMain;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.ThdlMemberFactory;
+import thdl.util.BlackList;
 import thdl.util.directMessage.DirectMessageHandler;
 import thdl.util.directMessage.DirectMessageParser;
 import thdl.util.log.LogMessageType;
@@ -25,16 +26,20 @@ public class DirectCommandListener extends ListenerAdapter
 		String authorID = event.getAuthor().getId();
 		Logger log = LoggerManager.getLogger(ILogMain.NUM, ILogMain.NAME);
 
-		if (!authorID.equals(selfID) && author.isAdmin())
+		if (!authorID.equals(selfID) && author != null)
 		{
-			log.logState(this.toString(), event.getMessage().toString());
-			try
+			if (author.isAllowed() && !BlackList.isBlocked(event.getAuthor()))
 			{
-				DirectMessageHandler.handleCommand(new DirectMessageParser(raw, event));
-			}
-			catch (Exception e)
-			{
-				log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogMain.CMD_HANDLE_EXC, e.getMessage());
+				log.logState(this.toString(), event.getMessage().toString());
+				try
+				{
+					DirectMessageHandler.handleCommand(new DirectMessageParser(raw, event));
+				}
+				catch (Exception e)
+				{
+					log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogMain.CMD_HANDLE_EXC,
+							e.getMessage());
+				}
 			}
 		}
 	}

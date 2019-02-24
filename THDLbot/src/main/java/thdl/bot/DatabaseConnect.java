@@ -6,8 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import thdl.util.Secrets;
-import thdl.util.Static;
+import thdl.util.ISecrets;
+import thdl.util.IStatic;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
@@ -31,13 +31,13 @@ public class DatabaseConnect
 	 */
 	private void openDB()
 	{
-		String connectionString = Static.DATABASE_NAME + Static.DATABASE_HOST_NAME + ":" + Static.DATABASE_PORT + "/"
-				+ Static.DATABASE_PATH;
+		String connectionString = IStatic.DATABASE_NAME + IStatic.DATABASE_HOST_NAME + ":" + IStatic.DATABASE_PORT + "/"
+				+ IStatic.DATABASE_PATH;
 		try
 		{
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			aConnection = DriverManager.getConnection(connectionString, Static.DATABASE_LOGIN,
-					Secrets.databasePassword);
+			aConnection = DriverManager.getConnection(connectionString, IStatic.DATABASE_LOGIN,
+					ISecrets.databasePassword);
 		}
 		catch (SQLException e)
 		{
