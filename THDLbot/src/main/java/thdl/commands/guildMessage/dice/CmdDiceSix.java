@@ -1,8 +1,11 @@
-package thdl.commands.guildMessage;
+package thdl.commands.guildMessage.dice;
 
 
 import java.util.Random;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import thdl.commands.guildMessage.Command;
+import thdl.commands.guildMessage.IGuildMsgCmd;
+import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.util.DiscordWriter;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;

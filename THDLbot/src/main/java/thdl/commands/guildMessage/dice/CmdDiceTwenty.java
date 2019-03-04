@@ -1,15 +1,18 @@
-package thdl.commands.guildMessage;
+package thdl.commands.guildMessage.dice;
 
 
 import java.util.Random;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import thdl.commands.guildMessage.Command;
+import thdl.commands.guildMessage.IGuildMsgCmd;
+import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.util.DiscordWriter;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
 
 
-public class CmdDiceTwelve implements Command, IDiced
+public class CmdDiceTwenty implements Command, IDiced
 {
 
 	private int				quant	= 0;
@@ -54,8 +57,8 @@ public class CmdDiceTwelve implements Command, IDiced
 		{
 			isCalled = false;
 			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.WRONG_FORMAT,
-					IGuildMsgCmd.INFO_FORMAT_DICE_TWELVE);
-			writer.writeError(IGuildMsgCmd.INFO_FORMAT_DICE_TWELVE);
+					IGuildMsgCmd.INFO_FORMAT_DICE_TWENTY);
+			writer.writeError(IGuildMsgCmd.INFO_FORMAT_DICE_TWENTY);
 		}
 		return isCalled;
 	}
@@ -69,13 +72,13 @@ public class CmdDiceTwelve implements Command, IDiced
 		if (quant > 0)
 		{
 			res = diceMultiple(rn, quant);
-			writer.writeSuccess(e.getMember().getNickname() + IGuildMsgCmd.SUC_DICE_TWELVE_THROW + quant
+			writer.writeSuccess(e.getMember().getNickname() + IGuildMsgCmd.SUC_DICE_TWENTY_THROW + quant
 					+ IGuildMsgCmd.SUC_DICE_TIMES + IGuildMsgCmd.SUC_DICE_GETS_A + res);
 		}
 		else
 		{
 			res = diceOnce(rn);
-			writer.writeSuccess(e.getMember().getNickname() + IGuildMsgCmd.SUC_DICE_TWELVE_THROW
+			writer.writeSuccess(e.getMember().getNickname() + IGuildMsgCmd.SUC_DICE_TWENTY_THROW
 					+ IGuildMsgCmd.SUC_DICE_GETS_A + res);
 		}
 
@@ -88,12 +91,12 @@ public class CmdDiceTwelve implements Command, IDiced
 		if (success)
 		{
 			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
-					ILogGuildCmd.CMD_DICE_TWELVE_SUCCESS);
+					ILogGuildCmd.CMD_DICE_TWENTY_SUCCESS);
 		}
 		else
 		{
 			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
-					ILogGuildCmd.CMD_DICE_TWELVE_FAILED);
+					ILogGuildCmd.CMD_DICE_TWENTY_FAILED);
 		}
 		quant = 0;
 		writer = null;
@@ -109,7 +112,7 @@ public class CmdDiceTwelve implements Command, IDiced
 	@Override
 	public int diceOnce(Random rand)
 	{
-		int result = rand.nextInt(12) + 1;
+		int result = rand.nextInt(20) + 1;
 		String logmsg = "";
 
 		logmsg = ILogGuildCmd.DICED + result;
@@ -123,10 +126,9 @@ public class CmdDiceTwelve implements Command, IDiced
 	{
 		int result = 0;
 		String logmsg = "";
-
 		for (int i = 0; i < quantity; i++)
 		{
-			result = result + rand.nextInt(12) + 1;
+			result = result + rand.nextInt(20) + 1;
 		}
 		logmsg = ILogGuildCmd.DICED + result;
 

@@ -1,4 +1,4 @@
-package thdl.commands.guildMessage;
+package thdl.commands.guildMessage.dice;
 
 
 import java.util.Random;
