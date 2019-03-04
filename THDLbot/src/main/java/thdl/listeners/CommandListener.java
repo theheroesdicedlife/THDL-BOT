@@ -36,7 +36,7 @@ public class CommandListener extends ListenerAdapter
 		// the sender is not the bot itself
 		// the sender does not have the role guest
 		// the message was send in Botting/ rpgBot_Listens_here/Cat for rpg Textchannel
-		if (raw.startsWith(IStatic.PREFIX) && !authorID.equals(selfID) && !member.isGuest()
+		if (raw.startsWith(IStatic.PREFIX) && !authorID.equals(selfID) && member.isAllowed()
 				&& (channel.getId().equals(IDiscordID.BOTTING_ID)
 						|| channel.getId().equals(IDiscordID.BOTISLISTENINGHERE_ID)
 						|| channel.getParent().getId().equals(IDiscordID.RPGTXTCAT_ID)))

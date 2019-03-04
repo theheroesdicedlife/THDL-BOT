@@ -56,7 +56,7 @@ public class CmdDiceSix implements Command, IDiced
 	@Override
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
-		writer = DiscordWriter.createWriter(writer, e);
+		writer = new DiscordWriter(e);
 		log = LoggerManager.getLogger(ILogGuildCmd.NUM, ILogGuildCmd.NAME);
 		Boolean isCalled = false;
 

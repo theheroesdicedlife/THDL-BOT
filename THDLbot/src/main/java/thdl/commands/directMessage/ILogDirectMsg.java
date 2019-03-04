@@ -13,6 +13,7 @@ public interface ILogDirectMsg
 	public final static String	CMD_EXE			= "Direct command executed";
 	public final static String	WRONG_PATTERN	= "Used wrong pattern";
 	public final static String	NO_PERMISSION	= "User-Rank not high enough";
+	public final static String	OPEN_DM_CHANNEL	= "Open a direct message channel";
 
 	// Log-Message
 	public final static String	DMC_PRINTLOGS_SUCCESS	= "The command showLog was executed with success";

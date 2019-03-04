@@ -6,7 +6,7 @@ import thdl.bot.ILogMain;
 import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.ThdlMemberFactory;
-import thdl.util.DiscordWriter;
+import thdl.util.DirectWriter;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
@@ -15,16 +15,24 @@ import thdl.util.log.LoggerManager;
 public class DmPrintLogs implements DirectCommand
 {
 
-	private DiscordWriter	writer	= null;
+	private DirectWriter	writer	= null;
 	private Logger			log		= null;
 
 	@Override
 	public boolean called(String[] args, PrivateMessageReceivedEvent event)
 	{
-		writer = DiscordWriter.createWriter(writer);
-		log = LoggerManager.getLogger(ILogDirectMsg.NUM, ILogDirectMsg.NAME);
 
+		log = LoggerManager.getLogger(ILogDirectMsg.NUM, ILogDirectMsg.NAME);
 		ThdlMember member = ThdlMemberFactory.getMember(event.getAuthor());
+		try
+		{
+			writer = new DirectWriter(member);
+		}
+		catch (Exception e)
+		{
+			log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogDirectMsg.OPEN_DM_CHANNEL,
+					e.getMessage());
+		}
 
 		boolean isOk = false;
 
@@ -36,14 +44,14 @@ public class DmPrintLogs implements DirectCommand
 			}
 			else
 			{
-				writer.writePrivate(IDirectMsgCmd.PATTERN_SHOW_LOG, event.getAuthor());
+				writer.writeMsg(IDirectMsgCmd.PATTERN_SHOW_LOG);
 				log.addMessageToLog(this.toString(), LogMessageType.INFO, ILogDirectMsg.WRONG_PATTERN,
 						IDirectMsgCmd.PATTERN_SHOW_LOG);
 			}
 		}
 		else
 		{
-			writer.writePrivate(IDirectMsgCmd.NO_PERMISSION, event.getAuthor());
+			writer.writeMsg(IDirectMsgCmd.NO_PERMISSION);
 			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.NO_PERMISSION,
 					IDirectMsgCmd.NO_PERMISSION);
 		}
@@ -59,7 +67,7 @@ public class DmPrintLogs implements DirectCommand
 		cmdLog.getLog().printLog();
 		Logger dmLog = LoggerManager.getLogger(ILogDirectMsg.NUM, ILogDirectMsg.NAME);
 		dmLog.getLog().printLog();
-		writer.writePrivate(IDirectMsgCmd.SHOW_LOG, event.getAuthor());
+		writer.writeMsg(IDirectMsgCmd.SHOW_LOG);
 		log.addMessageToLog(this.toString(), LogMessageType.INFO, ILogDirectMsg.SHOW_LOGS, IDirectMsgCmd.SHOW_LOG);
 	}
 

@@ -1,4 +1,4 @@
-package thdl.listeners;
+package thdl.listeners.role;
 
 
 import net.dv8tion.jda.api.events.role.update.RoleUpdatePositionEvent;

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import thdl.bot.ILogMain;
 import thdl.bot.IMainUtil;
 import thdl.commands.directMessage.DirectCommand;
-import thdl.util.DiscordWriter;
+import thdl.util.DirectWriter;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
@@ -19,8 +19,8 @@ public class DirectMessageHandler
 	public static void handleCommand(DirectMessageParser parser) throws Exception
 	{
 		Logger log = LoggerManager.getLogger(ILogMain.NUM, ILogMain.NAME);
-		DiscordWriter writer = null;
-		writer = DiscordWriter.createWriter(writer);
+		DirectWriter writer = null;
+		writer = new DirectWriter(parser.getEvent().getAuthor());
 
 		System.out.println(parser.getInvoke());
 		log.logState(ILogMain.DIRECT_MSG_HANDLER, ILogMain.DIRECT_COMMAND);
@@ -44,7 +44,7 @@ public class DirectMessageHandler
 		{
 			log.addMessageToLog(ILogMain.DIRECT_MSG_HANDLER, LogMessageType.ERROR, ILogMain.COMMAND_UNKNOWN,
 					IMainUtil.NOT_IN_CMD_TABLE);
-			writer.writePrivate(IMainUtil.NOT_A_DM_CMD, parser.getEvent().getAuthor());
+			writer.writeMsg(IMainUtil.NOT_A_DM_CMD);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package thdl.commands.guildMessage;
+package thdl.commands.guildMessage.tale;
 
 
 import java.util.ArrayList;
@@ -10,12 +10,16 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.GuildController;
+import thdl.commands.guildMessage.Command;
+import thdl.commands.guildMessage.IGuildMsgCmd;
+import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.RoleFactory;
 import thdl.lib.factories.discord.TextChannelFactory;
 import thdl.lib.factories.discord.ThdlMemberFactory;
 import thdl.lib.factories.discord.VoiceChannelFactory;
 import thdl.lib.factories.rpg.TaleFactory;
+import thdl.util.DirectWriter;
 import thdl.util.DiscordWriter;
 import thdl.util.IDiscordID;
 import thdl.util.log.LogMessageType;
@@ -27,6 +31,7 @@ public class CmdCreateNewTale implements Command
 {
 
 	private DiscordWriter			writer			= null;
+	private DirectWriter			dmWriter		= null;
 	private Logger					logWriter		= null;
 	private GuildController			controller		= null;
 	private ArrayList<Permission>	allowTxt		= null;
@@ -41,8 +46,17 @@ public class CmdCreateNewTale implements Command
 	{
 		boolean isOk = false;
 		String talename = "";
-		writer = DiscordWriter.createWriter(writer, e);
 		logWriter = LoggerManager.getLogger(ILogGuildCmd.NUM, ILogGuildCmd.NAME);
+		writer = new DiscordWriter(e);
+		try
+		{
+			dmWriter = new DirectWriter(e.getAuthor());
+		}
+		catch (Exception e1)
+		{
+			logWriter.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogGuildCmd.OPEN_DM_CHANNEL,
+					e1.getMessage());
+		}
 
 		ThdlMember member = ThdlMemberFactory.getMember(e.getAuthor());
 
@@ -78,7 +92,7 @@ public class CmdCreateNewTale implements Command
 				isOk = false;
 				logWriter.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.UNAUTHORIZED_USE,
 						IGuildMsgCmd.ERROR_UNAUTHORIZED);
-				writer.writePrivate(IGuildMsgCmd.ERROR_UNAUTHORIZED, e.getAuthor());
+				dmWriter.writeMsg(IGuildMsgCmd.ERROR_UNAUTHORIZED);
 			}
 		}
 		else
@@ -191,6 +205,7 @@ public class CmdCreateNewTale implements Command
 		}
 
 		writer = null;
+		dmWriter = null;
 		controller = null;
 		allowTxt = null;
 		denyTxt = null;

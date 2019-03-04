@@ -36,6 +36,7 @@ public class ThdlMemberFactory
 				{
 					ThdlMember thdlm = new ThdlMember(m);
 					thdlm.setRoles();
+
 					memberList.put(memberID, thdlm);
 				}
 			}

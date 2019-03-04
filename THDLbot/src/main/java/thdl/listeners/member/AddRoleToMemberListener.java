@@ -1,4 +1,4 @@
-package thdl.listeners;
+package thdl.listeners.member;
 
 
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;

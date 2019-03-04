@@ -19,11 +19,6 @@ public class ThdlMember
 		rolesOfMember = new RoleCollection();
 	}
 
-	public boolean isGuest()
-	{
-		return rolesOfMember.containsRoleWithID(IDiscordID.NOT_ALLOWED_ROLE_ID);
-	}
-
 	public boolean isStoryteller()
 	{
 		return rolesOfMember.containsRoleWithID(IDiscordID.STORYTELLER_ROLE_ID);
@@ -31,7 +26,7 @@ public class ThdlMember
 
 	public boolean isAllowed()
 	{
-		return rolesOfMember.containsRoleWithID(IDiscordID.ALLOWED_ROLE_ID);
+		return !rolesOfMember.containsRoleWithID(IDiscordID.NOT_ALLOWED_ROLE_ID);
 	}
 
 	public boolean isAdmin()

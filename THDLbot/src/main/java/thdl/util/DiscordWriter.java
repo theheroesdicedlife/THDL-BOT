@@ -3,80 +3,27 @@ package thdl.util;
 
 import java.awt.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 
 public class DiscordWriter
 {
 
-	private GuildMessageReceivedEvent	event			= null;
-	private TextChannel					channel			= null;
-	private Color						errorColor		= Color.RED;
-	private Color						successColor	= Color.GREEN;
-	private Color						infoColor		= Color.ORANGE;
-	private EmbedBuilder				embedout		= null;
+	private TextChannel		channel			= null;
+	private Color			errorColor		= Color.RED;
+	private Color			successColor	= Color.GREEN;
+	private Color			infoColor		= Color.ORANGE;
+	private EmbedBuilder	embedout		= null;
 
-	private DiscordWriter(TextChannel txt)
+	public DiscordWriter(TextChannel txt)
 	{
 		this.setChannel(txt);
 	}
 
-	private DiscordWriter()
-	{}
-
-	/**
-	 * Creates a new DiscordWriter using a Textchannel
-	 * 
-	 * @param writer
-	 *            DiscordWriter object that needs an instance
-	 * @param txt
-	 *            Textchannel the writer will write into
-	 * @return
-	 */
-	public static DiscordWriter createWriter(DiscordWriter writer, TextChannel txt)
+	public DiscordWriter(GuildMessageReceivedEvent event)
 	{
-		if (writer == null)
-		{
-			writer = new DiscordWriter(txt);
-		}
-		return writer;
-	}
-
-	/**
-	 * Creates a new DiscordWriter without a event
-	 * 
-	 * @param writer
-	 * @return
-	 */
-	public static DiscordWriter createWriter(DiscordWriter writer)
-	{
-		if (writer == null)
-		{
-			writer = new DiscordWriter();
-		}
-		return writer;
-	}
-
-	/**
-	 * Creates a new DiscordWriter using an Event
-	 * 
-	 * @param writer
-	 *            DiscordWriter object that needs an instance
-	 * @param event
-	 *            Event to get the Textchannel the writer will write into
-	 * @return
-	 */
-	public static DiscordWriter createWriter(DiscordWriter writer, GuildMessageReceivedEvent event)
-	{
-		if (writer == null)
-		{
-			writer = new DiscordWriter(event.getChannel());
-		}
-		writer.setEvent(event);
-		return writer;
+		this.channel = event.getChannel();
 	}
 
 	/**
@@ -155,29 +102,6 @@ public class DiscordWriter
 			channel.sendMessage(embedout.build()).queue();
 			embedout = null;
 		}
-	}
-
-	/**
-	 * Writes a private Message to a User
-	 * 
-	 * @param msg
-	 * @param reciever
-	 *            User who receives the private Message
-	 */
-	public void writePrivate(String msg, User reciever)
-	{
-		PrivateChannel privChan = reciever.openPrivateChannel().complete();
-		privChan.sendMessage(msg).queue();
-	}
-
-	public GuildMessageReceivedEvent getEvent()
-	{
-		return event;
-	}
-
-	private void setEvent(GuildMessageReceivedEvent event)
-	{
-		this.event = event;
 	}
 
 	public TextChannel getChannel()
