@@ -1,12 +1,14 @@
 package thdl.lib.factories.rpg;
 
 
+import java.sql.SQLException;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import thdl.lib.collections.rpg.TaleCollection;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.rpg.Tale;
+import thdl.update.rpg.TaleUpdate;
 
 
 public class TaleFactory
@@ -34,28 +36,31 @@ public class TaleFactory
 	 * Creates a Tale if it is not yet created.
 	 * 
 	 * @param taleName
-	 *            Name of the new Tale
+	 *            is the Name of the new Tale
 	 * @param storyteller
-	 *            ThdlMember, who has the storyteller role
+	 *            is the ThdlMember, who has the storyteller role
 	 * @param taleRole
-	 *            Role created for this Tale
+	 *            is the Role created for this Tale
 	 * @param mainChannel
-	 *            TextChannel created for this Tale
+	 *            is the TextChannel created for this Tale
 	 * @param secondaryChannel
-	 *            VoiceChannel created for this Tale
-	 * @return
+	 *            is the VoiceChannel created for this Tale
+	 * @return the new created Tale or the tale which is already in the collection
+	 * @throws SQLException
 	 */
-	public static Tale createTale(String taleName, ThdlMember storyteller, Role taleRole, TextChannel mainChannel,
-			VoiceChannel secondaryChannel)
+	public static Boolean createTale(String taleName, ThdlMember storyteller, Role taleRole, TextChannel mainChannel,
+			VoiceChannel secondaryChannel) throws SQLException
 	{
 		Tale t = new Tale(taleName, storyteller, taleRole, mainChannel, secondaryChannel);
+		TaleUpdate update = TaleUpdate.getInstance();
 		if (taleC.addTale(t))
 		{
-			return t;
+			update.addNewTale(t);
+			return true;
 		}
 		else
 		{
-			return taleC.getTaleByChannel(mainChannel);
+			return false;
 		}
 	}
 

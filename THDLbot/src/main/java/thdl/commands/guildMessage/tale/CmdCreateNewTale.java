@@ -169,10 +169,11 @@ public class CmdCreateNewTale implements Command
 				{
 					logWriter.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
 
-					TaleFactory.createTale(talename, author, role, mainChannel, secondaryChannel);
-					writer.writeSuccess(
-							IGuildMsgCmd.SUC_PNP_CREATED_FIRST + talename + IGuildMsgCmd.SUC_PNP_CREATED_AFTER);
-					// pnp.safeNew();
+					if (TaleFactory.createTale(talename, author, role, mainChannel, secondaryChannel))
+					{
+						writer.writeSuccess(
+								IGuildMsgCmd.SUC_PNP_CREATED_FIRST + talename + IGuildMsgCmd.SUC_PNP_CREATED_AFTER);
+					}
 				}
 				else
 				{
