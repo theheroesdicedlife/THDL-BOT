@@ -19,6 +19,11 @@ public class ThdlMember
 		rolesOfMember = new RoleCollection();
 	}
 
+	public String getUserID()
+	{
+		return discordMember.getUser().getId();
+	}
+
 	public boolean isStoryteller()
 	{
 		return rolesOfMember.containsRoleWithID(IDiscordID.STORYTELLER_ROLE_ID);

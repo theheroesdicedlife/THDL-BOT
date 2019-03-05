@@ -5,9 +5,11 @@ public interface IGuildMsgCmd
 {
 
 	// Error - Messages
-	public static final String	ERROR_NO_MEMBER			= "The Author of this command is not registered";
-	public static final String	ERROR_UNAUTHORIZED		= "You are not a Storyteller";
-	public static final String	ERROR_FALSE_QUANTITY	= "Quantity is not working :frowning:";
+	public static final String	ERROR_NO_MEMBER					= "The Author of this command is not registered";
+	public static final String	ERROR_UNAUTHORIZED				= "You are not a Storyteller";
+	public static final String	ERROR_FALSE_QUANTITY			= "Quantity is not working :frowning:";
+	public static final String	ERROR_NOT_A_TALE_CHANNEL		= "The channel you are using is not the channel of a Tale";
+	public static final String	ERROR_NOT_AUTHORIZED_IN_TALE	= "Only the Storyteller of this tale can use this command";
 
 	// Info - Messages
 	public static final String	INFO_TALE_NAME_IN_USE		= "I'm sorry. The name for your tale is already in use";
@@ -19,6 +21,7 @@ public interface IGuildMsgCmd
 	public static final String	INFO_FORMAT_DICE_TWELVE		= "Please use the format -d12 [quantity] :weary:";
 	public static final String	INFO_FORMAT_DICE_TWENTY		= "Please use the format -d20 [quantity] :weary:";
 	public static final String	INFO_FORMAT_DICE_HUNDRED	= "Please use the format -d100 [quantity] :weary:";
+	public static final String	INFO_PLAYERS_HAVE_JOINED	= "You can't change the tale settings after a player has joined";
 
 	// Success - Messages
 	public static final String	SUC_PNP_CREATED_FIRST	= "The THDL-based PnP ";

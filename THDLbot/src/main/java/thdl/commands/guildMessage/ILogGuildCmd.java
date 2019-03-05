@@ -22,6 +22,8 @@ public interface ILogGuildCmd
 	public static final String	NUMBER_TRY				= "Not a number";
 	public static final String	QUANTITIY_ERROR			= "Quantity is zero or out of range";
 	public static final String	OPEN_DM_CHANNEL			= "Open a direct message channel";
+	public static final String	NO_TALE_FOUND			= "Channel has no Tale";
+	public static final String	ALREADY_PLAYERS_JOINED	= "Already Players in Tale";
 
 	// Log - Messages
 	public static final String	CMD_CREATE_PNP_SUCCESS		= "Command createPnP was executed with success";
