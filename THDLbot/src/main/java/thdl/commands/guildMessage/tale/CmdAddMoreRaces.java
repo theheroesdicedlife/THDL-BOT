@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import thdl.commands.guildMessage.Command;
 import thdl.commands.guildMessage.IGuildMsgCmd;
 import thdl.commands.guildMessage.ILogGuildCmd;
+import thdl.lib.factories.rpg.RaceFactory;
 import thdl.lib.factories.rpg.TaleFactory;
 import thdl.lib.rpg.Tale;
 import thdl.util.DirectWriter;
@@ -20,6 +21,7 @@ public class CmdAddMoreRaces implements Command
 	private DiscordWriter	writer	= null;
 	private DirectWriter	pmWrite	= null;
 	private Logger			log		= null;
+	private Tale			tale	= null;
 
 	/**
 	 * -addRace [racename] ([racename] ...)
@@ -42,7 +44,7 @@ public class CmdAddMoreRaces implements Command
 
 		boolean isOK = false;
 
-		Tale tale = TaleFactory.getTale(e.getChannel());
+		tale = TaleFactory.getTale(e.getChannel());
 
 		if (tale != null)
 		{
@@ -50,8 +52,31 @@ public class CmdAddMoreRaces implements Command
 			{
 				if (!tale.hasPlayer())
 				{
-					// args > 0
-					// rolenames = real rolenames
+					if (args.length > 0)
+					{
+						if (RaceFactory.areRaces(args))
+						{
+							isOK = true;
+						}
+						else
+						{
+							log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.NOT_A_THDL_RACE,
+									IGuildMsgCmd.ERROR_ONE_RACE_NAME_FALSE);
+							writer.writeError(IGuildMsgCmd.ERROR_ONE_RACE_NAME_FALSE);
+							writer.writeInfo(IGuildMsgCmd.INFO_STANDARD_RACE_NAMES);
+							writer.writeInfo(IGuildMsgCmd.INFO_ADVANCED_RACE_NAMES);
+
+							isOK = false;
+						}
+					}
+					else
+					{
+						log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.WRONG_FORMAT,
+								IGuildMsgCmd.INFO_FORMAT_ADD_ROLES);
+						writer.writeInfo(IGuildMsgCmd.INFO_FORMAT_ADD_ROLES);
+
+						isOK = false;
+					}
 				}
 				else
 				{
@@ -88,15 +113,37 @@ public class CmdAddMoreRaces implements Command
 	@Override
 	public void action(String[] args, GuildMessageReceivedEvent e) throws Exception
 	{
-		// TODO Auto-generated method stub
+		addRacesToTale(args);
+	}
 
+	private void addRacesToTale(String[] names)
+	{
+		for (String name : names)
+		{
+			if (!tale.isRaceInTale(name))
+			{
+				tale.addRace(name);
+			}
+		}
 	}
 
 	@Override
 	public void executed(boolean success, GuildMessageReceivedEvent event)
 	{
-		// TODO Auto-generated method stub
+		if (success)
+		{
+			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
+					ILogGuildCmd.CMD_ADD_RACE_SUCCESS);
+		}
+		else
+		{
+			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
+					ILogGuildCmd.CMD_ADD_RACE_FAILED);
+		}
 
+		writer = null;
+		pmWrite = null;
+		tale = null;
 	}
 
 	@Override

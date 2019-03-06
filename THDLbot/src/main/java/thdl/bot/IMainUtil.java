@@ -17,6 +17,7 @@ public interface IMainUtil
 	public static final String	DICE_D100_CMD	= "d100";
 	// before-start-commands
 	public static final String	PNP_CREATION_CMD		= "createPnP";
+	public static final String	ADD_RACES_TO_PNP		= "addRace";
 	public static final String	CHARACTER_CREATION_CMD	= "createCharacter";
 	public static final String	ADD_PLAYER_CMD			= "addPlayer";
 	public static final String	START_THE_PNP_CMD		= "start";

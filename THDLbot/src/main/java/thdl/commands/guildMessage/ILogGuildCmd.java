@@ -24,6 +24,7 @@ public interface ILogGuildCmd
 	public static final String	OPEN_DM_CHANNEL			= "Open a direct message channel";
 	public static final String	NO_TALE_FOUND			= "Channel has no Tale";
 	public static final String	ALREADY_PLAYERS_JOINED	= "Already Players in Tale";
+	public static final String	NOT_A_THDL_RACE			= "Not the name of a THDL-Race";
 
 	// Log - Messages
 	public static final String	CMD_CREATE_PNP_SUCCESS		= "Command createPnP was executed with success";
@@ -42,5 +43,7 @@ public interface ILogGuildCmd
 	public static final String	CMD_DICE_TWENTY_FAILED		= "Command -d20 could not be executed with success";
 	public static final String	CMD_DICE_HUNDRED_SUCCESS	= "Command -d100 was executed with success";
 	public static final String	CMD_DICE_HUNDRED_FAILED		= "Command -d100 could not be executed with success";
+	public static final String	CMD_ADD_RACE_SUCCESS		= "Command -addRace was executed with success";
+	public static final String	CMD_ADD_RACE_FAILED			= "Command -addRace could not be executed with success";
 	public static final String	DICED						= "Diced: ";
 }
