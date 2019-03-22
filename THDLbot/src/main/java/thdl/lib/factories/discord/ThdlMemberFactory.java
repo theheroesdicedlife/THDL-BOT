@@ -15,6 +15,10 @@ import thdl.util.log.LoggerManager;
 public class ThdlMemberFactory
 {
 
+	/**
+	 * Key = Id of a Discord-User
+	 * Value = specific ThdlMember for that same user
+	 */
 	private static HashMap<String, ThdlMember> memberList = new HashMap<String, ThdlMember>();
 
 	/**
@@ -75,7 +79,7 @@ public class ThdlMemberFactory
 	 * @return
 	 * 		An member or null if nothing was found
 	 */
-	public static ThdlMember getMemberByID(String id)
+	public static ThdlMember getMember(String id)
 	{
 		if (id != "")
 			return memberList.get(id);

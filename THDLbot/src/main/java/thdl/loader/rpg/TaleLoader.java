@@ -78,7 +78,7 @@ public class TaleLoader
 		mainChannelID = result.getString(5);
 		secondChannelID = result.getString(6);
 
-		storyteller = ThdlMemberFactory.getMemberByID(tellerID);
+		storyteller = ThdlMemberFactory.getMember(tellerID);
 		taleRole = RoleFactory.getRoleByID(roleID);
 		mainChannel = TextChannelFactory.getChannel(mainChannelID);
 		secondaryChannel = VoiceChannelFactory.getChannel(secondChannelID);
