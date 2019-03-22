@@ -22,7 +22,7 @@ public class Logger
 	{
 		if (log == null)
 		{
-			log = new Log(this, logName, logNum);
+			log = new Log(logName, logNum);
 		}
 	}
 

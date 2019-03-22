@@ -1,6 +1,7 @@
 package thdl.util.log;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -10,16 +11,16 @@ public class Log
 	private int						logObjNumber;
 	private String					logName;
 	private String					logNum;
-	private ArrayList<LogObject>	logEntries	= null;
-	private Logger					logWriter	= null;
+	private ArrayList<LogObject>	logEntries		= null;
+	private LocalDateTime			creationTime	= null;
 
-	protected Log(Logger logWriter, String logName, String logNum)
+	protected Log(String logName, String logNum)
 	{
-		this.logWriter = logWriter;
 		this.logName = logName;
 		this.logNum = logNum;
 		logEntries = new ArrayList<LogObject>();
 		logObjNumber = 0;
+		creationTime = LocalDateTime.now();
 	}
 
 	public String getLogName()
@@ -89,9 +90,11 @@ public class Log
 	{
 		String output = "";
 		output = IStaticLog.LOG + this.logName;
-		output = output + IStaticLog.NUM + logNum + IStaticLog.LINE_BREAK + IStaticLog.LINE_BREAK;
+		output = output + IStaticLog.NUM + logNum + IStaticLog.COMMA + creationTime.toString() + IStaticLog.LINE_BREAK
+				+ IStaticLog.LINE_BREAK;
 		for (LogObject lo : logEntries)
 		{
+			output = output + lo.getTimeStamp();
 			output = output + IStaticLog.ENTRY + lo.getLogNumber();
 			output = output + IStaticLog.CAUSE + lo.getCauseObject() + IStaticLog.COMMA + lo.getCause();
 			output = output + IStaticLog.MESSAGE + lo.getMessage() + IStaticLog.LINE_BREAK;

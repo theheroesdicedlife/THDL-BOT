@@ -1,6 +1,9 @@
 package thdl.util.log;
 
 
+import java.time.LocalDateTime;
+
+
 public class LogObject
 {
 
@@ -9,6 +12,7 @@ public class LogObject
 	private LogMessageType	type;
 	private String			cause;
 	private String			message;
+	private LocalDateTime	timeStamp;
 
 	protected LogObject(int logNumber, String causeObject, LogMessageType type, String cause, String message)
 	{
@@ -18,6 +22,7 @@ public class LogObject
 		this.type = type;
 		this.message = message;
 		this.cause = cause;
+		timeStamp = LocalDateTime.now();
 	}
 
 	protected String getCauseObject()
@@ -63,6 +68,11 @@ public class LogObject
 	protected int getLogNumber()
 	{
 		return logNumber;
+	}
+
+	protected String getTimeStamp()
+	{
+		return timeStamp.toString();
 	}
 
 }

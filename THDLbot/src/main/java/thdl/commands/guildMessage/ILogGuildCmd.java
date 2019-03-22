@@ -25,6 +25,7 @@ public interface ILogGuildCmd
 	public static final String	NO_TALE_FOUND			= "Channel has no Tale";
 	public static final String	ALREADY_PLAYERS_JOINED	= "Already Players in Tale";
 	public static final String	NOT_A_THDL_RACE			= "Not the name of a THDL-Race";
+	public static final String	DB_UPDATE_FAILED		= "Update to database failed";
 
 	// Log - Messages
 	public static final String	CMD_CREATE_PNP_SUCCESS		= "Command createPnP was executed with success";

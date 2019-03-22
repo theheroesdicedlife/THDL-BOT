@@ -1,6 +1,7 @@
 package thdl.commands.guildMessage.tale;
 
 
+import java.sql.SQLException;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import thdl.commands.guildMessage.Command;
 import thdl.commands.guildMessage.IGuildMsgCmd;
@@ -8,6 +9,7 @@ import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.lib.factories.rpg.RaceFactory;
 import thdl.lib.factories.rpg.TaleFactory;
 import thdl.lib.rpg.Tale;
+import thdl.update.rpg.TaleUpdate;
 import thdl.util.DirectWriter;
 import thdl.util.DiscordWriter;
 import thdl.util.log.LogMessageType;
@@ -124,6 +126,16 @@ public class CmdAddMoreRaces implements Command
 			{
 				tale.addRace(name);
 			}
+		}
+
+		try
+		{
+			TaleUpdate.getInstance().updateTaleRaces(tale);
+		}
+		catch (SQLException e)
+		{
+			log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogGuildCmd.DB_UPDATE_FAILED,
+					e.getMessage());
 		}
 	}
 
