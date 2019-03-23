@@ -33,16 +33,15 @@ public class CmdAddMoreRaces implements Command
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
 		writer = new DiscordWriter(e);
+		log = LoggerManager.getLogger(ILogGuildCmd.NUM, ILogGuildCmd.NAME);
 		try
 		{
 			pmWrite = new DirectWriter(e.getAuthor());
 		}
 		catch (Exception e1)
 		{
-			log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogGuildCmd.OPEN_DM_CHANNEL,
-					e1.getMessage());
+			log.logException(this.toString(), ILogGuildCmd.OPEN_DM_CHANNEL, e1.getMessage());
 		}
-		log = LoggerManager.getLogger(ILogGuildCmd.NUM, ILogGuildCmd.NAME);
 
 		boolean isOK = false;
 
@@ -62,8 +61,7 @@ public class CmdAddMoreRaces implements Command
 						}
 						else
 						{
-							log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.NOT_A_THDL_RACE,
-									IGuildMsgCmd.ERROR_ONE_RACE_NAME_FALSE);
+							log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NOT_A_THDL_RACE);
 							writer.writeError(IGuildMsgCmd.ERROR_ONE_RACE_NAME_FALSE);
 							writer.writeInfo(IGuildMsgCmd.INFO_STANDARD_RACE_NAMES);
 							writer.writeInfo(IGuildMsgCmd.INFO_ADVANCED_RACE_NAMES);
@@ -73,16 +71,15 @@ public class CmdAddMoreRaces implements Command
 					}
 					else
 					{
-						log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.WRONG_FORMAT,
-								IGuildMsgCmd.INFO_FORMAT_ADD_ROLES);
-						writer.writeInfo(IGuildMsgCmd.INFO_FORMAT_ADD_ROLES);
+						log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, IGuildMsgCmd.INFO_FORMAT_ADD_RACE);
+						writer.writeInfo(IGuildMsgCmd.INFO_FORMAT_ADD_RACE);
 
 						isOK = false;
 					}
 				}
 				else
 				{
-					log.addMessageToLog(this.toString(), LogMessageType.INFO, ILogGuildCmd.ALREADY_PLAYERS_JOINED,
+					log.logInfo(this.toString(), ILogGuildCmd.ALREADY_PLAYERS_JOINED,
 							IGuildMsgCmd.INFO_PLAYERS_HAVE_JOINED);
 					writer.writeInfo(IGuildMsgCmd.INFO_PLAYERS_HAVE_JOINED);
 
@@ -91,8 +88,7 @@ public class CmdAddMoreRaces implements Command
 			}
 			else
 			{
-				log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.UNAUTHORIZED_USE,
-						IGuildMsgCmd.ERROR_NOT_AUTHORIZED_IN_TALE);
+				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.UNAUTHORIZED_USE);
 				writer.writeError(IGuildMsgCmd.ERROR_NOT_AUTHORIZED_IN_TALE);
 
 				isOK = false;
@@ -100,8 +96,7 @@ public class CmdAddMoreRaces implements Command
 		}
 		else
 		{
-			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.NO_TALE_FOUND,
-					IGuildMsgCmd.ERROR_NOT_A_TALE_CHANNEL);
+			log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_TALE_FOUND);
 			pmWrite.writeMsg(IGuildMsgCmd.ERROR_NOT_A_TALE_CHANNEL);
 
 			e.getMessage().delete().queue();
@@ -120,11 +115,17 @@ public class CmdAddMoreRaces implements Command
 
 	private void addRacesToTale(String[] names)
 	{
+		StringBuilder msg = new StringBuilder();
+		msg.append(IGuildMsgCmd.INFO_RACES_ADDED + tale.getTaleName() + IGuildMsgCmd.NEXT_LINE);
+
 		for (String name : names)
 		{
 			if (!tale.isRaceInTale(name))
 			{
+				msg.append(name);
 				tale.addRace(name);
+
+				writer.writeInfo(msg.toString());
 			}
 		}
 
@@ -134,8 +135,7 @@ public class CmdAddMoreRaces implements Command
 		}
 		catch (SQLException e)
 		{
-			log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogGuildCmd.DB_UPDATE_FAILED,
-					e.getMessage());
+			log.logException(this.toString(), ILogGuildCmd.DB_UPDATE_FAILED, e.getMessage());
 		}
 	}
 

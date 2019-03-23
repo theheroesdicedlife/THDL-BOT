@@ -23,7 +23,7 @@ public class ThdlMemberFactory
 
 	/**
 	 * Takes the members in the connected guild and creates a ThdlMember-Object for
-	 * each of them, if the member is not not in the list yet.
+	 * each of them, if the member is not in the list yet.
 	 * 
 	 * 
 	 * @param host

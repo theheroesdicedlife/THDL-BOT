@@ -30,8 +30,7 @@ public class DmPrintLogs implements DirectCommand
 		}
 		catch (Exception e)
 		{
-			log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogDirectMsg.OPEN_DM_CHANNEL,
-					e.getMessage());
+			log.logException(this.toString(), ILogDirectMsg.OPEN_DM_CHANNEL, e.getMessage());
 		}
 
 		boolean isOk = false;
@@ -45,15 +44,13 @@ public class DmPrintLogs implements DirectCommand
 			else
 			{
 				writer.writeMsg(IDirectMsgCmd.PATTERN_SHOW_LOG);
-				log.addMessageToLog(this.toString(), LogMessageType.INFO, ILogDirectMsg.WRONG_PATTERN,
-						IDirectMsgCmd.PATTERN_SHOW_LOG);
+				log.logInfo(this.toString(), ILogDirectMsg.WRONG_PATTERN, IDirectMsgCmd.PATTERN_SHOW_LOG);
 			}
 		}
 		else
 		{
 			writer.writeMsg(IDirectMsgCmd.NO_PERMISSION);
-			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.NO_PERMISSION,
-					IDirectMsgCmd.NO_PERMISSION);
+			log.logErrorWithoutMsg(this.toString(), ILogDirectMsg.NO_PERMISSION);
 		}
 		return isOk;
 	}

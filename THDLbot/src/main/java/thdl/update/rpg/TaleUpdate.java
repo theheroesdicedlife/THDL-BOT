@@ -42,7 +42,7 @@ public class TaleUpdate implements IStaticSQL
 		sqlBuilder.append(COMMA + t.getTaleRole().getId());
 		sqlBuilder.append(COMMA + t.getMainChannel().getId() + COMMA + t.getSecondaryChannel().getId() + BRK_CLOSE);
 
-		dbc.updateData(sqlBuilder.toString());
+		// dbc.updateData(sqlBuilder.toString());
 	}
 
 	/**

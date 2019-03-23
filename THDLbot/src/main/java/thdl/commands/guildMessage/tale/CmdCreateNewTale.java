@@ -32,7 +32,7 @@ public class CmdCreateNewTale implements Command
 
 	private DiscordWriter			writer			= null;
 	private DirectWriter			dmWriter		= null;
-	private Logger					logWriter		= null;
+	private Logger					log				= null;
 	private GuildController			controller		= null;
 	private ArrayList<Permission>	allowTxt		= null;
 	private ArrayList<Permission>	denyTxt			= null;
@@ -46,7 +46,7 @@ public class CmdCreateNewTale implements Command
 	{
 		boolean isOk = false;
 		String talename = "";
-		logWriter = LoggerManager.getLogger(ILogGuildCmd.NUM, ILogGuildCmd.NAME);
+		log = LoggerManager.getLogger(ILogGuildCmd.NUM, ILogGuildCmd.NAME);
 		writer = new DiscordWriter(e);
 		try
 		{
@@ -54,8 +54,8 @@ public class CmdCreateNewTale implements Command
 		}
 		catch (Exception e1)
 		{
-			logWriter.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogGuildCmd.OPEN_DM_CHANNEL,
-					e1.getMessage());
+			log.logException(this.toString(), ILogGuildCmd.OPEN_DM_CHANNEL, e1.getMessage());
+
 		}
 
 		ThdlMember member = ThdlMemberFactory.getMember(e.getAuthor());
@@ -74,24 +74,22 @@ public class CmdCreateNewTale implements Command
 					else
 					{
 						isOk = false;
-						logWriter.addMessageToLog(this.toString(), LogMessageType.INFO, ILogGuildCmd.NAME_IN_USE,
-								IGuildMsgCmd.INFO_TALE_NAME_IN_USE);
+						log.logInfo(this.toString(), ILogGuildCmd.NAME_IN_USE, IGuildMsgCmd.INFO_TALE_NAME_IN_USE);
 						writer.writeInfo(IGuildMsgCmd.INFO_TALE_NAME_IN_USE);
 					}
 				}
 				else
 				{
 					isOk = false;
-					logWriter.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.WRONG_FORMAT,
-							IGuildMsgCmd.INFO_FORMAT_CREATE_TALE);
+					log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, IGuildMsgCmd.INFO_FORMAT_CREATE_TALE);
 					writer.writeInfo(IGuildMsgCmd.INFO_FORMAT_CREATE_TALE);
 				}
 			}
 			else
 			{
 				isOk = false;
-				logWriter.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.UNAUTHORIZED_USE,
-						IGuildMsgCmd.ERROR_UNAUTHORIZED);
+
+				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.UNAUTHORIZED_USE);
 				dmWriter.writeMsg(IGuildMsgCmd.ERROR_UNAUTHORIZED);
 			}
 		}
@@ -99,7 +97,7 @@ public class CmdCreateNewTale implements Command
 		{
 			isOk = false;
 			String error = e.getGuild().getOwner().getAsMention() + " " + IGuildMsgCmd.ERROR_NO_MEMBER;
-			logWriter.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.NO_MEMBER,
+			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.NO_MEMBER,
 					IGuildMsgCmd.ERROR_NO_MEMBER);
 			writer.writeError(error);
 		}
@@ -116,9 +114,7 @@ public class CmdCreateNewTale implements Command
 		}
 		catch (Exception e1)
 		{
-			e1.printStackTrace();
-			logWriter.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogGuildCmd.CREATE_TALE_EXCEPTION,
-					e1.getMessage());
+			log.logException(this.toString(), ILogGuildCmd.CREATE_TALE_EXCEPTION, e1.getMessage());
 		}
 	}
 
@@ -140,7 +136,8 @@ public class CmdCreateNewTale implements Command
 		Guild guild = e.getGuild();
 		controller = openControl(e);
 
-		Category parent = guild.getCategoryById(IDiscordID.RPGTXTCAT_ID);
+		Category parentTxt = guild.getCategoryById(IDiscordID.RPGTXTCAT_ID);
+		Category parentVc = guild.getCategoryById(IDiscordID.RPGVCCAT_ID);
 		Role everyone = guild.getPublicRole();
 		ThdlMember author = ThdlMemberFactory.getMember(e.getAuthor());
 
@@ -151,23 +148,23 @@ public class CmdCreateNewTale implements Command
 
 		if (role != null)
 		{
-			logWriter.logState(this.toString(), ILogGuildCmd.ROLE_CREATE);
+			log.logState(this.toString(), ILogGuildCmd.ROLE_CREATE);
 
 			controller.addSingleRoleToMember(e.getMember(), role).queue();
 
-			TextChannel mainChannel = TextChannelFactory.createTextChannel(controller, talename, parent, everyone, role,
-					null, allowTxt, denyEveryoneTxt, denyTxt);
+			TextChannel mainChannel = TextChannelFactory.createTextChannel(controller, talename, parentTxt, everyone,
+					role, null, allowTxt, denyEveryoneTxt, denyTxt);
 
 			if (mainChannel != null)
 			{
-				logWriter.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
+				log.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
 
-				VoiceChannel secondaryChannel = VoiceChannelFactory.createVoiceChannel(controller, voicename, parent,
+				VoiceChannel secondaryChannel = VoiceChannelFactory.createVoiceChannel(controller, voicename, parentVc,
 						everyone, role, null, allowVc, denyEveryoneVc, denyVc);
 
 				if (secondaryChannel != null)
 				{
-					logWriter.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
+					log.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
 
 					if (TaleFactory.createTale(talename, author, role, mainChannel, secondaryChannel))
 					{
@@ -177,17 +174,17 @@ public class CmdCreateNewTale implements Command
 				}
 				else
 				{
-					logWriter.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_CHANNEL);
+					log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_CHANNEL);
 				}
 			}
 			else
 			{
-				logWriter.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_CHANNEL);
+				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_CHANNEL);
 			}
 		}
 		else
 		{
-			logWriter.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_ROLE);
+			log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_ROLE);
 		}
 	}
 
@@ -196,12 +193,12 @@ public class CmdCreateNewTale implements Command
 	{
 		if (success)
 		{
-			logWriter.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
+			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
 					ILogGuildCmd.CMD_CREATE_PNP_SUCCESS);
 		}
 		else
 		{
-			logWriter.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
+			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogGuildCmd.CMD_EXE,
 					ILogGuildCmd.CMD_CREATE_PNP_FAILED);
 		}
 

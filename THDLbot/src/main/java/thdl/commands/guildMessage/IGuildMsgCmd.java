@@ -4,6 +4,9 @@ package thdl.commands.guildMessage;
 public interface IGuildMsgCmd
 {
 
+	// Others:
+	public static final String NEXT_LINE = "\n";
+
 	// Error - Messages
 	public static final String	ERROR_NO_MEMBER					= "The Author of this command is not registered";
 	public static final String	ERROR_UNAUTHORIZED				= "You are not a Storyteller";
@@ -22,10 +25,17 @@ public interface IGuildMsgCmd
 	public static final String	INFO_FORMAT_DICE_TWELVE		= "Please use the format -d12 [quantity] :weary:";
 	public static final String	INFO_FORMAT_DICE_TWENTY		= "Please use the format -d20 [quantity] :weary:";
 	public static final String	INFO_FORMAT_DICE_HUNDRED	= "Please use the format -d100 [quantity] :weary:";
-	public static final String	INFO_FORMAT_ADD_ROLES		= "You should use the format -addRace [racename] ([racename] ...)";
+	public static final String	INFO_FORMAT_ADD_RACE		= "You should use the format -addRace [racename] ([racename] ...)";
+	public static final String	INFO_FORMAT_INVITE_PLAYERS	= "You should use the format -invite [@username] ([@username] ...";
 	public static final String	INFO_PLAYERS_HAVE_JOINED	= "You can't change the tale settings after a player has joined";
 	public static final String	INFO_STANDARD_RACE_NAMES	= "The names of the standard THDL-Races are: Human, Elf, Dwarf, Orc, Halfelf, Str-Type-Demi, Psy-Type-Demi, Dex-Type-Demi";
 	public static final String	INFO_ADVANCED_RACE_NAMES	= "The names of the advanced THDL-Raceset are: Oger, Gnome, Fallen Angel, Angel, Oni, Humanoid Slime, Liszardman, Goblin";
+	public static final String	INFO_RACES_ADDED			= "The following races were added to the pnp ";
+	public static final String	INFO_TALE_IS_RUNNING		= "I'm sorry, but you can't invite any people as long the tale is running";
+	public static final String	INFO_INVITED				= " was invited to the tale";
+	public static final String	INFO_COULD_NOT_INVITE		= " couln't be invited, because ";
+	public static final String	INFO_NO_INV_CAUSE_NO_MEMBER	= "this is not a member!";
+	public static final String	INFO_NO_INV_CAUSE_NOT_AUTH	= "he/she is not a ~Fighter or higher";
 
 	// Success - Messages
 	public static final String	SUC_PNP_CREATED_FIRST	= "The THDL-based PnP ";
@@ -40,6 +50,9 @@ public interface IGuildMsgCmd
 	public static final String	SUC_DICE_TIMES			= " times ";
 	public static final String	SUC_DICE_GETS_A			= "and gets a ";
 
-	// Exception - Messages
-	public static final String EXC_NUMBER_FORMAT = "Quantity is not a number";
+	// DM - Messages
+	public static final String	DM_INV_TO		= "Hello! You were invited to play ";
+	public static final String	DM_ANSW_INV		= "Please answer the invitation.";
+	public static final String	DM_ACCEPT_INV	= "If you want to join, type 'accept', ";
+	public static final String	DM_DECLINE_INV	= "if not, type 'decline' under this message";
 }

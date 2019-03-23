@@ -71,8 +71,7 @@ public class CmdDiceSix implements Command, IDiced
 			}
 			catch (Exception exc)
 			{
-				log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogGuildCmd.NUMBER_TRY,
-						IGuildMsgCmd.EXC_NUMBER_FORMAT);
+				log.logException(this.toString(), ILogGuildCmd.NUMBER_TRY, e.getMessageId());
 			}
 
 			if (quant >= 1 && quant <= 100)
@@ -81,8 +80,7 @@ public class CmdDiceSix implements Command, IDiced
 			}
 			else
 			{
-				log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.QUANTITIY_ERROR,
-						IGuildMsgCmd.ERROR_FALSE_QUANTITY);
+				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.QUANTITIY_ERROR);
 				writer.writeError(IGuildMsgCmd.ERROR_FALSE_QUANTITY);
 			}
 		}
@@ -93,8 +91,7 @@ public class CmdDiceSix implements Command, IDiced
 		else
 		{
 			isCalled = false;
-			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.WRONG_FORMAT,
-					IGuildMsgCmd.INFO_FORMAT_DICE_SIX);
+			log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, IGuildMsgCmd.INFO_FORMAT_DICE_SIX);
 			writer.writeError(IGuildMsgCmd.INFO_FORMAT_DICE_SIX);
 		}
 		return isCalled;

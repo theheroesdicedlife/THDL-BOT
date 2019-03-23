@@ -25,7 +25,7 @@ public class CommandListener extends ListenerAdapter
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event)
 	{
-		String raw = event.getMessage().getContentDisplay();
+		String raw = event.getMessage().getContentRaw();
 		Logger log = LoggerManager.getLogger(ILogMain.NUM, ILogMain.NAME);
 		TextChannel channel = event.getChannel();
 		ThdlMember member = ThdlMemberFactory.getMember(event.getAuthor());

@@ -1,9 +1,11 @@
 package thdl.lib.discord;
 
 
+import java.util.ArrayList;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import thdl.lib.collections.discord.RoleCollection;
+import thdl.lib.rpg.Tale;
 import thdl.util.IDiscordID;
 
 
@@ -12,11 +14,13 @@ public class ThdlMember
 
 	private Member			discordMember;
 	private RoleCollection	rolesOfMember	= null;
+	private ArrayList<Tale>	invitedTo		= null;
 
 	public ThdlMember(Member discordMember)
 	{
 		this.discordMember = discordMember;
 		rolesOfMember = new RoleCollection();
+		invitedTo = new ArrayList<Tale>();
 	}
 
 	public String getUserID()
@@ -52,6 +56,14 @@ public class ThdlMember
 		for (Role r : discordMember.getRoles())
 		{
 			rolesOfMember.addRole(r);
+		}
+	}
+
+	public void addInviteTo(Tale tale)
+	{
+		if (!invitedTo.contains(tale))
+		{
+			invitedTo.add(tale);
 		}
 	}
 }

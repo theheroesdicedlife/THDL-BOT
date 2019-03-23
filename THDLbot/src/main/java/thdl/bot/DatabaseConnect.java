@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import thdl.util.ISecrets;
 import thdl.util.IStatic;
-import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
 
@@ -42,7 +41,7 @@ public class DatabaseConnect
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogMain.DB_CONNECT, e.getMessage());
+			log.logException(this.toString(), ILogMain.DB_CONNECT, e.getMessage());
 		}
 	}
 
@@ -61,7 +60,7 @@ public class DatabaseConnect
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogMain.DB_RECONNECT, e.getMessage());
+			log.logException(this.toString(), ILogMain.DB_RECONNECT, e.getMessage());
 		}
 	}
 
@@ -118,8 +117,7 @@ public class DatabaseConnect
 			catch (SQLException e)
 			{
 				e.printStackTrace();
-				log.addMessageToLog(this.toString(), LogMessageType.EXCEPTION, ILogMain.DB_CONNECT_CLOSE,
-						e.getMessage());
+				log.logException(this.toString(), ILogMain.DB_CONNECT_CLOSE, e.getMessage());
 			}
 		}
 	}

@@ -16,6 +16,7 @@ import thdl.commands.guildMessage.dice.CmdDiceTwelve;
 import thdl.commands.guildMessage.dice.CmdDiceTwenty;
 import thdl.commands.guildMessage.tale.CmdAddMoreRaces;
 import thdl.commands.guildMessage.tale.CmdCreateNewTale;
+import thdl.commands.guildMessage.tale.CmdInvitePlayerToTale;
 import thdl.listeners.CommandListener;
 import thdl.listeners.DirectCommandListener;
 import thdl.listeners.ReadyListener;
@@ -71,7 +72,7 @@ public class MainBot
 		CommandHandler.commands.put(IMainUtil.DICE_D100_CMD, new CmdDiceHundred());
 		CommandHandler.commands.put(IMainUtil.PNP_CREATION_CMD, new CmdCreateNewTale());
 		CommandHandler.commands.put(IMainUtil.ADD_RACES_TO_PNP, new CmdAddMoreRaces());
-		// CommandHandler.commands.put(IMainUtil.ADD_PLAYER_CMD, new CmdAddPlayer());
+		CommandHandler.commands.put(IMainUtil.INVITE_PLAYERS, new CmdInvitePlayerToTale());
 		// CommandHandler.commands.put(IMainUtil.CHARACTER_CREATION_CMD, new
 		// CmdCreateCharacter());
 		// CommandHandler.commands.put(IMainUtil.START_THE_PNP_CMD, new CmdStartTale());

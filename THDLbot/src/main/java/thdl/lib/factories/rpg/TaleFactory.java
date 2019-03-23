@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import thdl.lib.collections.rpg.TaleCollection;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.rpg.Tale;
-import thdl.update.rpg.TaleUpdate;
 
 
 public class TaleFactory
@@ -52,10 +51,10 @@ public class TaleFactory
 			VoiceChannel secondaryChannel) throws SQLException
 	{
 		Tale t = new Tale(taleName, storyteller, taleRole, mainChannel, secondaryChannel);
-		TaleUpdate update = TaleUpdate.getInstance();
+		// TaleUpdate update = TaleUpdate.getInstance();
 		if (taleC.addTale(t))
 		{
-			update.addNewTale(t);
+			// update.addNewTale(t);
 			return true;
 		}
 		else

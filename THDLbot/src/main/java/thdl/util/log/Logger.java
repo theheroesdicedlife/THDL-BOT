@@ -91,9 +91,9 @@ public class Logger
 	 * Logs an error without a message
 	 * 
 	 * @param causeObject
-	 *            the Object or Class causing the error
+	 *            is the Object or Class causing the error
 	 * @param cause
-	 *            the error, which is thrown
+	 *            is the cause of the error
 	 */
 	public void logErrorWithoutMsg(String causeObject, String cause)
 	{
@@ -102,6 +102,50 @@ public class Logger
 			if (log != null)
 			{
 				LogObject lo = log.createLogObject(causeObject, LogMessageType.ERROR, cause, "");
+				log.addLogObject(lo);
+			}
+		}
+	}
+
+	/**
+	 * Logs an information
+	 * 
+	 * @param causeObject
+	 *            is the Object or Class which is informing
+	 * @param cause
+	 *            is the cause of the information
+	 * @param msg
+	 *            is the information
+	 */
+	public void logInfo(String causeObject, String cause, String msg)
+	{
+		if (!causeObject.equals("") && !cause.equals("") && !msg.equals(""))
+		{
+			if (log != null)
+			{
+				LogObject lo = log.createLogObject(causeObject, LogMessageType.INFO, cause, msg);
+				log.addLogObject(lo);
+			}
+		}
+	}
+
+	/**
+	 * Logs a try-catch-exception
+	 * 
+	 * @param causeObject
+	 *            is the Object or Class in which the exception was caught
+	 * @param cause
+	 *            is the cause why the exception was thrown
+	 * @param msg
+	 *            is the message given by exception.getMessage()
+	 */
+	public void logException(String causeObject, String cause, String msg)
+	{
+		if (!causeObject.equals("") && !cause.equals("") && !msg.equals(""))
+		{
+			if (log != null)
+			{
+				LogObject lo = log.createLogObject(causeObject, LogMessageType.EXCEPTION, cause, msg);
 				log.addLogObject(lo);
 			}
 		}

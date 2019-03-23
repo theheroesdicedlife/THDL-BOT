@@ -26,6 +26,10 @@ public interface ILogGuildCmd
 	public static final String	ALREADY_PLAYERS_JOINED	= "Already Players in Tale";
 	public static final String	NOT_A_THDL_RACE			= "Not the name of a THDL-Race";
 	public static final String	DB_UPDATE_FAILED		= "Update to database failed";
+	public static final String	TALE_STARTED			= "The Tale is started";
+	public static final String	NOT_A_MEMBER			= " is not a member";
+	public static final String	CANT_PLAY				= " is not authorized to play";
+	public static final String	INVITED					= " was invited to play ";
 
 	// Log - Messages
 	public static final String	CMD_CREATE_PNP_SUCCESS		= "Command createPnP was executed with success";
@@ -46,5 +50,7 @@ public interface ILogGuildCmd
 	public static final String	CMD_DICE_HUNDRED_FAILED		= "Command -d100 could not be executed with success";
 	public static final String	CMD_ADD_RACE_SUCCESS		= "Command -addRace was executed with success";
 	public static final String	CMD_ADD_RACE_FAILED			= "Command -addRace could not be executed with success";
+	public static final String	CMD_INVITE_SUCCESS			= "Command -invite was executed with success";
+	public static final String	CMD_INVITE_FAILED			= "Command -invite could not be executed with success";
 	public static final String	DICED						= "Diced: ";
 }

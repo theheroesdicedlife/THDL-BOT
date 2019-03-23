@@ -24,6 +24,7 @@ public class Tale
 	private HashMap<String, ThdlMember>	invites				= null;
 	private HashMap<String, ThdlMember>	player				= null;
 	private ArrayList<String>			racesInTale			= null;
+	private boolean						isStarted;
 
 	public Tale(String taleName, ThdlMember storyteller, Role taleRole, TextChannel mainChannel,
 			VoiceChannel secondaryChannel)
@@ -44,6 +45,7 @@ public class Tale
 		player = new HashMap<String, ThdlMember>();
 		racesInTale = new ArrayList<String>();
 		RaceFactory.addStandardToTale(racesInTale);
+		this.isStarted = false;
 	}
 
 	/**
@@ -149,5 +151,28 @@ public class Tale
 	public VoiceChannel getSecondaryChannel()
 	{
 		return secondaryChannel;
+	}
+
+	public boolean isStarted()
+	{
+		return isStarted;
+	}
+
+	public void setStarted(boolean isStarted)
+	{
+		this.isStarted = isStarted;
+	}
+
+	public boolean addToInviteList(ThdlMember member)
+	{
+		if (invites.containsKey(member.getUserID()))
+		{
+			return false;
+		}
+		else
+		{
+			invites.put(member.getUserID(), member);
+			return true;
+		}
 	}
 }
