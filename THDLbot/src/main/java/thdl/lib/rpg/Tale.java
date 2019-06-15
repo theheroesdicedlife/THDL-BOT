@@ -21,7 +21,6 @@ public class Tale
 	private Role						taleRole			= null;
 	private TextChannel					mainChannel			= null;
 	private VoiceChannel				secondaryChannel	= null;
-	private HashMap<String, ThdlMember>	invites				= null;
 	private HashMap<String, ThdlMember>	player				= null;
 	private ArrayList<String>			racesInTale			= null;
 	private boolean						isStarted;
@@ -41,7 +40,6 @@ public class Tale
 
 	private void init()
 	{
-		invites = new HashMap<String, ThdlMember>();
 		player = new HashMap<String, ThdlMember>();
 		racesInTale = new ArrayList<String>();
 		RaceFactory.addStandardToTale(racesInTale);
@@ -60,17 +58,6 @@ public class Tale
 	{
 		String tellerID = storyteller.getUserID();
 		return tellerID.equals(id);
-	}
-
-	/**
-	 * Are any members invited?
-	 * 
-	 * @return boolean
-	 *         true if the HashMap for invites is not empty
-	 */
-	public boolean hasInvites()
-	{
-		return !invites.isEmpty();
 	}
 
 	/**
@@ -122,57 +109,107 @@ public class Tale
 		racesInTale.add(name);
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 		the name of this tale
+	 */
 	public String getTaleName()
 	{
 		return taleName;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 		the storyteller for this tale
+	 */
 	public ThdlMember getStoryteller()
 	{
 		return storyteller;
 	}
 
+	/**
+	 * 
+	 * @param storyteller
+	 *            sets the storyteller, do not use unless in creation of tale or
+	 *            change of teller
+	 * @return
+	 * 		this tale
+	 */
 	public Tale setStoryteller(ThdlMember storyteller)
 	{
 		this.storyteller = storyteller;
 		return this;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 		the role created exclusively for this tale
+	 */
 	public Role getTaleRole()
 	{
 		return taleRole;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 		the textchannel created exclusively for this tale
+	 */
 	public TextChannel getMainChannel()
 	{
 		return mainChannel;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 		the voicechannel created exclusively for this tale
+	 */
 	public VoiceChannel getSecondaryChannel()
 	{
 		return secondaryChannel;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 		is the tale started or is it paused
+	 */
 	public boolean isStarted()
 	{
 		return isStarted;
 	}
 
+	/**
+	 * 
+	 * @param isStarted
+	 *            sets the flag for the tale being started
+	 */
 	public void setStarted(boolean isStarted)
 	{
 		this.isStarted = isStarted;
 	}
 
-	public boolean addToInviteList(ThdlMember member)
+	/**
+	 * Checks if a member is in the player list of the tale
+	 * 
+	 * @param member
+	 *            the member to check
+	 * @return
+	 * 		member is in tale or not
+	 */
+	public boolean isMemberAlreadyInTale(ThdlMember member)
 	{
-		if (invites.containsKey(member.getUserID()))
+		if (player.containsKey(member.getUserID()))
 		{
-			return false;
+			return true;
 		}
 		else
 		{
-			invites.put(member.getUserID(), member);
-			return true;
+			return false;
 		}
 	}
 }

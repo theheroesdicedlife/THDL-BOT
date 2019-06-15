@@ -110,10 +110,11 @@ public class CmdInvitePlayerToTale implements Command
 			{
 				if (member.isAllowed())
 				{
-					if (tale.addToInviteList(member))
+
+					if (member.isInvitedTo(tale))
 					{
 						String dmMsg = "";
-						member.addInviteTo(tale);
+						member.addInvitedTo(tale);
 						DirectWriter dm = new DirectWriter(member);
 
 						dmMsg = IGuildMsgCmd.DM_INV_TO + tale.getTaleName() + IGuildMsgCmd.NEXT_LINE;

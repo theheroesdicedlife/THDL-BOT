@@ -23,26 +23,48 @@ public class ThdlMember
 		invitedTo = new ArrayList<Tale>();
 	}
 
+	/**
+	 * @return
+	 * 		user-id of the discord-user for this thdl-member
+	 */
 	public String getUserID()
 	{
 		return discordMember.getUser().getId();
 	}
 
+	/**
+	 * @return
+	 * 		is the thdl-member a allowed storyteller for thdl
+	 */
 	public boolean isStoryteller()
 	{
 		return rolesOfMember.containsRoleWithID(IDiscordID.STORYTELLER_ROLE_ID);
 	}
 
+	/**
+	 * @return
+	 * 		is the thdl-member allowed to use the commands of this bot
+	 */
 	public boolean isAllowed()
 	{
 		return !rolesOfMember.containsRoleWithID(IDiscordID.NOT_ALLOWED_ROLE_ID);
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 		is the thdl-member an admin for this bot
+	 */
 	public boolean isAdmin()
 	{
 		return rolesOfMember.containsRoleWithID(IDiscordID.ADMIN_ROLE_ID);
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 		the member for discord
+	 */
 	public Member getMember()
 	{
 		return this.discordMember;
@@ -59,11 +81,60 @@ public class ThdlMember
 		}
 	}
 
-	public void addInviteTo(Tale tale)
+	/**
+	 * Adds an invited for a tale to the member
+	 * 
+	 * @param tale
+	 *            is the tale the member was invited to
+	 */
+	public void addInvitedTo(Tale tale)
 	{
 		if (!invitedTo.contains(tale))
 		{
 			invitedTo.add(tale);
 		}
+	}
+
+	/**
+	 * 
+	 * @param tale
+	 *            the tale to check
+	 * @return
+	 * 		is the member invited to the tale
+	 */
+	public boolean isInvitedTo(Tale tale)
+	{
+		if (invitedTo.contains(tale))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 
+	 * @param taleName
+	 *            is the name given by the accept or decline command
+	 * @return
+	 * 		the tale for the talename from the invited list or null if the tale
+	 *         was not found
+	 */
+	public Tale getInvitedTo(String taleName)
+	{
+		Tale invited = null;
+
+		for (Tale tale : invitedTo)
+		{
+			if (tale.getTaleName().equals(taleName))
+			{
+				invited = tale;
+				break;
+			}
+		}
+
+		return invited;
 	}
 }
