@@ -16,14 +16,23 @@ public class Tale
 	/**
 	 * The mainclass of each pnp
 	 */
-	private String						taleName			= "";
-	private ThdlMember					storyteller			= null;
-	private Role						taleRole			= null;
-	private TextChannel					mainChannel			= null;
-	private VoiceChannel				secondaryChannel	= null;
-	private HashMap<String, ThdlMember>	player				= null;
-	private ArrayList<String>			racesInTale			= null;
-	private boolean						isStarted;
+
+	// Basic Attributes
+
+	private String			taleName			= "";
+	private ThdlMember		storyteller			= null;
+	private Role			taleRole			= null;
+	private TextChannel		mainChannel			= null;
+	private VoiceChannel	secondaryChannel	= null;
+	private boolean			isStarted;
+
+	// lists
+
+	private HashMap<String, ThdlMember>	player		= null;
+	private ArrayList<String>			racesInTale	= null;
+	private ArrayList<Turn>				playerTurns	= null;
+
+	// CONSTRUCTOR
 
 	public Tale(String taleName, ThdlMember storyteller, Role taleRole, TextChannel mainChannel,
 			VoiceChannel secondaryChannel)
@@ -38,13 +47,18 @@ public class Tale
 		init();
 	}
 
+	// INITIALIZATION
+
 	private void init()
 	{
 		player = new HashMap<String, ThdlMember>();
 		racesInTale = new ArrayList<String>();
+		playerTurns = new ArrayList<Turn>();
 		RaceFactory.addStandardToTale(racesInTale);
 		this.isStarted = false;
 	}
+
+	// FLAGS
 
 	/**
 	 * Is that user the storyteller of this tale
@@ -99,6 +113,28 @@ public class Tale
 	}
 
 	/**
+	 * Checks if a member is in the player list of the tale
+	 * 
+	 * @param member
+	 *            the member to check
+	 * @return
+	 * 		member is in tale or not
+	 */
+	public boolean isMemberAlreadyInTale(ThdlMember member)
+	{
+		if (player.containsKey(member.getUserID()))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	// ADDER
+
+	/**
 	 * Adds a race to the tale
 	 * 
 	 * @param name
@@ -108,6 +144,29 @@ public class Tale
 	{
 		racesInTale.add(name);
 	}
+
+	/**
+	 * 
+	 * @param turn
+	 *            turn-Object of a player in this tale
+	 */
+	public void addTurn(Turn turn)
+	{
+		playerTurns.add(turn);
+		addPlayer(turn.getMember());
+	}
+
+	/**
+	 * 
+	 * @param member
+	 *            a new player in this tale
+	 */
+	public void addPlayer(ThdlMember member)
+	{
+		player.put(member.getUserID(), member);
+	}
+
+	// GETTER AND SETTER
 
 	/**
 	 * 
@@ -194,22 +253,12 @@ public class Tale
 	}
 
 	/**
-	 * Checks if a member is in the player list of the tale
 	 * 
-	 * @param member
-	 *            the member to check
 	 * @return
-	 * 		member is in tale or not
+	 * 		all Turns for players
 	 */
-	public boolean isMemberAlreadyInTale(ThdlMember member)
+	public ArrayList<Turn> getPlayerTurns()
 	{
-		if (player.containsKey(member.getUserID()))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return playerTurns;
 	}
 }

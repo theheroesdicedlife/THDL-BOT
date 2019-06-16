@@ -21,10 +21,20 @@ public interface IDirectMsgCmd
 	public static final String	ACC_DEC_TYPES		= "You can accept or decline: invite, trade";
 
 	// Success-Msg
+	public static final String	PLAYER_ADD_TO_TALE	= "You can now play THDL in the Tale ";
+	public static final String	SAY_HALLO			= "Go and greet your fellow players in the TextChannel ";
+	public static final String	START_WITH_CREATION	= "Also, start your character-creation with the command: createCharacter [name]";
+	public static final String	WE_WILL_MEET		= "We will meet again, while you're playing THDL. But even so, I wish you a lot of fun";
 
 	// Exception-Msg
 
 	// Accept-Decline-Pattern
 	public static final String INVITE = "invite";
+
+	// Others
+	public static final String NEXT_LINE = "\n";
+
+	// Messages to discord channels
+	public static final String WELCOME = "Please welcome ";
 
 }

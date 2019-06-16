@@ -3,6 +3,7 @@ package thdl.commands.directMessage.tale;
 
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.managers.GuildController;
 import thdl.commands.directMessage.DirectCommand;
 import thdl.commands.directMessage.IDirectMsgCmd;
 import thdl.commands.directMessage.ILogDirectMsg;
@@ -10,6 +11,8 @@ import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.ThdlMemberFactory;
 import thdl.lib.rpg.Tale;
 import thdl.util.DirectWriter;
+import thdl.util.DiscordWriter;
+import thdl.util.IDiscordID;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
@@ -146,15 +149,35 @@ public class DmAccept implements DirectCommand
 	@Override
 	public void action(String[] args, PrivateMessageReceivedEvent event) throws Exception
 	{
+		GuildController gc = event.getJDA().getGuildById(IDiscordID.GUILD_ID).getController();
+		String msg = "";
+
 		switch (accDecType)
 		{
 			case INVITE:
 			{
 				/**
-				 * Accepted Invites
+				 * Accepted Invites for joining a tale
 				 */
 				InviteHandler handler = new InviteHandler();
-				handler.handleAccept();
+				handler.handleAccept(thdlMem, tale, gc);
+
+				DiscordWriter writer = new DiscordWriter(tale.getMainChannel());
+
+				msg = msg + IDirectMsgCmd.PLAYER_ADD_TO_TALE + tale.getTaleName();
+
+				log.addMessageToLog(this.toString(), LogMessageType.SUCCESS, ILogDirectMsg.PLAYER_ADD, msg);
+
+				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.SAY_HALLO + tale.getMainChannel().getAsMention();
+				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.START_WITH_CREATION;
+				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.WE_WILL_MEET;
+
+				dmWriter.writeMsg(msg);
+				msg = "";
+
+				msg = IDirectMsgCmd.WELCOME + thdlMem.getMember().getAsMention();
+				writer.writeSuccess(msg);
+
 				break;
 			}
 			default:
@@ -171,7 +194,16 @@ public class DmAccept implements DirectCommand
 	@Override
 	public void executed(boolean success, PrivateMessageReceivedEvent event)
 	{
-		// TODO Auto-generated method stub
+		if (success)
+		{
+			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogDirectMsg.CMD_EXE,
+					ILogDirectMsg.DMC_ACCEPT_SUCCESS);
+		}
+		else
+		{
+			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogDirectMsg.CMD_EXE,
+					ILogDirectMsg.DMC_ACCEPT_FAIL);
+		}
 
 		dmWriter = null;
 		log = null;

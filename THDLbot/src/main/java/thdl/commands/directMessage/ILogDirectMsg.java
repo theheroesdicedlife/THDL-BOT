@@ -19,6 +19,7 @@ public interface ILogDirectMsg
 	public final static String	ALREADY_PLAYER		= "Member is already a player in the tale";
 	public final static String	TALE_STARTED		= "Tale is started";
 	public final static String	ACCEPT_TYPE			= "Accept type switch";
+	public final static String	PLAYER_ADD			= "Player was added to tale";
 
 	// Log-Message
 	public final static String	DMC_PRINTLOGS_SUCCESS	= "The command showLog was executed with success";

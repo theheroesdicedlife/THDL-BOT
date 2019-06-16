@@ -6,80 +6,46 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import thdl.lib.collections.discord.RoleCollection;
 import thdl.lib.rpg.Tale;
+import thdl.lib.rpg.Turn;
 import thdl.util.IDiscordID;
 
 
 public class ThdlMember
 {
 
+	// discord
 	private Member			discordMember;
 	private RoleCollection	rolesOfMember	= null;
-	private ArrayList<Tale>	invitedTo		= null;
+
+	// in tale
+	private ArrayList<Turn> turnInTale = null;
+
+	// invite
+	private ArrayList<Tale> invitedTo = null;
+
+	// CONSTRUCTOR
 
 	public ThdlMember(Member discordMember)
 	{
 		this.discordMember = discordMember;
 		rolesOfMember = new RoleCollection();
 		invitedTo = new ArrayList<Tale>();
+		turnInTale = new ArrayList<Turn>();
 	}
 
-	/**
-	 * @return
-	 * 		user-id of the discord-user for this thdl-member
-	 */
-	public String getUserID()
-	{
-		return discordMember.getUser().getId();
-	}
-
-	/**
-	 * @return
-	 * 		is the thdl-member a allowed storyteller for thdl
-	 */
-	public boolean isStoryteller()
-	{
-		return rolesOfMember.containsRoleWithID(IDiscordID.STORYTELLER_ROLE_ID);
-	}
-
-	/**
-	 * @return
-	 * 		is the thdl-member allowed to use the commands of this bot
-	 */
-	public boolean isAllowed()
-	{
-		return !rolesOfMember.containsRoleWithID(IDiscordID.NOT_ALLOWED_ROLE_ID);
-	}
+	// ADDER
 
 	/**
 	 * 
-	 * @return
-	 * 		is the thdl-member an admin for this bot
+	 * @param turn
+	 *            turn for a single tale of the player
 	 */
-	public boolean isAdmin()
+	public void addTurn(Turn turn)
 	{
-		return rolesOfMember.containsRoleWithID(IDiscordID.ADMIN_ROLE_ID);
+		turnInTale.add(turn);
 	}
 
-	/**
-	 * 
-	 * @return
-	 * 		the member for discord
-	 */
-	public Member getMember()
-	{
-		return this.discordMember;
-	}
-
-	/**
-	 * Sets the booleans for the roles of a member object
-	 */
-	public void setRoles()
-	{
-		for (Role r : discordMember.getRoles())
-		{
-			rolesOfMember.addRole(r);
-		}
-	}
+	// INVITE TO TALE
 
 	/**
 	 * Adds an invited for a tale to the member
@@ -136,5 +102,105 @@ public class ThdlMember
 		}
 
 		return invited;
+	}
+
+	public void removeInvite(Tale tale)
+	{
+
+		invitedTo.remove(tale);
+
+		// boolean found = false;
+		// int index = -1;
+		//
+		// for (Tale t : invitedTo)
+		// {
+		// index++;
+		// if (t.getTaleName().equals(tale.getTaleName()))
+		// {
+		// found = true;
+		// break;
+		// }
+		// else
+		// {
+		// found = false;
+		// }
+		// }
+		//
+		// if (found)
+		// {
+		// invitedTo.remove(index);
+		// }
+	}
+
+	// ROLE-FLAGS
+
+	/**
+	 * @return
+	 * 		is the thdl-member a allowed storyteller for thdl
+	 */
+	public boolean isStoryteller()
+	{
+		return rolesOfMember.containsRoleWithID(IDiscordID.STORYTELLER_ROLE_ID);
+	}
+
+	/**
+	 * @return
+	 * 		is the thdl-member allowed to use the commands of this bot
+	 */
+	public boolean isAllowed()
+	{
+		return !rolesOfMember.containsRoleWithID(IDiscordID.NOT_ALLOWED_ROLE_ID);
+	}
+
+	/**
+	 * 
+	 * @return
+	 * 		is the thdl-member an admin for this bot
+	 */
+	public boolean isAdmin()
+	{
+		return rolesOfMember.containsRoleWithID(IDiscordID.ADMIN_ROLE_ID);
+	}
+
+	// GETTER + SETTER
+
+	/**
+	 * @return
+	 * 		user-id of the discord-user for this thdl-member
+	 */
+	public String getUserID()
+	{
+		return discordMember.getUser().getId();
+	}
+
+	/**
+	 * 
+	 * @return
+	 * 		the member for discord
+	 */
+	public Member getMember()
+	{
+		return this.discordMember;
+	}
+
+	/**
+	 * Sets the booleans for the roles of a member object
+	 */
+	public void setRoles()
+	{
+		for (Role r : discordMember.getRoles())
+		{
+			rolesOfMember.addRole(r);
+		}
+	}
+
+	/**
+	 * 
+	 * @return
+	 * 		all turns for tales of the player
+	 */
+	public ArrayList<Turn> getTurnInTale()
+	{
+		return turnInTale;
 	}
 }
