@@ -54,7 +54,7 @@ public class Tale
 		player = new HashMap<String, ThdlMember>();
 		racesInTale = new ArrayList<String>();
 		playerTurns = new ArrayList<Turn>();
-		RaceFactory.addStandardToTale(racesInTale);
+		RaceFactory.getInstance().addStandardToTale(racesInTale);
 		this.isStarted = false;
 	}
 

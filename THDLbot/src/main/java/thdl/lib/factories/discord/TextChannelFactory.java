@@ -19,14 +19,31 @@ import thdl.util.log.LoggerManager;
 public class TextChannelFactory
 {
 
-	private static HashMap<String, TextChannel> channelC = new HashMap<String, TextChannel>();
+	private static TextChannelFactory instance = null;
+
+	private HashMap<String, TextChannel> channelC = null;
+
+	private TextChannelFactory()
+	{
+		channelC = new HashMap<String, TextChannel>();
+	}
+
+	public static TextChannelFactory getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new TextChannelFactory();
+		}
+
+		return instance;
+	}
 
 	/**
 	 * Creates a list of the textchannels in the connected Guild
 	 * 
 	 * @param host
 	 */
-	public static void createTextChannelMap(Guild host)
+	public void createTextChannelMap(Guild host)
 	{
 		if (channelC.isEmpty())
 		{
@@ -43,7 +60,7 @@ public class TextChannelFactory
 	 * @param channelID
 	 * @return
 	 */
-	public static TextChannel getChannel(String channelID)
+	public TextChannel getChannel(String channelID)
 	{
 		TextChannel text = null;
 		if (channelC.containsKey(channelID))
@@ -77,7 +94,7 @@ public class TextChannelFactory
 	 * @return
 	 * @throws Exception
 	 */
-	public static TextChannel createTextChannel(GuildController controller, String channelName, Category category,
+	public TextChannel createTextChannel(GuildController controller, String channelName, Category category,
 			Role targetOne, Role targetTwo, ArrayList<Permission> allowOne, ArrayList<Permission> allowTwo,
 			ArrayList<Permission> denyOne, ArrayList<Permission> denyTwo) throws Exception
 	{

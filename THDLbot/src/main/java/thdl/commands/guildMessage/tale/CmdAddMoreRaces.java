@@ -45,7 +45,7 @@ public class CmdAddMoreRaces implements Command
 
 		boolean isOK = false;
 
-		tale = TaleFactory.getTale(e.getChannel());
+		tale = TaleFactory.getInstance().getTale(e.getChannel());
 
 		if (tale != null)
 		{
@@ -55,7 +55,7 @@ public class CmdAddMoreRaces implements Command
 				{
 					if (args.length > 0)
 					{
-						if (RaceFactory.areRaces(args))
+						if (RaceFactory.getInstance().areRaces(args))
 						{
 							isOK = true;
 						}

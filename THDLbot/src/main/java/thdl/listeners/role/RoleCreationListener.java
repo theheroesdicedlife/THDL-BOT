@@ -15,7 +15,9 @@ public class RoleCreationListener extends ListenerAdapter
 	@Override
 	public void onRoleCreate(RoleCreateEvent event)
 	{
-		RoleFactory.resetRoleMap();
-		RoleFactory.createRoleMap(event.getGuild());
+		RoleFactory roleF = RoleFactory.getInstance();
+
+		roleF.resetRoleMap();
+		roleF.createRoleMap(event.getGuild());
 	}
 }

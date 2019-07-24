@@ -48,7 +48,7 @@ public class DmAccept implements DirectCommand
 			isOk = false;
 		}
 
-		thdlMem = ThdlMemberFactory.getMember(author);
+		thdlMem = ThdlMemberFactory.getInstance().getMember(author);
 
 		if (thdlMem != null)
 		{

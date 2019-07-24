@@ -15,7 +15,9 @@ public class RoleDeletionListener extends ListenerAdapter
 	@Override
 	public void onRoleDelete(RoleDeleteEvent event)
 	{
-		RoleFactory.resetRoleMap();
-		RoleFactory.createRoleMap(event.getGuild());
+		RoleFactory roleF = RoleFactory.getInstance();
+
+		roleF.resetRoleMap();
+		roleF.createRoleMap(event.getGuild());
 	}
 }

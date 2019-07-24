@@ -11,14 +11,30 @@ import thdl.lib.collections.discord.RoleCollection;
 public class RoleFactory
 {
 
-	private static RoleCollection roleC = new RoleCollection();
+	private static RoleFactory instance = null;
+
+	private RoleCollection roleC = null;
+
+	private RoleFactory()
+	{
+		roleC = new RoleCollection();
+	}
+
+	public static RoleFactory getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new RoleFactory();
+		}
+		return instance;
+	}
 
 	/**
 	 * Creates a List of the Roles in the connected Server
 	 * 
 	 * @param host
 	 */
-	public static void createRoleMap(Guild host)
+	public void createRoleMap(Guild host)
 	{
 		if (roleC.isEmpty())
 		{
@@ -26,7 +42,7 @@ public class RoleFactory
 		}
 	}
 
-	public static void resetRoleMap()
+	public void resetRoleMap()
 	{
 		roleC.clearRoleCollection();
 	}
@@ -37,7 +53,7 @@ public class RoleFactory
 	 * @param roleName
 	 * @return
 	 */
-	public static Role getRole(String roleName)
+	public Role getRole(String roleName)
 	{
 		Role r = null;
 		if (roleC.containsRoleWithName(roleName))
@@ -53,7 +69,7 @@ public class RoleFactory
 	 * @param id
 	 * @return
 	 */
-	public static Role getRoleByID(String id)
+	public Role getRoleByID(String id)
 	{
 		Role r = null;
 		if (roleC.containsRoleWithID(id))
@@ -73,7 +89,7 @@ public class RoleFactory
 	 * @return
 	 * @throws Exception
 	 */
-	public static Role createRole(GuildController controller, String roleName) throws Exception
+	public Role createRole(GuildController controller, String roleName) throws Exception
 	{
 		Role r = null;
 		if (roleC.containsRoleWithName(roleName))

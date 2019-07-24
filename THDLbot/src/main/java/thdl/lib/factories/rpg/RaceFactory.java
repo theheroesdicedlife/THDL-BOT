@@ -9,8 +9,34 @@ import thdl.lib.rpg.Race;
 public class RaceFactory
 {
 
-	private static HashMap<String, Race>	raceC		= new HashMap<String, Race>();
-	private static ArrayList<String>		standard	= new ArrayList<String>();
+	private static RaceFactory instance = null;
+
+	private HashMap<String, Race>	raceC		= null;
+	private ArrayList<String>		standard	= null;
+
+	private RaceFactory()
+	{
+		raceC = new HashMap<String, Race>();
+		standard = new ArrayList<String>();
+
+		standard.add("Human");
+		standard.add("Elf");
+		standard.add("Dwarf");
+		standard.add("Orc");
+		standard.add("Halfelf");
+		standard.add("Str-Demi");
+		standard.add("Dex-Demi");
+		standard.add("Psy-Demi");
+	}
+
+	public static RaceFactory getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new RaceFactory();
+		}
+		return instance;
+	}
 
 	/**
 	 * 
@@ -19,7 +45,7 @@ public class RaceFactory
 	 * @return Race
 	 *         or null if the race is not in the collection
 	 */
-	public static Race getRace(String name)
+	public Race getRace(String name)
 	{
 		if (raceC.containsKey(name))
 		{
@@ -39,7 +65,7 @@ public class RaceFactory
 	 * @return boolean
 	 *         Are all of the names THDL-Racenames
 	 */
-	public static boolean areRaces(String... names)
+	public boolean areRaces(String... names)
 	{
 		boolean namesOk = false;
 
@@ -65,7 +91,7 @@ public class RaceFactory
 	 * @param taleRaces
 	 *            The ArrayList for racenames of the tale
 	 */
-	public static void addStandardToTale(ArrayList<String> taleRaces)
+	public void addStandardToTale(ArrayList<String> taleRaces)
 	{
 		taleRaces.addAll(standard);
 	}
@@ -73,7 +99,7 @@ public class RaceFactory
 	/**
 	 * TODO: Usage with db-connection
 	 */
-	public static void setThdlRaces()
+	public void setThdlRaces()
 	{
 		raceC.clear();
 		createRace();
@@ -84,8 +110,9 @@ public class RaceFactory
 	 * 
 	 * @return
 	 */
-	private static Race createRace()
+	private Race createRace()
 	{
+
 		return new Race();
 	}
 

@@ -23,7 +23,7 @@ public class DmPrintLogs implements DirectCommand
 	{
 
 		log = LoggerManager.getLogger(ILogDirectMsg.NUM, ILogDirectMsg.NAME);
-		ThdlMember member = ThdlMemberFactory.getMember(event.getAuthor());
+		ThdlMember member = ThdlMemberFactory.getInstance().getMember(event.getAuthor());
 		try
 		{
 			writer = new DirectWriter(member);

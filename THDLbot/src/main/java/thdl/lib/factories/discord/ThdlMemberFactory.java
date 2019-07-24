@@ -15,11 +15,27 @@ import thdl.util.log.LoggerManager;
 public class ThdlMemberFactory
 {
 
+	private static ThdlMemberFactory instance = null;
+
 	/**
 	 * Key = Id of a Discord-User
 	 * Value = specific ThdlMember for that same user
 	 */
-	private static HashMap<String, ThdlMember> memberList = new HashMap<String, ThdlMember>();
+	private HashMap<String, ThdlMember> memberList = null;
+
+	private ThdlMemberFactory()
+	{
+		memberList = new HashMap<String, ThdlMember>();
+	}
+
+	public static ThdlMemberFactory getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new ThdlMemberFactory();
+		}
+		return instance;
+	}
 
 	/**
 	 * Takes the members in the connected guild and creates a ThdlMember-Object for
@@ -28,7 +44,7 @@ public class ThdlMemberFactory
 	 * 
 	 * @param host
 	 */
-	public static void createMapOfMembers(Guild host)
+	public void createMapOfMembers(Guild host)
 	{
 		Logger log = LoggerManager.getLogger(ILogMain.NUM, ILogMain.NAME);
 		if (host != null)
@@ -59,7 +75,7 @@ public class ThdlMemberFactory
 	 * @return
 	 * 		An member or null if nothing was found
 	 */
-	public static ThdlMember getMember(User user)
+	public ThdlMember getMember(User user)
 	{
 		if (user != null)
 		{
@@ -79,7 +95,7 @@ public class ThdlMemberFactory
 	 * @return
 	 * 		An member or null if nothing was found
 	 */
-	public static ThdlMember getMember(String id)
+	public ThdlMember getMember(String id)
 	{
 		if (id != "")
 			return memberList.get(id);

@@ -58,7 +58,7 @@ public class CmdCreateNewTale implements Command
 
 		}
 
-		ThdlMember member = ThdlMemberFactory.getMember(e.getAuthor());
+		ThdlMember member = ThdlMemberFactory.getInstance().getMember(e.getAuthor());
 
 		if (member != null)
 		{
@@ -67,7 +67,7 @@ public class CmdCreateNewTale implements Command
 				if (args.length == 1)
 				{
 					talename = args[0];
-					if (!TaleFactory.isNameInUse(talename))
+					if (!TaleFactory.getInstance().isNameInUse(talename))
 					{
 						isOk = true;
 					}
@@ -139,12 +139,12 @@ public class CmdCreateNewTale implements Command
 		Category parentTxt = guild.getCategoryById(IDiscordID.RPGTXTCAT_ID);
 		Category parentVc = guild.getCategoryById(IDiscordID.RPGVCCAT_ID);
 		Role everyone = guild.getPublicRole();
-		ThdlMember author = ThdlMemberFactory.getMember(e.getAuthor());
+		ThdlMember author = ThdlMemberFactory.getInstance().getMember(e.getAuthor());
 
 		initPermissions();
 		String voicename = talename + "_Voice";
 
-		Role role = RoleFactory.createRole(controller, talename);
+		Role role = RoleFactory.getInstance().createRole(controller, talename);
 
 		if (role != null)
 		{
@@ -152,21 +152,21 @@ public class CmdCreateNewTale implements Command
 
 			controller.addSingleRoleToMember(e.getMember(), role).queue();
 
-			TextChannel mainChannel = TextChannelFactory.createTextChannel(controller, talename, parentTxt, everyone,
-					role, null, allowTxt, denyEveryoneTxt, denyTxt);
+			TextChannel mainChannel = TextChannelFactory.getInstance().createTextChannel(controller, talename,
+					parentTxt, everyone, role, null, allowTxt, denyEveryoneTxt, denyTxt);
 
 			if (mainChannel != null)
 			{
 				log.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
 
-				VoiceChannel secondaryChannel = VoiceChannelFactory.createVoiceChannel(controller, voicename, parentVc,
-						everyone, role, null, allowVc, denyEveryoneVc, denyVc);
+				VoiceChannel secondaryChannel = VoiceChannelFactory.getInstance().createVoiceChannel(controller,
+						voicename, parentVc, everyone, role, null, allowVc, denyEveryoneVc, denyVc);
 
 				if (secondaryChannel != null)
 				{
 					log.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
 
-					if (TaleFactory.createTale(talename, author, role, mainChannel, secondaryChannel))
+					if (TaleFactory.getInstance().createTale(talename, author, role, mainChannel, secondaryChannel))
 					{
 						writer.writeSuccess(
 								IGuildMsgCmd.SUC_PNP_CREATED_FIRST + talename + IGuildMsgCmd.SUC_PNP_CREATED_AFTER);

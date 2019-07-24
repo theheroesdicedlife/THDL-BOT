@@ -24,10 +24,10 @@ public class ReadyListener extends ListenerAdapter
 	{
 		Guild host = event.getJDA().getGuildById(IDiscordID.GUILD_ID);
 
-		ThdlMemberFactory.createMapOfMembers(host);
-		RoleFactory.createRoleMap(host);
-		TextChannelFactory.createTextChannelMap(host);
-		VoiceChannelFactory.createVoiceChannelMap(host);
+		ThdlMemberFactory.getInstance().createMapOfMembers(host);
+		RoleFactory.getInstance().createRoleMap(host);
+		TextChannelFactory.getInstance().createTextChannelMap(host);
+		VoiceChannelFactory.getInstance().createVoiceChannelMap(host);
 		// Loader aLoader = Loader.getInstance();
 
 		// try

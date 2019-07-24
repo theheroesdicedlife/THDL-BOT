@@ -28,7 +28,7 @@ public class CommandListener extends ListenerAdapter
 		String raw = event.getMessage().getContentRaw();
 		Logger log = LoggerManager.getLogger(ILogMain.NUM, ILogMain.NAME);
 		TextChannel channel = event.getChannel();
-		ThdlMember member = ThdlMemberFactory.getMember(event.getAuthor());
+		ThdlMember member = ThdlMemberFactory.getInstance().getMember(event.getAuthor());
 		String selfID = event.getJDA().getSelfUser().getId();
 		String authorID = event.getAuthor().getId();
 

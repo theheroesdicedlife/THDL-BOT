@@ -38,7 +38,7 @@ public class CmdInvitePlayerToTale implements Command
 		String authorId = e.getAuthor().getId();
 		DirectWriter authorWrite = null;
 
-		tale = TaleFactory.getTale(e.getChannel());
+		tale = TaleFactory.getInstance().getTale(e.getChannel());
 
 		try
 		{
@@ -104,7 +104,7 @@ public class CmdInvitePlayerToTale implements Command
 		for (int i = 0; i < args.length; i++)
 		{
 			String id = IdParser.parse(args[i]);
-			ThdlMember member = ThdlMemberFactory.getMember(id);
+			ThdlMember member = ThdlMemberFactory.getInstance().getMember(id);
 
 			if (member != null)
 			{

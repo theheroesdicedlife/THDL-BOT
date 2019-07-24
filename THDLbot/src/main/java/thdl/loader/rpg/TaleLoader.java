@@ -62,6 +62,7 @@ public class TaleLoader
 	 */
 	private static void constructTale(ResultSet result) throws SQLException
 	{
+
 		String taleName = "";
 		String tellerID = "";
 		String roleID = "";
@@ -78,11 +79,12 @@ public class TaleLoader
 		mainChannelID = result.getString(5);
 		secondChannelID = result.getString(6);
 
-		storyteller = ThdlMemberFactory.getMember(tellerID);
-		taleRole = RoleFactory.getRoleByID(roleID);
-		mainChannel = TextChannelFactory.getChannel(mainChannelID);
-		secondaryChannel = VoiceChannelFactory.getChannel(secondChannelID);
+		storyteller = ThdlMemberFactory.getInstance().getMember(tellerID);
+		taleRole = RoleFactory.getInstance().getRoleByID(roleID);
+		mainChannel = TextChannelFactory.getInstance().getChannel(mainChannelID);
+		secondaryChannel = VoiceChannelFactory.getInstance().getChannel(secondChannelID);
 
-		TaleFactory.createTale(taleName, storyteller, taleRole, mainChannel, secondaryChannel);
+		TaleFactory.getInstance().createTale(taleName, storyteller, taleRole, mainChannel, secondaryChannel);
+
 	}
 }

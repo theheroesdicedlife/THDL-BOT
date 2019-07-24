@@ -19,14 +19,30 @@ import thdl.util.log.LoggerManager;
 public class VoiceChannelFactory
 {
 
-	private static HashMap<String, VoiceChannel> channelC = new HashMap<String, VoiceChannel>();
+	private static VoiceChannelFactory instance = null;
+
+	private HashMap<String, VoiceChannel> channelC = null;
+
+	private VoiceChannelFactory()
+	{
+		channelC = new HashMap<String, VoiceChannel>();
+	}
+
+	public static VoiceChannelFactory getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new VoiceChannelFactory();
+		}
+		return instance;
+	}
 
 	/**
 	 * Creates a list of the VoiceChannels in the connected Guild
 	 * 
 	 * @param host
 	 */
-	public static void createVoiceChannelMap(Guild host)
+	public void createVoiceChannelMap(Guild host)
 	{
 		if (channelC.isEmpty())
 		{
@@ -43,7 +59,7 @@ public class VoiceChannelFactory
 	 * @param channelID
 	 * @return
 	 */
-	public static VoiceChannel getChannel(String channelID)
+	public VoiceChannel getChannel(String channelID)
 	{
 		VoiceChannel voice = null;
 		if (channelC.containsKey(channelID))
@@ -77,7 +93,7 @@ public class VoiceChannelFactory
 	 * @return
 	 * @throws Exception
 	 */
-	public static VoiceChannel createVoiceChannel(GuildController controller, String channelName, Category category,
+	public VoiceChannel createVoiceChannel(GuildController controller, String channelName, Category category,
 			Role targetOne, Role targetTwo, ArrayList<Permission> allowOne, ArrayList<Permission> allowTwo,
 			ArrayList<Permission> denyOne, ArrayList<Permission> denyTwo) throws Exception
 	{

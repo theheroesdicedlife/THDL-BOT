@@ -13,7 +13,23 @@ import thdl.lib.rpg.Tale;
 public class TaleFactory
 {
 
-	private static TaleCollection taleC = new TaleCollection();
+	private static TaleFactory instance = null;
+
+	private TaleCollection taleC = null;
+
+	private TaleFactory()
+	{
+		taleC = new TaleCollection();
+	}
+
+	public static TaleFactory getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new TaleFactory();
+		}
+		return instance;
+	}
 
 	/**
 	 * Return the Tale for the TextChannel or null
@@ -21,7 +37,7 @@ public class TaleFactory
 	 * @param text
 	 * @return
 	 */
-	public static Tale getTale(TextChannel text)
+	public Tale getTale(TextChannel text)
 	{
 		Tale t = null;
 		if (taleC.containsChannel(text))
@@ -47,7 +63,7 @@ public class TaleFactory
 	 * @return the new created Tale or the tale which is already in the collection
 	 * @throws SQLException
 	 */
-	public static Boolean createTale(String taleName, ThdlMember storyteller, Role taleRole, TextChannel mainChannel,
+	public Boolean createTale(String taleName, ThdlMember storyteller, Role taleRole, TextChannel mainChannel,
 			VoiceChannel secondaryChannel) throws SQLException
 	{
 		Tale t = new Tale(taleName, storyteller, taleRole, mainChannel, secondaryChannel);
@@ -63,7 +79,7 @@ public class TaleFactory
 		}
 	}
 
-	public static boolean isNameInUse(String taleName)
+	public boolean isNameInUse(String taleName)
 	{
 		return taleC.containsName(taleName);
 	}

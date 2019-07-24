@@ -21,7 +21,7 @@ public class DirectCommandListener extends ListenerAdapter
 	public void onPrivateMessageReceived(PrivateMessageReceivedEvent event)
 	{
 		String raw = event.getMessage().getContentDisplay();
-		ThdlMember author = ThdlMemberFactory.getMember(event.getAuthor());
+		ThdlMember author = ThdlMemberFactory.getInstance().getMember(event.getAuthor());
 		String selfID = event.getJDA().getSelfUser().getId();
 		String authorID = event.getAuthor().getId();
 		Logger log = LoggerManager.getLogger(ILogMain.NUM, ILogMain.NAME);

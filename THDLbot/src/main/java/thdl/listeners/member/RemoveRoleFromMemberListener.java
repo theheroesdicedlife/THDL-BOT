@@ -16,6 +16,6 @@ public class RemoveRoleFromMemberListener extends ListenerAdapter
 	@Override
 	public void onGuildMemberRoleRemove(GuildMemberRoleRemoveEvent event)
 	{
-		ThdlMemberFactory.getMember(event.getUser()).setRoles();
+		ThdlMemberFactory.getInstance().getMember(event.getUser()).setRoles();
 	}
 }

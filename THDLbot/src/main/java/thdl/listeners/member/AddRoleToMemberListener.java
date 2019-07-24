@@ -18,6 +18,6 @@ public class AddRoleToMemberListener extends ListenerAdapter
 	@Override
 	public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event)
 	{
-		ThdlMemberFactory.getMember(event.getUser()).setRoles();
+		ThdlMemberFactory.getInstance().getMember(event.getUser()).setRoles();
 	}
 }

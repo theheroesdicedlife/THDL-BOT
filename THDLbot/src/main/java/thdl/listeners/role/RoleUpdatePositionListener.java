@@ -15,7 +15,9 @@ public class RoleUpdatePositionListener extends ListenerAdapter
 	@Override
 	public void onRoleUpdatePosition(RoleUpdatePositionEvent event)
 	{
-		RoleFactory.resetRoleMap();
-		RoleFactory.createRoleMap(event.getGuild());
+		RoleFactory roleF = RoleFactory.getInstance();
+
+		roleF.resetRoleMap();
+		roleF.createRoleMap(event.getGuild());
 	}
 }
