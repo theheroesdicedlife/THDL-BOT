@@ -86,15 +86,30 @@ public class InviteHandler
 		member.addTurn(turn);
 	}
 
+	// DECLINE
+
+	/**
+	 * Gets called if a
+	 * 
+	 * @param member
+	 *            declines the invite to a
+	 * @param tale
+	 * 
+	 */
+	public void handleDecline(ThdlMember member, Tale tale)
+	{
+		removeInvite(member, tale);
+	}
+
 	// BOTH
 
 	/**
-	 * Removes the invite from the member
+	 * Removes the invite from the
 	 * 
 	 * @param member
-	 *            who accepted or declined the invitation
+	 *            who accepted or declined the invitation to a
 	 * @param tale
-	 *            the player was invited to
+	 * 
 	 */
 	private void removeInvite(ThdlMember member, Tale tale)
 	{

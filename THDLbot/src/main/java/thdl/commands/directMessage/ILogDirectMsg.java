@@ -18,12 +18,15 @@ public interface ILogDirectMsg
 	public final static String	NOT_INVITED			= "No invite to join the tale";
 	public final static String	ALREADY_PLAYER		= "Member is already a player in the tale";
 	public final static String	TALE_STARTED		= "Tale is started";
-	public final static String	ACCEPT_TYPE			= "Accept type switch";
+	public final static String	ACCEPT_TYPE			= "Accept-Decline type switch";
 	public final static String	PLAYER_ADD			= "Player was added to tale";
+	public final static String	PLAYER_DEC			= "Player has declined";
 
 	// Log-Message
 	public final static String	DMC_PRINTLOGS_SUCCESS	= "The command showLog was executed with success";
 	public final static String	DMC_PRINTLOGS_FAIL		= "The command showLog could not be executed with success";
 	public final static String	DMC_ACCEPT_SUCCESS		= "The command accept was executed with success";
 	public final static String	DMC_ACCEPT_FAIL			= "The command accept could not be executed with success";
+	public final static String	DMC_DECLINE_SUCCESS		= "The command decline was executed with success";
+	public final static String	DMC_DECLINE_FAIL		= "The command decline could not be executed with success";
 }

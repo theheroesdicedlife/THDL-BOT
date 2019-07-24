@@ -3,7 +3,6 @@ package thdl.commands.directMessage.tale;
 
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
-import net.dv8tion.jda.api.managers.GuildController;
 import thdl.commands.directMessage.DirectCommand;
 import thdl.commands.directMessage.IDirectMsgCmd;
 import thdl.commands.directMessage.ILogDirectMsg;
@@ -12,14 +11,14 @@ import thdl.lib.factories.discord.ThdlMemberFactory;
 import thdl.lib.rpg.Tale;
 import thdl.util.DirectWriter;
 import thdl.util.DiscordWriter;
-import thdl.util.IDiscordID;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
 
 
-public class DmAccept implements DirectCommand
+public class DmDecline implements DirectCommand
 {
+
 	/*
 	 * Is used for all possible accept actions
 	 */
@@ -55,7 +54,7 @@ public class DmAccept implements DirectCommand
 
 		if (thdlMem != null)
 		{
-			isOk = checkAcceptPattern(args);
+			isOk = checkDeclinePattern(args);
 		}
 		else
 		{
@@ -67,7 +66,7 @@ public class DmAccept implements DirectCommand
 		return isOk;
 	}
 
-	public boolean checkAcceptPattern(String[] args)
+	public boolean checkDeclinePattern(String[] args)
 	{
 		boolean isOk = false;
 		String returnMsg = "";
@@ -86,28 +85,7 @@ public class DmAccept implements DirectCommand
 
 						if (tale != null)
 						{
-							if (!tale.isMemberAlreadyInTale(thdlMem))
-							{
-								if (!tale.isStarted())
-								{
-									isOk = true;
-								}
-								else
-								{
-									log.addMessageToLog(this.toString(), LogMessageType.ERROR,
-											ILogDirectMsg.TALE_STARTED, IDirectMsgCmd.TALE_STARTED);
-									dmWriter.writeMsg(IDirectMsgCmd.TALE_STARTED);
-									isOk = false;
-								}
-							}
-							else
-							{
-								returnMsg = IDirectMsgCmd.ALREADY_PLAYER + tale.getTaleName();
-								log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.ALREADY_PLAYER,
-										returnMsg);
-								dmWriter.writeMsg(returnMsg);
-								isOk = false;
-							}
+							isOk = true;
 						}
 						else
 						{
@@ -120,7 +98,7 @@ public class DmAccept implements DirectCommand
 					}
 					else
 					{
-						returnMsg = IDirectMsgCmd.PATTERN_ACC_SPEC + IDirectMsgCmd.PATTERN_ACC_DEC_INV;
+						returnMsg = IDirectMsgCmd.PATTERN_DEC_SPEC + IDirectMsgCmd.PATTERN_ACC_DEC_INV;
 						log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.WRONG_PATTERN,
 								returnMsg);
 						dmWriter.writeMsg(returnMsg);
@@ -142,8 +120,8 @@ public class DmAccept implements DirectCommand
 		else
 		{
 			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.WRONG_PATTERN,
-					IDirectMsgCmd.PATTERN_ACCEPT);
-			dmWriter.writeMsg(IDirectMsgCmd.PATTERN_ACCEPT);
+					IDirectMsgCmd.PATTERN_DECLINE);
+			dmWriter.writeMsg(IDirectMsgCmd.PATTERN_DECLINE);
 			isOk = false;
 		}
 		return isOk;
@@ -152,34 +130,25 @@ public class DmAccept implements DirectCommand
 	@Override
 	public void action(String[] args, PrivateMessageReceivedEvent event) throws Exception
 	{
-		GuildController gc = event.getJDA().getGuildById(IDiscordID.GUILD_ID).getController();
 		String msg = "";
 
 		switch (accDecType)
 		{
 			case INVITE:
 			{
-				/**
-				 * Accepted Invites for joining a tale
-				 */
 				InviteHandler handler = new InviteHandler();
-				handler.handleAccept(thdlMem, tale, gc);
+
+				handler.handleDecline(thdlMem, tale);
 
 				DiscordWriter writer = new DiscordWriter(tale.getMainChannel());
 
-				msg = msg + IDirectMsgCmd.PLAYER_ADD_TO_TALE + tale.getTaleName();
+				log.addMessageToLog(this.toString(), LogMessageType.SUCCESS, ILogDirectMsg.PLAYER_DEC,
+						IDirectMsgCmd.SUCH_A_PITY);
 
-				log.addMessageToLog(this.toString(), LogMessageType.SUCCESS, ILogDirectMsg.PLAYER_ADD, msg);
+				dmWriter.writeMsg(IDirectMsgCmd.SUCH_A_PITY);
 
-				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.SAY_HALLO + tale.getMainChannel().getAsMention();
-				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.START_WITH_CREATION;
-				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.WE_WILL_MEET;
-
-				dmWriter.writeMsg(msg);
-				msg = "";
-
-				msg = IDirectMsgCmd.WELCOME + thdlMem.getMember().getAsMention();
-				writer.writeSuccess(msg);
+				msg = IDirectMsgCmd.DECLINED_INV + thdlMem.getMember().getAsMention();
+				writer.writeInfo(msg);
 
 				break;
 			}
@@ -197,15 +166,16 @@ public class DmAccept implements DirectCommand
 	@Override
 	public void executed(boolean success, PrivateMessageReceivedEvent event)
 	{
+
 		if (success)
 		{
 			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogDirectMsg.CMD_EXE,
-					ILogDirectMsg.DMC_ACCEPT_SUCCESS);
+					ILogDirectMsg.DMC_DECLINE_SUCCESS);
 		}
 		else
 		{
 			log.addMessageToLog(this.toString(), LogMessageType.STATE, ILogDirectMsg.CMD_EXE,
-					ILogDirectMsg.DMC_ACCEPT_FAIL);
+					ILogDirectMsg.DMC_DECLINE_FAIL);
 		}
 
 		dmWriter = null;
@@ -213,6 +183,7 @@ public class DmAccept implements DirectCommand
 		thdlMem = null;
 		accDecType = null;
 		tale = null;
+
 	}
 
 	@Override

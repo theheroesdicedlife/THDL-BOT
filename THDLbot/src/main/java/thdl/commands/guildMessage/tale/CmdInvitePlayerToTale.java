@@ -111,7 +111,7 @@ public class CmdInvitePlayerToTale implements Command
 				if (member.isAllowed())
 				{
 
-					if (member.isInvitedTo(tale))
+					if (!member.isInvitedTo(tale))
 					{
 						String dmMsg = "";
 						member.addInvitedTo(tale);
