@@ -44,7 +44,7 @@ public class CmdDiceTen implements Command, IDiced
 			else
 			{
 				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.QUANTITIY_ERROR);
-				writer.writeError(IGuildMsgCmd.ERROR_FALSE_QUANTITY);
+				writer.writeError("Quantity is not working :frowning:");
 			}
 		}
 		else if (args.length == 0)

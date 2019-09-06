@@ -117,13 +117,13 @@ public class CmdInvitePlayerToTale implements Command
 						member.addInvitedTo(tale);
 						DirectWriter dm = new DirectWriter(member);
 
-						dmMsg = IGuildMsgCmd.DM_INV_TO + tale.getTaleName() + IGuildMsgCmd.NEXT_LINE;
-						dmMsg = IGuildMsgCmd.DM_ANSW_INV + IGuildMsgCmd.NEXT_LINE;
+						dmMsg = IGuildMsgCmd.DM_INV_TO + tale.getTaleName() + "\n";
+						dmMsg = IGuildMsgCmd.DM_ANSW_INV + "\n";
 						dmMsg = IGuildMsgCmd.DM_ACCEPT_INV + IGuildMsgCmd.DM_DECLINE_INV;
 
 						dm.writeMsg(dmMsg);
 
-						msg = msg + args[i] + IGuildMsgCmd.INFO_INVITED + IGuildMsgCmd.NEXT_LINE;
+						msg = msg + args[i] + IGuildMsgCmd.INFO_INVITED + "\n";
 
 						logMsg = args[i] + ILogGuildCmd.INVITED + tale.getTaleName();
 						log.logState(this.toString(), logMsg);
@@ -135,7 +135,7 @@ public class CmdInvitePlayerToTale implements Command
 					log.logErrorWithoutMsg(this.toString(), logMsg);
 
 					msg = msg + args[i] + IGuildMsgCmd.INFO_COULD_NOT_INVITE + IGuildMsgCmd.INFO_NO_INV_CAUSE_NOT_AUTH
-							+ IGuildMsgCmd.NEXT_LINE;
+							+ "\n";
 				}
 			}
 			else
@@ -144,7 +144,7 @@ public class CmdInvitePlayerToTale implements Command
 				log.logErrorWithoutMsg(this.toString(), logMsg);
 
 				msg = msg + args[i] + IGuildMsgCmd.INFO_COULD_NOT_INVITE + IGuildMsgCmd.INFO_NO_INV_CAUSE_NO_MEMBER
-						+ IGuildMsgCmd.NEXT_LINE;
+						+ "\n";
 			}
 		}
 

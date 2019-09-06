@@ -116,7 +116,7 @@ public class CmdAddMoreRaces implements Command
 	private void addRacesToTale(String[] names)
 	{
 		StringBuilder msg = new StringBuilder();
-		msg.append(IGuildMsgCmd.INFO_RACES_ADDED + tale.getTaleName() + IGuildMsgCmd.NEXT_LINE);
+		msg.append(IGuildMsgCmd.INFO_RACES_ADDED + tale.getTaleName() + "\n");
 
 		for (String name : names)
 		{

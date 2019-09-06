@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.GuildController;
 import thdl.commands.directMessage.DirectCommand;
-import thdl.commands.directMessage.IDirectMsgCmd;
 import thdl.commands.directMessage.ILogDirectMsg;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.ThdlMemberFactory;
@@ -59,8 +58,8 @@ public class DmAccept implements DirectCommand
 		}
 		else
 		{
-			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.USER_IS_NO_MEMBER,
-					IDirectMsgCmd.NOT_A_MEMBER);
+			log.addMessageToLog(this.toString(), LogMessageType.ERROR, "The user is not a member",
+					" With name: " + author.getName());
 			isOk = false;
 		}
 
@@ -76,7 +75,7 @@ public class DmAccept implements DirectCommand
 		{
 			switch (args[0])
 			{
-				case IDirectMsgCmd.INVITE:
+				case "invite":
 				{
 					accDecType = AcceptDeclineType.INVITE;
 
@@ -95,34 +94,37 @@ public class DmAccept implements DirectCommand
 								else
 								{
 									log.addMessageToLog(this.toString(), LogMessageType.ERROR,
-											ILogDirectMsg.TALE_STARTED, IDirectMsgCmd.TALE_STARTED);
-									dmWriter.writeMsg(IDirectMsgCmd.TALE_STARTED);
+											ILogDirectMsg.TALE_STARTED,
+											"Tale is already started. Command can only be used, if paused");
+									dmWriter.writeMsg(
+											"The tale was already started. You have to wait until it gets paused.");
 									isOk = false;
 								}
 							}
 							else
 							{
-								returnMsg = IDirectMsgCmd.ALREADY_PLAYER + tale.getTaleName();
+								returnMsg = "You have already accepted the invite for " + tale.getTaleName();
 								log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.ALREADY_PLAYER,
-										returnMsg);
+										"The invite was already accepted");
 								dmWriter.writeMsg(returnMsg);
 								isOk = false;
 							}
 						}
 						else
 						{
-							returnMsg = IDirectMsgCmd.NOT_INVITED + args[1];
+							returnMsg = "You're not invited to " + args[1];
 							log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.NOT_INVITED,
-									returnMsg);
+									"The member " + thdlMem.getMember().getEffectiveName()
+											+ " was not invited to the tale " + args[1]);
 							dmWriter.writeMsg(returnMsg);
 							isOk = false;
 						}
 					}
 					else
 					{
-						returnMsg = IDirectMsgCmd.PATTERN_ACC_SPEC + IDirectMsgCmd.PATTERN_ACC_DEC_INV;
+						returnMsg = "You need to use the pattern: accept invite [talename]";
 						log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.WRONG_PATTERN,
-								returnMsg);
+								"Pattern needed: accept invite [talename]");
 						dmWriter.writeMsg(returnMsg);
 						isOk = false;
 					}
@@ -132,8 +134,8 @@ public class DmAccept implements DirectCommand
 				default:
 				{
 					log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.WRONG_PATTERN,
-							IDirectMsgCmd.ACC_DEC_TYPES);
-					dmWriter.writeMsg(IDirectMsgCmd.ACC_DEC_TYPES);
+							"Can only accept or decline: invite, trade");
+					dmWriter.writeMsg("You can accept or decline: invite, trade");
 					isOk = false;
 					break;
 				}
@@ -142,8 +144,8 @@ public class DmAccept implements DirectCommand
 		else
 		{
 			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.WRONG_PATTERN,
-					IDirectMsgCmd.PATTERN_ACCEPT);
-			dmWriter.writeMsg(IDirectMsgCmd.PATTERN_ACCEPT);
+					"Pattern needed: accept [what] ([other arguments])");
+			dmWriter.writeMsg("You need to use the pattern: accept [what] ([other arguments])");
 			isOk = false;
 		}
 		return isOk;
@@ -167,18 +169,19 @@ public class DmAccept implements DirectCommand
 
 				DiscordWriter writer = new DiscordWriter(tale.getMainChannel());
 
-				msg = msg + IDirectMsgCmd.PLAYER_ADD_TO_TALE + tale.getTaleName();
+				msg = msg + "You can now play THDL in the Tale " + tale.getTaleName();
 
 				log.addMessageToLog(this.toString(), LogMessageType.SUCCESS, ILogDirectMsg.PLAYER_ADD, msg);
 
-				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.SAY_HALLO + tale.getMainChannel().getAsMention();
-				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.START_WITH_CREATION;
-				msg = msg + IDirectMsgCmd.NEXT_LINE + IDirectMsgCmd.WE_WILL_MEET;
+				msg = msg + "\n Go and greet your fellow players in the TextChannel "
+						+ tale.getMainChannel().getAsMention();
+				msg = msg + "\n Also, start your character-creation with the command: createCharacter [name]";
+				msg = msg + "\n We will meet again, while you're playing THDL. But even so, I wish you a lot of fun";
 
 				dmWriter.writeMsg(msg);
 				msg = "";
 
-				msg = IDirectMsgCmd.WELCOME + thdlMem.getMember().getAsMention();
+				msg = "Please welcome " + thdlMem.getMember().getAsMention();
 				writer.writeSuccess(msg);
 
 				break;
@@ -186,8 +189,8 @@ public class DmAccept implements DirectCommand
 			default:
 			{
 				log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.ACCEPT_TYPE,
-						IDirectMsgCmd.UNEXPECTED_ERROR);
-				dmWriter.writeMsg(IDirectMsgCmd.UNEXPECTED_ERROR);
+						"Unexpected Error with wrong acc-dec-type: " + accDecType);
+				dmWriter.writeMsg("An unexpected error as occured. Please contact a bot-Administrator");
 				break;
 			}
 		}

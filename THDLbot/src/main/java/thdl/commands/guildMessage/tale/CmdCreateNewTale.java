@@ -90,15 +90,15 @@ public class CmdCreateNewTale implements Command
 				isOk = false;
 
 				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.UNAUTHORIZED_USE);
-				dmWriter.writeMsg(IGuildMsgCmd.ERROR_UNAUTHORIZED);
+				dmWriter.writeMsg("You are not a Storyteller");
 			}
 		}
 		else
 		{
 			isOk = false;
-			String error = e.getGuild().getOwner().getAsMention() + " " + IGuildMsgCmd.ERROR_NO_MEMBER;
+			String error = e.getGuild().getOwner().getAsMention() + " is not registered as member of the guild";
 			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogGuildCmd.NO_MEMBER,
-					IGuildMsgCmd.ERROR_NO_MEMBER);
+					"The Author of this command is not registered");
 			writer.writeError(error);
 		}
 

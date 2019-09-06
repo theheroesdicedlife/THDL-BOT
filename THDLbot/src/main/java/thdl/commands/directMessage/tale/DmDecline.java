@@ -4,7 +4,6 @@ package thdl.commands.directMessage.tale;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import thdl.commands.directMessage.DirectCommand;
-import thdl.commands.directMessage.IDirectMsgCmd;
 import thdl.commands.directMessage.ILogDirectMsg;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.ThdlMemberFactory;
@@ -58,8 +57,8 @@ public class DmDecline implements DirectCommand
 		}
 		else
 		{
-			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.USER_IS_NO_MEMBER,
-					IDirectMsgCmd.NOT_A_MEMBER);
+			log.addMessageToLog(this.toString(), LogMessageType.ERROR, "The user is not a member",
+					" With name: " + author.getName());
 			isOk = false;
 		}
 
@@ -75,7 +74,7 @@ public class DmDecline implements DirectCommand
 		{
 			switch (args[0])
 			{
-				case IDirectMsgCmd.INVITE:
+				case "invite":
 				{
 					accDecType = AcceptDeclineType.INVITE;
 
@@ -89,18 +88,19 @@ public class DmDecline implements DirectCommand
 						}
 						else
 						{
-							returnMsg = IDirectMsgCmd.NOT_INVITED + args[1];
+							returnMsg = "You are not invited to " + args[1];
 							log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.NOT_INVITED,
-									returnMsg);
+									"The member " + thdlMem.getMember().getEffectiveName()
+											+ " was not invited to the tale " + args[1]);
 							dmWriter.writeMsg(returnMsg);
 							isOk = false;
 						}
 					}
 					else
 					{
-						returnMsg = IDirectMsgCmd.PATTERN_DEC_SPEC + IDirectMsgCmd.PATTERN_ACC_DEC_INV;
+						returnMsg = "You need to use the pattern: decline invite [talename]";
 						log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.WRONG_PATTERN,
-								returnMsg);
+								"You need to use the pattern: decline invite [talename]");
 						dmWriter.writeMsg(returnMsg);
 						isOk = false;
 					}
@@ -110,8 +110,8 @@ public class DmDecline implements DirectCommand
 				default:
 				{
 					log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.WRONG_PATTERN,
-							IDirectMsgCmd.ACC_DEC_TYPES);
-					dmWriter.writeMsg(IDirectMsgCmd.ACC_DEC_TYPES);
+							"Can only accept or decline: invite, trade");
+					dmWriter.writeMsg("You can accept or decline: invite, trade");
 					isOk = false;
 					break;
 				}
@@ -120,8 +120,8 @@ public class DmDecline implements DirectCommand
 		else
 		{
 			log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.WRONG_PATTERN,
-					IDirectMsgCmd.PATTERN_DECLINE);
-			dmWriter.writeMsg(IDirectMsgCmd.PATTERN_DECLINE);
+					"Pattern needed: decline [what] ([other arguments])");
+			dmWriter.writeMsg("You need to use the pattern: decline [what] ([other arguments])");
 			isOk = false;
 		}
 		return isOk;
@@ -143,11 +143,13 @@ public class DmDecline implements DirectCommand
 				DiscordWriter writer = new DiscordWriter(tale.getMainChannel());
 
 				log.addMessageToLog(this.toString(), LogMessageType.SUCCESS, ILogDirectMsg.PLAYER_DEC,
-						IDirectMsgCmd.SUCH_A_PITY);
+						"Player didn't join the tale, was removed from invites");
 
-				dmWriter.writeMsg(IDirectMsgCmd.SUCH_A_PITY);
+				dmWriter.writeMsg(
+						"Such a pity, I thought you would join your friends to play THDL. Well, take care then.");
 
-				msg = IDirectMsgCmd.DECLINED_INV + thdlMem.getMember().getAsMention();
+				msg = "I'm sorry, but this player declined the invite to play THDL: "
+						+ thdlMem.getMember().getAsMention();
 				writer.writeInfo(msg);
 
 				break;
@@ -155,8 +157,8 @@ public class DmDecline implements DirectCommand
 			default:
 			{
 				log.addMessageToLog(this.toString(), LogMessageType.ERROR, ILogDirectMsg.ACCEPT_TYPE,
-						IDirectMsgCmd.UNEXPECTED_ERROR);
-				dmWriter.writeMsg(IDirectMsgCmd.UNEXPECTED_ERROR);
+						"Unexpected Error with wrong acc-dec-type: " + accDecType);
+				dmWriter.writeMsg("An unexpected error as occured. Please contact a bot-Administrator");
 				break;
 			}
 		}

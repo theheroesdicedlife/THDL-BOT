@@ -7,6 +7,8 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import thdl.commands.directMessage.DmPrintLogs;
+import thdl.commands.directMessage.tale.DmAccept;
+import thdl.commands.directMessage.tale.DmDecline;
 import thdl.commands.guildMessage.dice.CmdDiceEight;
 import thdl.commands.guildMessage.dice.CmdDiceFour;
 import thdl.commands.guildMessage.dice.CmdDiceHundred;
@@ -63,24 +65,23 @@ public class MainBot
 
 	public static void addCommands()
 	{
-		CommandHandler.commands.put(IMainUtil.DICE_D4_CMD, new CmdDiceFour());
-		CommandHandler.commands.put(IMainUtil.DICE_D6_CMD, new CmdDiceSix());
-		CommandHandler.commands.put(IMainUtil.DICE_D8_CMD, new CmdDiceEight());
-		CommandHandler.commands.put(IMainUtil.DICE_D10_CMD, new CmdDiceTen());
-		CommandHandler.commands.put(IMainUtil.DICE_D12_CMD, new CmdDiceTwelve());
-		CommandHandler.commands.put(IMainUtil.DICE_D20_CMD, new CmdDiceTwenty());
-		CommandHandler.commands.put(IMainUtil.DICE_D100_CMD, new CmdDiceHundred());
-		CommandHandler.commands.put(IMainUtil.PNP_CREATION_CMD, new CmdCreateNewTale());
-		CommandHandler.commands.put(IMainUtil.ADD_RACES_TO_PNP, new CmdAddMoreRaces());
-		CommandHandler.commands.put(IMainUtil.INVITE_PLAYERS, new CmdInvitePlayerToTale());
-		// CommandHandler.commands.put(IMainUtil.CHARACTER_CREATION_CMD, new
-		// CmdCreateCharacter());
-		// CommandHandler.commands.put(IMainUtil.START_THE_PNP_CMD, new CmdStartTale());
+		CommandHandler.commands.put("d4", new CmdDiceFour());
+		CommandHandler.commands.put("d6", new CmdDiceSix());
+		CommandHandler.commands.put("d8", new CmdDiceEight());
+		CommandHandler.commands.put("d10", new CmdDiceTen());
+		CommandHandler.commands.put("d12", new CmdDiceTwelve());
+		CommandHandler.commands.put("d20", new CmdDiceTwenty());
+		CommandHandler.commands.put("d100", new CmdDiceHundred());
+		CommandHandler.commands.put("createPnP", new CmdCreateNewTale());
+		CommandHandler.commands.put("addRace", new CmdAddMoreRaces());
+		CommandHandler.commands.put("invite", new CmdInvitePlayerToTale());
 	}
 
 	public static void addDirectCommands()
 	{
 		DirectMessageHandler.commands.put("showLog", new DmPrintLogs());
+		DirectMessageHandler.commands.put("accept", new DmAccept());
+		DirectMessageHandler.commands.put("decline", new DmDecline());
 	}
 
 	private static void addListeners()

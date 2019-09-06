@@ -43,13 +43,13 @@ public class DmPrintLogs implements DirectCommand
 			}
 			else
 			{
-				writer.writeMsg(IDirectMsgCmd.PATTERN_SHOW_LOG);
-				log.logInfo(this.toString(), ILogDirectMsg.WRONG_PATTERN, IDirectMsgCmd.PATTERN_SHOW_LOG);
+				writer.writeMsg("Pattern of command: showLog");
+				log.logInfo(this.toString(), ILogDirectMsg.WRONG_PATTERN, "Pattern of command: showLog");
 			}
 		}
 		else
 		{
-			writer.writeMsg(IDirectMsgCmd.NO_PERMISSION);
+			writer.writeMsg("You can't use this command with your rank");
 			log.logErrorWithoutMsg(this.toString(), ILogDirectMsg.NO_PERMISSION);
 		}
 		return isOk;
@@ -64,8 +64,8 @@ public class DmPrintLogs implements DirectCommand
 		cmdLog.getLog().printLog();
 		Logger dmLog = LoggerManager.getLogger(ILogDirectMsg.NUM, ILogDirectMsg.NAME);
 		dmLog.getLog().printLog();
-		writer.writeMsg(IDirectMsgCmd.SHOW_LOG);
-		log.addMessageToLog(this.toString(), LogMessageType.INFO, ILogDirectMsg.SHOW_LOGS, IDirectMsgCmd.SHOW_LOG);
+		writer.writeMsg("I will show you the log");
+		log.addMessageToLog(this.toString(), LogMessageType.INFO, ILogDirectMsg.SHOW_LOGS, "Shows log");
 	}
 
 	@Override

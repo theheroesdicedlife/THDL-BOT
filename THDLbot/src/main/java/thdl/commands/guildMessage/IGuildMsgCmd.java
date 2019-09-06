@@ -4,13 +4,7 @@ package thdl.commands.guildMessage;
 public interface IGuildMsgCmd
 {
 
-	// Others:
-	public static final String NEXT_LINE = "\n";
-
 	// Error - Messages
-	public static final String	ERROR_NO_MEMBER					= "The Author of this command is not registered";
-	public static final String	ERROR_UNAUTHORIZED				= "You are not a Storyteller";
-	public static final String	ERROR_FALSE_QUANTITY			= "Quantity is not working :frowning:";
 	public static final String	ERROR_NOT_A_TALE_CHANNEL		= "The channel you are using is not the channel of a Tale";
 	public static final String	ERROR_NOT_AUTHORIZED_IN_TALE	= "Only the Storyteller of this tale can use this command";
 	public static final String	ERROR_ONE_RACE_NAME_FALSE		= "At least one of the race-names used, was not a THDL-Racename";
