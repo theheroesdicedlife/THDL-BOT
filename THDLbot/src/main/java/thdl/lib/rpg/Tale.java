@@ -24,7 +24,8 @@ public class Tale
 	private Role			taleRole			= null;
 	private TextChannel		mainChannel			= null;
 	private VoiceChannel	secondaryChannel	= null;
-	private boolean			isStarted;
+	private boolean			isStarted			= false;
+	private boolean			startJobsEnabled	= true;
 
 	// lists
 
@@ -142,7 +143,10 @@ public class Tale
 	 */
 	public void addRace(String name)
 	{
-		racesInTale.add(name);
+		if (!isRaceInTale(name))
+		{
+			racesInTale.add(name);
+		}
 	}
 
 	/**
@@ -164,6 +168,18 @@ public class Tale
 	public void addPlayer(ThdlMember member)
 	{
 		player.put(member.getUserID(), member);
+	}
+
+	// REMOVER
+
+	/**
+	 * 
+	 * @param name
+	 *            of race to be removed
+	 */
+	public void removeRace(String name)
+	{
+		racesInTale.remove(name);
 	}
 
 	// GETTER AND SETTER
@@ -243,13 +259,18 @@ public class Tale
 	}
 
 	/**
-	 * 
-	 * @param isStarted
-	 *            sets the flag for the tale being started
+	 * toggles the start-flag
 	 */
-	public void setStarted(boolean isStarted)
+	public void toggleStarted()
 	{
-		this.isStarted = isStarted;
+		if (isStarted)
+		{
+			isStarted = false;
+		}
+		else
+		{
+			isStarted = true;
+		}
 	}
 
 	/**
@@ -260,5 +281,30 @@ public class Tale
 	public ArrayList<Turn> getPlayerTurns()
 	{
 		return playerTurns;
+	}
+
+	/**
+	 * 
+	 * @return
+	 * 		the flag for enabled disabled start-jobs.
+	 */
+	public boolean isStartJobsEnabled()
+	{
+		return startJobsEnabled;
+	}
+
+	/**
+	 * toggles the start-job flag
+	 */
+	public void toggleStartJobs()
+	{
+		if (startJobsEnabled)
+		{
+			startJobsEnabled = false;
+		}
+		else
+		{
+			startJobsEnabled = true;
+		}
 	}
 }

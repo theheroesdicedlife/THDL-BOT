@@ -19,6 +19,8 @@ import thdl.commands.guildMessage.dice.CmdDiceTwenty;
 import thdl.commands.guildMessage.tale.CmdAddMoreRaces;
 import thdl.commands.guildMessage.tale.CmdCreateNewTale;
 import thdl.commands.guildMessage.tale.CmdInvitePlayerToTale;
+import thdl.commands.guildMessage.tale.CmdRemoveSomeRaces;
+import thdl.commands.guildMessage.tale.CmdToggleStartjobs;
 import thdl.listeners.CommandListener;
 import thdl.listeners.DirectCommandListener;
 import thdl.listeners.ReadyListener;
@@ -74,7 +76,9 @@ public class MainBot
 		CommandHandler.commands.put("d100", new CmdDiceHundred());
 		CommandHandler.commands.put("createPnP", new CmdCreateNewTale());
 		CommandHandler.commands.put("addRace", new CmdAddMoreRaces());
+		CommandHandler.commands.put("rmRace", new CmdRemoveSomeRaces());
 		CommandHandler.commands.put("invite", new CmdInvitePlayerToTale());
+		CommandHandler.commands.put("toggleStartJobs", new CmdToggleStartjobs());
 	}
 
 	public static void addDirectCommands()

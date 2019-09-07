@@ -50,8 +50,12 @@ public interface ILogGuildCmd
 	public static final String	CMD_DICE_HUNDRED_FAILED			= "Command -d100 could not be executed with success";
 	public static final String	CMD_ADD_RACE_SUCCESS			= "Command -addRace was executed with success";
 	public static final String	CMD_ADD_RACE_FAILED				= "Command -addRace could not be executed with success";
+	public static final String	CMD_RM_RACE_SUCCESS				= "Command -rmRace was executed with success";
+	public static final String	CMD_RM_RACE_FAILED				= "Command -rmRace could not be executed with success";
 	public static final String	CMD_INVITE_SUCCESS				= "Command -invite was executed with success";
 	public static final String	CMD_INVITE_FAILED				= "Command -invite could not be executed with success";
+	public static final String	CMD_TOGGLE_JOBS_SUCCESS			= "Command -toggleStartJobs was executed with success";
+	public static final String	CMD_TOGGLE_JOBS_FAILED			= "Command -toggleStartJobs could not be executed with success";
 	public static final String	DICED							= "Diced: ";
 	public static final String	WRONG_PATTERN_CMD				= "User has used wrong format for this command";
 	public static final String	ERROR_NOT_A_TALE_CHANNEL		= "The channel you are using is not the channel of a Tale";
