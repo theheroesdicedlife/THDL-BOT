@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.GuildController;
 import thdl.commands.guildMessage.Command;
-import thdl.commands.guildMessage.IGuildMsgCmd;
 import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.RoleFactory;
@@ -74,15 +73,16 @@ public class CmdCreateNewTale implements Command
 					else
 					{
 						isOk = false;
-						log.logInfo(this.toString(), ILogGuildCmd.NAME_IN_USE, IGuildMsgCmd.INFO_TALE_NAME_IN_USE);
-						writer.writeInfo(IGuildMsgCmd.INFO_TALE_NAME_IN_USE);
+						log.logInfo(this.toString(), ILogGuildCmd.NAME_IN_USE,
+								"Name which was chosen is already in use!");
+						writer.writeInfo("I'm sorry. The name for your tale is already in use");
 					}
 				}
 				else
 				{
 					isOk = false;
-					log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, IGuildMsgCmd.INFO_FORMAT_CREATE_TALE);
-					writer.writeInfo(IGuildMsgCmd.INFO_FORMAT_CREATE_TALE);
+					log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, ILogGuildCmd.WRONG_PATTERN_CMD);
+					writer.writeInfo("You should use the format -createTale [talename]");
 				}
 			}
 			else
@@ -168,8 +168,7 @@ public class CmdCreateNewTale implements Command
 
 					if (TaleFactory.getInstance().createTale(talename, author, role, mainChannel, secondaryChannel))
 					{
-						writer.writeSuccess(
-								IGuildMsgCmd.SUC_PNP_CREATED_FIRST + talename + IGuildMsgCmd.SUC_PNP_CREATED_AFTER);
+						writer.writeSuccess("The THDL-based PnP " + talename + " was created!");
 					}
 				}
 				else

@@ -4,7 +4,6 @@ package thdl.commands.guildMessage.tale;
 import java.sql.SQLException;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import thdl.commands.guildMessage.Command;
-import thdl.commands.guildMessage.IGuildMsgCmd;
 import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.lib.factories.rpg.RaceFactory;
 import thdl.lib.factories.rpg.TaleFactory;
@@ -62,17 +61,19 @@ public class CmdAddMoreRaces implements Command
 						else
 						{
 							log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NOT_A_THDL_RACE);
-							writer.writeError(IGuildMsgCmd.ERROR_ONE_RACE_NAME_FALSE);
-							writer.writeInfo(IGuildMsgCmd.INFO_STANDARD_RACE_NAMES);
-							writer.writeInfo(IGuildMsgCmd.INFO_ADVANCED_RACE_NAMES);
+							writer.writeError("At least one of the race-names used, was not a THDL-Racename");
+							writer.writeInfo(
+									"The names of the standard THDL-Races are: Human, Elf, Dwarf, Orc, Halfelf, Str-Type-Demi, Psy-Type-Demi, Dex-Type-Demi");
+							writer.writeInfo(
+									"The names of the advanced set of THDL-Races are: Oger, Gnome, Fallen Angel, Angel, Oni, Humanoid Slime, Liszardman, Goblin");
 
 							isOK = false;
 						}
 					}
 					else
 					{
-						log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, IGuildMsgCmd.INFO_FORMAT_ADD_RACE);
-						writer.writeInfo(IGuildMsgCmd.INFO_FORMAT_ADD_RACE);
+						log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, ILogGuildCmd.WRONG_PATTERN_CMD);
+						writer.writeInfo("You should use the format -addRace [racename] ([racename] ...)");
 
 						isOK = false;
 					}
@@ -80,8 +81,8 @@ public class CmdAddMoreRaces implements Command
 				else
 				{
 					log.logInfo(this.toString(), ILogGuildCmd.ALREADY_PLAYERS_JOINED,
-							IGuildMsgCmd.INFO_PLAYERS_HAVE_JOINED);
-					writer.writeInfo(IGuildMsgCmd.INFO_PLAYERS_HAVE_JOINED);
+							"Cannot change tale settings after player join");
+					writer.writeInfo("You can't change the tale settings after a player has joined");
 
 					isOK = false;
 				}
@@ -89,7 +90,7 @@ public class CmdAddMoreRaces implements Command
 			else
 			{
 				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.UNAUTHORIZED_USE);
-				writer.writeError(IGuildMsgCmd.ERROR_NOT_AUTHORIZED_IN_TALE);
+				writer.writeError(ILogGuildCmd.ERROR_NOT_AUTHORIZED_IN_TALE);
 
 				isOK = false;
 			}
@@ -97,7 +98,7 @@ public class CmdAddMoreRaces implements Command
 		else
 		{
 			log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_TALE_FOUND);
-			pmWrite.writeMsg(IGuildMsgCmd.ERROR_NOT_A_TALE_CHANNEL);
+			pmWrite.writeMsg(ILogGuildCmd.ERROR_NOT_A_TALE_CHANNEL);
 
 			e.getMessage().delete().queue();
 
@@ -116,18 +117,19 @@ public class CmdAddMoreRaces implements Command
 	private void addRacesToTale(String[] names)
 	{
 		StringBuilder msg = new StringBuilder();
-		msg.append(IGuildMsgCmd.INFO_RACES_ADDED + tale.getTaleName() + "\n");
+		msg.append("The following races were added to the pnp " + tale.getTaleName() + "\n");
 
 		for (String name : names)
 		{
 			if (!tale.isRaceInTale(name))
 			{
-				msg.append(name);
+				msg.append(name + "\n");
 				tale.addRace(name);
 
-				writer.writeInfo(msg.toString());
 			}
 		}
+
+		writer.writeInfo(msg.toString());
 
 		try
 		{

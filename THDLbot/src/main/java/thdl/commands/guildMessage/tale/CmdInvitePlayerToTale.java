@@ -3,7 +3,6 @@ package thdl.commands.guildMessage.tale;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import thdl.commands.guildMessage.Command;
-import thdl.commands.guildMessage.IGuildMsgCmd;
 import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.lib.discord.ThdlMember;
 import thdl.lib.factories.discord.ThdlMemberFactory;
@@ -61,16 +60,16 @@ public class CmdInvitePlayerToTale implements Command
 					}
 					else
 					{
-						log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT,
-								IGuildMsgCmd.INFO_FORMAT_INVITE_PLAYERS);
-						writer.writeInfo(IGuildMsgCmd.INFO_FORMAT_INVITE_PLAYERS);
+						log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, ILogGuildCmd.WRONG_PATTERN_CMD);
+						writer.writeInfo("You should use the format -invite [@username] ([@username] ...");
 						isOk = false;
 					}
 				}
 				else
 				{
-					log.logInfo(this.toString(), ILogGuildCmd.TALE_STARTED, IGuildMsgCmd.INFO_TALE_IS_RUNNING);
-					writer.writeInfo(IGuildMsgCmd.INFO_TALE_IS_RUNNING);
+					log.logInfo(this.toString(), ILogGuildCmd.TALE_STARTED,
+							"Tried to invite users to the tale, even so its running");
+					writer.writeInfo("I'm sorry, but you can't invite any people as long the tale is running");
 					isOk = false;
 				}
 
@@ -78,14 +77,14 @@ public class CmdInvitePlayerToTale implements Command
 			else
 			{
 				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.UNAUTHORIZED_USE);
-				writer.writeError(IGuildMsgCmd.ERROR_NOT_AUTHORIZED_IN_TALE);
+				writer.writeError(ILogGuildCmd.ERROR_NOT_AUTHORIZED_IN_TALE);
 				isOk = false;
 			}
 		}
 		else
 		{
 			log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_TALE_FOUND);
-			authorWrite.writeMsg(IGuildMsgCmd.ERROR_NOT_A_TALE_CHANNEL);
+			authorWrite.writeMsg(ILogGuildCmd.ERROR_NOT_A_TALE_CHANNEL);
 			isOk = false;
 		}
 
@@ -117,13 +116,14 @@ public class CmdInvitePlayerToTale implements Command
 						member.addInvitedTo(tale);
 						DirectWriter dm = new DirectWriter(member);
 
-						dmMsg = IGuildMsgCmd.DM_INV_TO + tale.getTaleName() + "\n";
-						dmMsg = IGuildMsgCmd.DM_ANSW_INV + "\n";
-						dmMsg = IGuildMsgCmd.DM_ACCEPT_INV + IGuildMsgCmd.DM_DECLINE_INV;
+						dmMsg = "Hello! You were invited to play " + tale.getTaleName() + "\n";
+						dmMsg = "Please answer the invitation.\n";
+						dmMsg = "If you want to join, type 'accept " + tale.getTaleName() + "', if not, type 'decline"
+								+ tale.getTaleName() + "' under this message";
 
 						dm.writeMsg(dmMsg);
 
-						msg = msg + args[i] + IGuildMsgCmd.INFO_INVITED + "\n";
+						msg = msg + args[i] + " was invited to the tale" + "\n";
 
 						logMsg = args[i] + ILogGuildCmd.INVITED + tale.getTaleName();
 						log.logState(this.toString(), logMsg);
@@ -134,8 +134,7 @@ public class CmdInvitePlayerToTale implements Command
 					logMsg = args[i] + ILogGuildCmd.CANT_PLAY;
 					log.logErrorWithoutMsg(this.toString(), logMsg);
 
-					msg = msg + args[i] + IGuildMsgCmd.INFO_COULD_NOT_INVITE + IGuildMsgCmd.INFO_NO_INV_CAUSE_NOT_AUTH
-							+ "\n";
+					msg = msg + args[i] + " couln't be invited, because he/she is not a ~Fighter or higher\n";
 				}
 			}
 			else
@@ -143,8 +142,7 @@ public class CmdInvitePlayerToTale implements Command
 				logMsg = args[i] + ILogGuildCmd.NOT_A_MEMBER;
 				log.logErrorWithoutMsg(this.toString(), logMsg);
 
-				msg = msg + args[i] + IGuildMsgCmd.INFO_COULD_NOT_INVITE + IGuildMsgCmd.INFO_NO_INV_CAUSE_NO_MEMBER
-						+ "\n";
+				msg = msg + args[i] + " couln't be invited, because this is not a member!\n";
 			}
 		}
 

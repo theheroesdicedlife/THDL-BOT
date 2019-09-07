@@ -4,7 +4,6 @@ package thdl.commands.guildMessage.dice;
 import java.util.Random;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import thdl.commands.guildMessage.Command;
-import thdl.commands.guildMessage.IGuildMsgCmd;
 import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.util.DiscordWriter;
 import thdl.util.log.LogMessageType;
@@ -91,8 +90,8 @@ public class CmdDiceSix implements Command, IDiced
 		else
 		{
 			isCalled = false;
-			log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, IGuildMsgCmd.INFO_FORMAT_DICE_SIX);
-			writer.writeError(IGuildMsgCmd.INFO_FORMAT_DICE_SIX);
+			log.logInfo(this.toString(), ILogGuildCmd.WRONG_FORMAT, ILogGuildCmd.WRONG_PATTERN_CMD);
+			writer.writeError("Please use the format -d6 [quantity] :weary:");
 		}
 		return isCalled;
 	}
@@ -106,14 +105,13 @@ public class CmdDiceSix implements Command, IDiced
 		if (quant > 0)
 		{
 			res = diceMultiple(rn, quant);
-			writer.writeSuccess(e.getMember().getNickname() + IGuildMsgCmd.SUC_DICE_SIX_THROW + quant
-					+ IGuildMsgCmd.SUC_DICE_TIMES + IGuildMsgCmd.SUC_DICE_GETS_A + res);
+			writer.writeSuccess(
+					e.getMember().getNickname() + " throws a 6 sided dice " + quant + " times and gets a " + res);
 		}
 		else
 		{
 			res = diceOnce(rn);
-			writer.writeSuccess(
-					e.getMember().getNickname() + IGuildMsgCmd.SUC_DICE_SIX_THROW + IGuildMsgCmd.SUC_DICE_GETS_A + res);
+			writer.writeSuccess(e.getMember().getNickname() + " throws a 6 sided dice and gets a " + res);
 		}
 
 		secureDiceResult(res, e);
