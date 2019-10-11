@@ -10,6 +10,7 @@ import thdl.lib.factories.discord.ThdlMemberFactory;
 import thdl.util.IDiscordID;
 import thdl.util.IStatic;
 import thdl.util.guildMessage.CommandHandler;
+import thdl.util.guildMessage.CommandParser;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
@@ -44,7 +45,7 @@ public class CommandListener extends ListenerAdapter
 			log.logState(this.toString(), event.getMessage().toString());
 			try
 			{
-				CommandHandler.handleCommand(CommandHandler.parse.parser(raw, event));
+				CommandHandler.getInstance().handleCommand(new CommandParser(raw, event));
 			}
 			catch (Exception e)
 			{

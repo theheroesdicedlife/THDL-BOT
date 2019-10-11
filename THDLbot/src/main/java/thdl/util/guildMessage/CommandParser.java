@@ -9,25 +9,69 @@ import thdl.util.IStatic;
 public class CommandParser
 {
 
+	private String						beheaded	= "";
+	private String[]					args		= null;
+	private String						invoke		= "";
+	private GuildMessageReceivedEvent	event		= null;
+
+	/**
+	 * @return the beheaded Command
+	 */
+	public String getBeheaded()
+	{
+		return beheaded;
+	}
+
+	/**
+	 * @return the args of the Command
+	 */
+	public String[] getArgs()
+	{
+		return args;
+	}
+
+	/**
+	 * @return the invoke for the Command
+	 */
+	public String getInvoke()
+	{
+		return invoke;
+	}
+
+	/**
+	 * @return the event that gets handled
+	 */
+	public GuildMessageReceivedEvent getEvent()
+	{
+		return event;
+	}
+
+	public CommandParser(String raw, GuildMessageReceivedEvent event)
+	{
+		this.event = event;
+		parse(raw);
+	}
+
 	/**
 	 * Takes apart the command-String coming from Discord
 	 * 
 	 * @param raw
 	 *            The raw command-String unparsed
-	 * @param event
-	 *            The GuildMessageReceivcedEvent created by messages in the guild's
-	 *            textchannels
-	 * @return
-	 * 		Returns an CommandContainer, which has the parsed Command-String
-	 *         inside
 	 */
-	public commandContainer parser(String raw, GuildMessageReceivedEvent event)
+	public void parse(String raw)
 	{
-		String beheaded = raw.replaceFirst(IStatic.PREFIX, "");
+
+		beheaded = "";
+		invoke = "";
+		args = null;
+
+		beheaded = raw.replaceFirst(IStatic.PREFIX, "");
 
 		String beheadedSplit[] = beheaded.split(" ");
 
-		String invoke = beheadedSplit[0];
+		invoke = beheadedSplit[0];
+
+		args = new String[beheadedSplit.length - 1];
 
 		ArrayList<String> split = new ArrayList<String>();
 
@@ -36,37 +80,8 @@ public class CommandParser
 			split.add(s);
 		}
 
-		String args[] = new String[split.size() - 1];
-
 		split.subList(1, split.size()).toArray(args);
 
-		return new commandContainer(raw, beheaded, beheadedSplit, invoke, args, event);
 	}
 
-	public static class commandContainer
-	{
-
-		public final String raw;
-
-		public final String beheaded;
-
-		public final String[] splitBeheaded;
-
-		public final String invoke;
-
-		public final String[] args;
-
-		public final GuildMessageReceivedEvent event;
-
-		public commandContainer(String rw, String beheaded, String[] splitBeheaded, String invoke, String[] args,
-				GuildMessageReceivedEvent event)
-		{
-			this.raw = rw;
-			this.beheaded = beheaded;
-			this.splitBeheaded = splitBeheaded;
-			this.invoke = invoke;
-			this.args = args;
-			this.event = event;
-		}
-	}
 }

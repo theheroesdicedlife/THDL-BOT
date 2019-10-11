@@ -14,9 +14,40 @@ import thdl.util.log.LoggerManager;
 public class DirectMessageHandler
 {
 
-	public static HashMap<String, DirectCommand> commands = new HashMap<String, DirectCommand>();
+	/*
+	 * Class
+	 * Singleton-Pattern
+	 */
+	private static DirectMessageHandler instance = null;
 
-	public static void handleCommand(DirectMessageParser parser) throws Exception
+	public static DirectMessageHandler getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new DirectMessageHandler();
+		}
+
+		return instance;
+	}
+
+	/*
+	 * Object
+	 */
+	private HashMap<String, DirectCommand> commands = null;
+
+	private DirectMessageHandler()
+	{
+
+		commands = new HashMap<String, DirectCommand>();
+
+	}
+
+	public HashMap<String, DirectCommand> getCommands()
+	{
+		return commands;
+	}
+
+	public void handleCommand(DirectMessageParser parser) throws Exception
 	{
 		Logger log = LoggerManager.getLogger(ILogMain.NUM, ILogMain.NAME);
 		DirectWriter writer = null;
@@ -25,10 +56,10 @@ public class DirectMessageHandler
 		System.out.println(parser.getInvoke());
 		log.logState(ILogMain.DIRECT_MSG_HANDLER, ILogMain.DIRECT_COMMAND);
 
-		if (commands.containsKey(parser.getInvoke()))
+		if (getCommands().containsKey(parser.getInvoke()))
 		{
 			boolean safe = true;
-			DirectCommand cmd = commands.get(parser.getInvoke());
+			DirectCommand cmd = getCommands().get(parser.getInvoke());
 			safe = cmd.called(parser.getArgs(), parser.getEvent());
 			if (safe)
 			{

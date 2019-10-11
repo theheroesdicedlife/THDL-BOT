@@ -33,7 +33,7 @@ public class DirectCommandListener extends ListenerAdapter
 				log.logState(this.toString(), event.getMessage().toString());
 				try
 				{
-					DirectMessageHandler.handleCommand(new DirectMessageParser(raw, event));
+					DirectMessageHandler.getInstance().handleCommand(new DirectMessageParser(raw, event));
 				}
 				catch (Exception e)
 				{

@@ -65,27 +65,31 @@ public class MainBot
 		}
 	}
 
-	public static void addCommands()
+	private static void addCommands()
 	{
-		CommandHandler.commands.put("d4", new CmdDiceFour());
-		CommandHandler.commands.put("d6", new CmdDiceSix());
-		CommandHandler.commands.put("d8", new CmdDiceEight());
-		CommandHandler.commands.put("d10", new CmdDiceTen());
-		CommandHandler.commands.put("d12", new CmdDiceTwelve());
-		CommandHandler.commands.put("d20", new CmdDiceTwenty());
-		CommandHandler.commands.put("d100", new CmdDiceHundred());
-		CommandHandler.commands.put("createPnP", new CmdCreateNewTale());
-		CommandHandler.commands.put("addRace", new CmdAddMoreRaces());
-		CommandHandler.commands.put("rmRace", new CmdRemoveSomeRaces());
-		CommandHandler.commands.put("invite", new CmdInvitePlayerToTale());
-		CommandHandler.commands.put("toggleStartJobs", new CmdToggleStartjobs());
+		CommandHandler cmdHandler = CommandHandler.getInstance();
+
+		cmdHandler.getCommands().put("d4", new CmdDiceFour());
+		cmdHandler.getCommands().put("d6", new CmdDiceSix());
+		cmdHandler.getCommands().put("d8", new CmdDiceEight());
+		cmdHandler.getCommands().put("d10", new CmdDiceTen());
+		cmdHandler.getCommands().put("d12", new CmdDiceTwelve());
+		cmdHandler.getCommands().put("d20", new CmdDiceTwenty());
+		cmdHandler.getCommands().put("d100", new CmdDiceHundred());
+		cmdHandler.getCommands().put("createPnP", new CmdCreateNewTale());
+		cmdHandler.getCommands().put("addRace", new CmdAddMoreRaces());
+		cmdHandler.getCommands().put("rmRace", new CmdRemoveSomeRaces());
+		cmdHandler.getCommands().put("invite", new CmdInvitePlayerToTale());
+		cmdHandler.getCommands().put("toggleStartJobs", new CmdToggleStartjobs());
 	}
 
-	public static void addDirectCommands()
+	private static void addDirectCommands()
 	{
-		DirectMessageHandler.commands.put("showLog", new DmPrintLogs());
-		DirectMessageHandler.commands.put("accept", new DmAccept());
-		DirectMessageHandler.commands.put("decline", new DmDecline());
+		DirectMessageHandler dmHandler = DirectMessageHandler.getInstance();
+
+		dmHandler.getCommands().put("showLog", new DmPrintLogs());
+		dmHandler.getCommands().put("accept", new DmAccept());
+		dmHandler.getCommands().put("decline", new DmDecline());
 	}
 
 	private static void addListeners()
