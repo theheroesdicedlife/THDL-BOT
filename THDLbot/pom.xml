@@ -47,6 +47,11 @@
   			<artifactId>JDA</artifactId>
   			<version>LATEST</version>
   		</dependency>
+  		<dependency>
+  			<groupId>com.github.fangyidong</groupId>
+  			<artifactId>json-simple</artifactId>
+  			<version>LATEST</version>
+  		</dependency>
   	</dependencies>
   </dependencyManagement>
   

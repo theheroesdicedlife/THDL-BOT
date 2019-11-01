@@ -1,26 +1,14 @@
 package thdl.commands.guildMessage.tale;
 
 
-import java.util.ArrayList;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Category;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.managers.GuildController;
 import thdl.commands.guildMessage.Command;
 import thdl.commands.guildMessage.ILogGuildCmd;
 import thdl.lib.discord.ThdlMember;
-import thdl.lib.factories.discord.RoleFactory;
-import thdl.lib.factories.discord.TextChannelFactory;
 import thdl.lib.factories.discord.ThdlMemberFactory;
-import thdl.lib.factories.discord.VoiceChannelFactory;
 import thdl.lib.factories.rpg.TaleFactory;
 import thdl.util.DirectWriter;
 import thdl.util.DiscordWriter;
-import thdl.util.IDiscordID;
 import thdl.util.log.LogMessageType;
 import thdl.util.log.Logger;
 import thdl.util.log.LoggerManager;
@@ -29,16 +17,9 @@ import thdl.util.log.LoggerManager;
 public class CmdCreateNewTale implements Command
 {
 
-	private DiscordWriter			writer			= null;
-	private DirectWriter			dmWriter		= null;
-	private Logger					log				= null;
-	private GuildController			controller		= null;
-	private ArrayList<Permission>	allowTxt		= null;
-	private ArrayList<Permission>	denyTxt			= null;
-	private ArrayList<Permission>	allowVc			= null;
-	private ArrayList<Permission>	denyVc			= null;
-	private ArrayList<Permission>	denyEveryoneTxt	= null;
-	private ArrayList<Permission>	denyEveryoneVc	= null;
+	private DiscordWriter	writer		= null;
+	private DirectWriter	dmWriter	= null;
+	private Logger			log			= null;
 
 	@Override
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
@@ -61,7 +42,7 @@ public class CmdCreateNewTale implements Command
 
 		if (member != null)
 		{
-			if (member.isStoryteller())
+			if (member.isDungeonmaster())
 			{
 				if (args.length == 1)
 				{
@@ -108,82 +89,18 @@ public class CmdCreateNewTale implements Command
 	@Override
 	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
+		TaleCreationHandler creationHandler = new TaleCreationHandler();
+
 		try
 		{
-			createNewTale(args[0], e);
+			if (creationHandler.createNewTale(args[0], e, log))
+			{
+				writer.writeSuccess("The THDL-based PnP " + args[0] + " was created!");
+			}
 		}
 		catch (Exception e1)
 		{
 			log.logException(this.toString(), ILogGuildCmd.CREATE_TALE_EXCEPTION, e1.getMessage());
-		}
-	}
-
-	/**
-	 * Creates a new Tale, first it creates a new Role with the RoleFactory, second
-	 * a mainchannel with the TextChannelFactory and third a secondary Channel with
-	 * the VoiceChannelFactory
-	 * At last it creates the Tale with the TaleFactory, and adds the new Tale to
-	 * the Collection inside of the factory
-	 * 
-	 * @param talename
-	 *            Name of the new Tale
-	 * @param e
-	 *            Event, which causes the usage of the command
-	 * @throws Exception
-	 */
-	private void createNewTale(String talename, GuildMessageReceivedEvent e) throws Exception
-	{
-		Guild guild = e.getGuild();
-		controller = openControl(e);
-
-		Category parentTxt = guild.getCategoryById(IDiscordID.RPGTXTCAT_ID);
-		Category parentVc = guild.getCategoryById(IDiscordID.RPGVCCAT_ID);
-		Role everyone = guild.getPublicRole();
-		ThdlMember author = ThdlMemberFactory.getInstance().getMember(e.getAuthor());
-
-		initPermissions();
-		String voicename = talename + "_Voice";
-
-		Role role = RoleFactory.getInstance().createRole(controller, talename);
-
-		if (role != null)
-		{
-			log.logState(this.toString(), ILogGuildCmd.ROLE_CREATE);
-
-			controller.addSingleRoleToMember(e.getMember(), role).queue();
-
-			TextChannel mainChannel = TextChannelFactory.getInstance().createTextChannel(controller, talename,
-					parentTxt, everyone, role, null, allowTxt, denyEveryoneTxt, denyTxt);
-
-			if (mainChannel != null)
-			{
-				log.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
-
-				VoiceChannel secondaryChannel = VoiceChannelFactory.getInstance().createVoiceChannel(controller,
-						voicename, parentVc, everyone, role, null, allowVc, denyEveryoneVc, denyVc);
-
-				if (secondaryChannel != null)
-				{
-					log.logState(this.toString(), ILogGuildCmd.CHANNEL_CREATE);
-
-					if (TaleFactory.getInstance().createTale(talename, author, role, mainChannel, secondaryChannel))
-					{
-						writer.writeSuccess("The THDL-based PnP " + talename + " was created!");
-					}
-				}
-				else
-				{
-					log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_CHANNEL);
-				}
-			}
-			else
-			{
-				log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_CHANNEL);
-			}
-		}
-		else
-		{
-			log.logErrorWithoutMsg(this.toString(), ILogGuildCmd.NO_ROLE);
 		}
 	}
 
@@ -203,46 +120,6 @@ public class CmdCreateNewTale implements Command
 
 		writer = null;
 		dmWriter = null;
-		controller = null;
-		allowTxt = null;
-		denyTxt = null;
-		allowVc = null;
-		denyTxt = null;
-	}
-
-	/**
-	 * Initializes the permissions for the new Voice- and TextChannel
-	 */
-	private void initPermissions()
-	{
-		allowTxt = new ArrayList<>();
-		denyTxt = new ArrayList<>();
-		allowVc = new ArrayList<>();
-		denyVc = new ArrayList<>();
-		denyEveryoneTxt = new ArrayList<>();
-		denyEveryoneVc = new ArrayList<>();
-
-		allowVc.add(Permission.VIEW_CHANNEL);
-		allowVc.add(Permission.VOICE_CONNECT);
-		allowVc.add(Permission.VOICE_SPEAK);
-
-		denyVc.add(Permission.MANAGE_CHANNEL);
-		denyVc.add(Permission.VOICE_MOVE_OTHERS);
-
-		allowTxt.add(Permission.VIEW_CHANNEL);
-		allowTxt.add(Permission.MESSAGE_READ);
-		allowTxt.add(Permission.MESSAGE_WRITE);
-		allowTxt.add(Permission.MESSAGE_ADD_REACTION);
-		allowTxt.add(Permission.MESSAGE_ATTACH_FILES);
-		allowTxt.add(Permission.MESSAGE_EMBED_LINKS);
-
-		denyTxt.add(Permission.MANAGE_CHANNEL);
-		denyTxt.add(Permission.MESSAGE_MANAGE);
-
-		denyEveryoneTxt.add(Permission.VIEW_CHANNEL);
-		denyEveryoneTxt.add(Permission.MESSAGE_READ);
-		denyEveryoneVc.add(Permission.VIEW_CHANNEL);
-		denyEveryoneVc.add(Permission.VOICE_CONNECT);
 	}
 
 	@Override
@@ -250,15 +127,6 @@ public class CmdCreateNewTale implements Command
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	private GuildController openControl(GuildMessageReceivedEvent e)
-	{
-		if (controller == null)
-		{
-			controller = e.getGuild().getController();
-		}
-		return controller;
 	}
 
 }

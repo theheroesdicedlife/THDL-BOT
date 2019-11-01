@@ -19,13 +19,15 @@ public class Tale
 
 	// Basic Attributes
 
-	private String			taleName			= "";
-	private ThdlMember		storyteller			= null;
-	private Role			taleRole			= null;
-	private TextChannel		mainChannel			= null;
-	private VoiceChannel	secondaryChannel	= null;
-	private boolean			isStarted			= false;
-	private boolean			startJobsEnabled	= true;
+	private String			taleName					= "";
+	private ThdlMember		dungeonmaster				= null;
+	private Role			taleRole					= null;
+	private TextChannel		mainChannel					= null;
+	private VoiceChannel	secondaryChannel			= null;
+	private MasterTurn		masterTurn					= null;
+	private boolean			isStarted					= false;
+	private boolean			isCharacterCreationEnabled	= false;
+	private boolean			startJobsEnabled			= true;
 
 	// lists
 
@@ -35,15 +37,16 @@ public class Tale
 
 	// CONSTRUCTOR
 
-	public Tale(String taleName, ThdlMember storyteller, Role taleRole, TextChannel mainChannel,
+	public Tale(String taleName, ThdlMember dungeonmaster, Role taleRole, TextChannel mainChannel,
 			VoiceChannel secondaryChannel)
 	{
 		super();
 		this.taleName = taleName;
-		this.storyteller = storyteller;
+		this.dungeonmaster = dungeonmaster;
 		this.taleRole = taleRole;
 		this.mainChannel = mainChannel;
 		this.secondaryChannel = secondaryChannel;
+		this.masterTurn = new MasterTurn(dungeonmaster, this);
 
 		init();
 	}
@@ -57,6 +60,7 @@ public class Tale
 		playerTurns = new ArrayList<Turn>();
 		RaceFactory.getInstance().addStandardToTale(racesInTale);
 		this.isStarted = false;
+		this.isCharacterCreationEnabled = false;
 	}
 
 	// FLAGS
@@ -71,7 +75,7 @@ public class Tale
 	 */
 	public boolean isStoryteller(String id)
 	{
-		String tellerID = storyteller.getUserID();
+		String tellerID = dungeonmaster.getUserID();
 		return tellerID.equals(id);
 	}
 
@@ -197,24 +201,24 @@ public class Tale
 	/**
 	 * 
 	 * @return
-	 * 		the storyteller for this tale
+	 * 		the dungeonmaster for this tale
 	 */
-	public ThdlMember getStoryteller()
+	public ThdlMember getDungeonmaster()
 	{
-		return storyteller;
+		return dungeonmaster;
 	}
 
 	/**
 	 * 
-	 * @param storyteller
-	 *            sets the storyteller, do not use unless in creation of tale or
+	 * @param dungeonmaster
+	 *            sets the dungeonmaster, do not use unless in creation of tale or
 	 *            change of teller
 	 * @return
 	 * 		this tale
 	 */
-	public Tale setStoryteller(ThdlMember storyteller)
+	public Tale setDungeonmaster(ThdlMember dungeonmaster)
 	{
-		this.storyteller = storyteller;
+		this.dungeonmaster = dungeonmaster;
 		return this;
 	}
 
@@ -246,6 +250,14 @@ public class Tale
 	public VoiceChannel getSecondaryChannel()
 	{
 		return secondaryChannel;
+	}
+
+	/**
+	 * @return the masterTurn
+	 */
+	public MasterTurn getMasterTurn()
+	{
+		return masterTurn;
 	}
 
 	/**
@@ -305,6 +317,29 @@ public class Tale
 		else
 		{
 			startJobsEnabled = true;
+		}
+	}
+
+	/**
+	 * @return the isCharacterCreationEnabled
+	 */
+	public boolean isCharacterCreationEnabled()
+	{
+		return isCharacterCreationEnabled;
+	}
+
+	/**
+	 * toggles the character-creation-flag
+	 */
+	public void toggleCharacterCreation()
+	{
+		if (isCharacterCreationEnabled)
+		{
+			isCharacterCreationEnabled = false;
+		}
+		else
+		{
+			isCharacterCreationEnabled = true;
 		}
 	}
 }

@@ -123,7 +123,6 @@ public class CmdAddMoreRaces implements Command
 			{
 				msg.append(name + "\n");
 				tale.addRace(name);
-
 			}
 		}
 

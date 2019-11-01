@@ -1,0 +1,108 @@
+[
+	{
+		"raceName": "temp",
+		"playable": true,
+		"raceDescription": "",
+		"age": {
+			"maxYoung": "",
+			"minOld": ""
+		},
+		"abilities": {
+			"mainAbilities": [
+				"",
+				"",
+				""
+			],
+			"dicedAbilities": [
+				"",
+				"",
+				""
+			]
+		},
+		"attributes": {
+			"young": {
+				"str": ,
+				"vit": ,
+				"int": ,
+				"psy": ,
+				"dex": ,
+				"led": ,
+				"mov": ,
+				"tab": 
+			},
+			"midaged": {
+				"str": ,
+				"vit": ,
+				"int": ,
+				"psy": ,
+				"dex": ,
+				"led": ,
+				"mov": ,
+				"tab": 
+			},
+			"old": {
+				"str": ,
+				"vit": ,
+				"int": ,
+				"psy": ,
+				"dex": ,
+				"led": ,
+				"mov": ,
+				"tab": 
+			}
+		}
+	},
+	{
+		"raceName": "Human",
+		"playable": true,
+		"raceDescription": "Humans just like the humans on earth from the europien middleage",
+		"age": {
+			"maxYoung": "19",
+			"minOld": "41"
+		},
+		"abilities": {
+			"mainAbilities": [
+				"Lieing",
+				"Awaken",
+				"First Aid"
+			],
+			"dicedAbilities": [
+				"Adaptiv",
+				"Talking",
+				"Train animals"
+			]
+		},
+		"attributes": {
+			"young": {
+				"str": 5,
+				"vit": 5,
+				"int": 0,
+				"psy": -5,
+				"dex": 5,
+				"led": 2,
+				"mov": 0,
+				"tab": 4
+			},
+			"midaged": {
+				"str": 7,
+				"vit": 6,
+				"int": 0,
+				"psy": -4,
+				"dex": 6,
+				"led": 3,
+				"mov": 0,
+				"tab": 4
+			},
+			"old": {
+				"str": 4,
+				"vit": 3,
+				"int": 6,
+				"psy": 11,
+				"dex": 1,
+				"led": 4,
+				"mov": -2,
+				"tab": 0
+			}
+		}
+	}
+]

@@ -36,7 +36,7 @@ public class TaleCollection
 	public boolean addTale(Tale tale)
 	{
 		String channelID = tale.getMainChannel().getId();
-		String memberID = tale.getStoryteller().getMember().getUser().getId();
+		String memberID = tale.getDungeonmaster().getMember().getUser().getId();
 
 		return (taleC.add(tale, tale.getTaleName(), channelID, memberID));
 	}

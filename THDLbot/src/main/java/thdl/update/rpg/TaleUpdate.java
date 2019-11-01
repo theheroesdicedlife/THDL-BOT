@@ -38,7 +38,7 @@ public class TaleUpdate implements IStaticSQL
 		sqlBuilder.append(COMMA + VC_CHANNEL + COMMA + START_JOB_ACT + COMMA + DET_OF_EST);
 		sqlBuilder.append(COMMA + DET_OF_AFF + COMMA + IS_STARTED + BRK_CLOSE);
 		sqlBuilder.append(VALUES);
-		sqlBuilder.append(BRK_OPEN + t.getTaleName() + COMMA + t.getStoryteller().getUserID());
+		sqlBuilder.append(BRK_OPEN + t.getTaleName() + COMMA + t.getDungeonmaster().getUserID());
 		sqlBuilder.append(COMMA + t.getTaleRole().getId());
 		sqlBuilder.append(COMMA + t.getMainChannel().getId() + COMMA + t.getSecondaryChannel().getId() + BRK_CLOSE);
 

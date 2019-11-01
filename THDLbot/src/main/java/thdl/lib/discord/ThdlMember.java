@@ -138,9 +138,9 @@ public class ThdlMember
 	 * @return
 	 * 		is the thdl-member a allowed storyteller for thdl
 	 */
-	public boolean isStoryteller()
+	public boolean isDungeonmaster()
 	{
-		return rolesOfMember.containsRoleWithID(IDiscordID.STORYTELLER_ROLE_ID);
+		return rolesOfMember.containsRoleWithID(IDiscordID.DUNGEONMASTER_ROLE_ID);
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class ThdlMember
 	 */
 	public boolean isAllowed()
 	{
-		return !rolesOfMember.containsRoleWithID(IDiscordID.NOT_ALLOWED_ROLE_ID);
+		return rolesOfMember.containsRoleWithID(IDiscordID.ALLOWED_ROLE_ID);
 	}
 
 	/**
