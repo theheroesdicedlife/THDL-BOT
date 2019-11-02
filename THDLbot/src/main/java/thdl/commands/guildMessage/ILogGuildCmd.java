@@ -24,6 +24,7 @@ public interface ILogGuildCmd
 	public static final String	OPEN_DM_CHANNEL			= "Open a direct message channel";
 	public static final String	NO_TALE_FOUND			= "Channel has no Tale";
 	public static final String	ALREADY_PLAYERS_JOINED	= "Already Players in Tale";
+	public static final String	NO_CHANGE_POSSIBLE		= "Tale is started or character-creation is enabled";
 	public static final String	NOT_A_THDL_RACE			= "Not the name of a THDL-Race";
 	public static final String	DB_UPDATE_FAILED		= "Update to database failed";
 	public static final String	TALE_STARTED			= "The Tale is started";
@@ -56,6 +57,8 @@ public interface ILogGuildCmd
 	public static final String	CMD_INVITE_FAILED				= "Command -invite could not be executed with success";
 	public static final String	CMD_TOGGLE_JOBS_SUCCESS			= "Command -toggleStartJobs was executed with success";
 	public static final String	CMD_TOGGLE_JOBS_FAILED			= "Command -toggleStartJobs could not be executed with success";
+	public static final String	CMD_TOGGLE_ESTATE_SUCCESS		= "Command -toggleDetEstate was executed with success";
+	public static final String	CMD_TOGGLE_ESTATE_FAILED		= "Command -toggleDetEstate could not be executed with success";
 	public static final String	DICED							= "Diced: ";
 	public static final String	WRONG_PATTERN_CMD				= "User has used wrong format for this command";
 	public static final String	ERROR_NOT_A_TALE_CHANNEL		= "The channel you are using is not the channel of a Tale";

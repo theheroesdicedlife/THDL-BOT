@@ -28,6 +28,7 @@ public class Tale
 	private boolean			isStarted					= false;
 	private boolean			isCharacterCreationEnabled	= false;
 	private boolean			startJobsEnabled			= true;
+	private boolean			isEstateDetermination		= false;
 
 	// lists
 
@@ -340,6 +341,30 @@ public class Tale
 		else
 		{
 			isCharacterCreationEnabled = true;
+		}
+	}
+
+	/**
+	 * @return the isEstateDetermination
+	 */
+	public boolean isEstateDetermination()
+	{
+		return isEstateDetermination;
+	}
+
+	/**
+	 * @param isEstateDetermination
+	 *            the isEstateDetermination to set
+	 */
+	public void toggleEstateDetermination()
+	{
+		if (isEstateDetermination)
+		{
+			isEstateDetermination = false;
+		}
+		else
+		{
+			isEstateDetermination = true;
 		}
 	}
 }
